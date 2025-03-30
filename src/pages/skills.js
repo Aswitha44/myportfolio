@@ -1,11 +1,44 @@
-// pages/skills.js
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence, useAnimationControls } from 'framer-motion';
 import styles from '../styles/Skills.module.css';
 import userData from '../data/user-data.json';
 
 export default function Skills() {
   const [activeCategory, setActiveCategory] = useState('languages');
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const controls = useAnimationControls();
+  
+  useEffect(() => {
+    // Initial animation sequence
+    if (isFirstLoad) {
+      controls.start({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.8, ease: "easeOut" }
+      });
+      setIsFirstLoad(false);
+    }
+  }, [isFirstLoad, controls]);
+
+  // Stagger children animation helper
+  const staggerChildren = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariant = {
+    hidden: { opacity: 0, y: 20 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: { type: "spring", stiffness: 100 }
+    }
+  };
   
   const skillCategories = [
     { id: 'languages', name: 'Programming Languages', icon: 'fas fa-code' },
@@ -54,61 +87,239 @@ export default function Skills() {
     return descriptions[category]?.[skill] || `Skilled in ${skill} development.`;
   };
 
+  // Get progress value (for visual representation of skill level)
+  const getSkillProgress = (skill, category) => {
+    const progressValues = {
+      languages: {
+        'Java': 90,
+        'Python': 85,
+        'C': 75,
+        'C++': 80,
+        'C#': 95
+      },
+      webDevelopment: {
+        'ASP.NET': 95,
+        'React': 90,
+        'Angular': 80,
+        'JavaScript': 95,
+        'TypeScript': 85,
+        'NodeJS': 80,
+        'Tailwind': 90
+      },
+      database: {
+        'SQL Server': 95,
+        'MySQL': 85,
+        'MongoDB': 75
+      },
+      cloudAndDevOps: {
+        'Docker': 85,
+        'Azure': 90,
+        'AWS': 85,
+        'YAML': 80,
+        'Bash Scripting': 75
+      },
+      certifications: {
+        'AWS Certified Developer – Associate': 100,
+        'Microsoft Certified: Azure Fundamentals': 100
+      }
+    };
+    
+    return progressValues[category]?.[skill] || 80;
+  };
+
   return (
-    <div className="container">
-      <h1 className={`${styles.pageTitle} glow-text`}>Skills & Expertise</h1>
+    <motion.div 
+      className="container"
+      initial={{ opacity: 0, y: 50 }}
+      animate={controls}
+    >
+      <motion.h1 
+        className={`${styles.pageTitle} glow-text`}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ 
+          opacity: 1, 
+          scale: 1,
+          textShadow: [
+            "0 0 5px rgba(38, 208, 124, 0.5)", 
+            "0 0 20px rgba(38, 208, 124, 0.8)", 
+            "0 0 5px rgba(38, 208, 124, 0.5)"
+          ]
+        }}
+        transition={{ 
+          duration: 1.5, 
+          textShadow: {
+            repeat: Infinity,
+            duration: 2,
+            ease: "easeInOut"
+          }
+        }}
+      >
+        Skills & Expertise
+      </motion.h1>
       
       <div className={styles.skillsSection}>
-        <div className={styles.skillsIcons}>
-          {skillCategories.map((category) => (
-            <div 
+        <motion.div 
+          className={styles.skillsIcons}
+          variants={staggerChildren}
+          initial="hidden"
+          animate="show"
+        >
+          {skillCategories.map((category, index) => (
+            <motion.div 
               key={category.id} 
               className={`${styles.skillIcon} ${activeCategory === category.id ? styles.active : ''}`}
               onClick={() => setActiveCategory(category.id)}
+              variants={itemVariant}
+              whileHover={{ 
+                x: 10, 
+                transition: { type: "spring", stiffness: 400 } 
+              }}
+              // Pop animation for active category
+              animate={activeCategory === category.id ? {
+                scale: [1, 1.05, 1.05],
+                transition: { duration: 0.3 }
+              } : {
+                scale: 1,
+                transition: { duration: 0.3 }
+              }}
+              custom={index}
             >
-              <i className={category.icon}></i>
+              <motion.i 
+                className={category.icon}
+                animate={activeCategory === category.id ? 
+                  { 
+                    scale: [1, 1.3, 1.2], 
+                    color: ["#26D07C", "#00C6FF", "#26D07C"],
+                    rotate: [0, 5, -5, 0]
+                  } : {}}
+                transition={{ 
+                  duration: 2, 
+                  repeat: activeCategory === category.id ? Infinity : 0,
+                  repeatType: "reverse"
+                }}
+              ></motion.i>
               <p>{category.name}</p>
               {activeCategory === category.id && (
-                <motion.div className={styles.activeIndicator} layoutId="activeIndicator" />
+                <motion.div 
+                  className={styles.activeIndicator} 
+                  layoutId="activeIndicator"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
               )}
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
         
         <div className={styles.skillsContent}>
           <AnimatePresence mode="wait">
             <motion.div 
               key={activeCategory}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.4, type: "spring", stiffness: 100 }}
               className={styles.skillsList}
             >
-              <h2 className={styles.categoryTitle}>
+              <motion.h2 
+                className={styles.categoryTitle}
+                initial={{ opacity: 0, y: -20, scale: 0.9 }}
+                animate={{ 
+                  opacity: 1, 
+                  y: 0,
+                  scale: [0.9, 1.08, 1], // Pop-up effect for category title
+                  textShadow: [
+                    "0 0 10px rgba(0, 198, 255, 0.3)", 
+                    "0 0 20px rgba(0, 198, 255, 0.6)", 
+                    "0 0 10px rgba(0, 198, 255, 0.3)"
+                  ]
+                }}
+                transition={{ 
+                  duration: 0.5,
+                  scale: {
+                    duration: 0.6,
+                    times: [0, 0.6, 1]
+                  },
+                  textShadow: {
+                    repeat: Infinity,
+                    duration: 3,
+                    ease: "easeInOut"
+                  }
+                }}
+              >
                 {skillCategories.find(cat => cat.id === activeCategory)?.name}
-              </h2>
+              </motion.h2>
               
-              <div className={styles.skillCards}>
+              <motion.div 
+                className={styles.skillCards}
+                variants={staggerChildren}
+                initial="hidden"
+                animate="show"
+              >
                 {userData.skills[activeCategory]?.map((skill, index) => (
                   <motion.div 
                     key={skill}
                     className={styles.skillCard}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    variants={itemVariant}
+                    whileHover={{ 
+                      y: -10, 
+                      boxShadow: "0 10px 25px rgba(38, 208, 124, 0.3)",
+                      transition: { type: "spring", stiffness: 300 }
+                    }}
+                    custom={index}
                   >
-                    <h3 className={styles.skillName}>{skill}</h3>
-                    <p className={styles.skillDescription}>
+                    <motion.h3 
+                      className={styles.skillName}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2 + (index * 0.05) }}
+                    >
+                      {skill}
+                    </motion.h3>
+                    <motion.p 
+                      className={styles.skillDescription}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.3 + (index * 0.05) }}
+                    >
                       {getSkillDescription(skill, activeCategory)}
-                    </p>
+                    </motion.p>
+                    
+                    <div className={styles.skillProgressWrapper}>
+                      <motion.div 
+                        className={styles.skillProgressBg}
+                        initial={{ width: 0 }}
+                        animate={{ width: "100%" }}
+                        transition={{ duration: 0.3, delay: 0.4 + (index * 0.05) }}
+                      >
+                        <motion.div 
+                          className={styles.skillProgressBar}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${getSkillProgress(skill, activeCategory)}%` }}
+                          transition={{ 
+                            duration: 1, 
+                            delay: 0.5 + (index * 0.05),
+                            ease: "easeOut" 
+                          }}
+                        />
+                      </motion.div>
+                      <motion.span 
+                        className={styles.skillProgressText}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.6 + (index * 0.05) }}
+                      >
+                        {getSkillProgress(skill, activeCategory)}%
+                      </motion.span>
+                    </div>
                   </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           </AnimatePresence>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

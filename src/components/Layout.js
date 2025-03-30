@@ -5,8 +5,7 @@ import IntroAnimation from './IntroAnimation';
 const Layout = ({ children }) => {
   return (
     <div className="app">
-      <IntroAnimation />
-      <Navbar />
+      <IntroAnimation />     
       <main>{children}</main>
     </div>
   );

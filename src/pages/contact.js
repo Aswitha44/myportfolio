@@ -1,4 +1,3 @@
-// pages/contact.js
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from '../styles/Contact.module.css';
@@ -6,31 +5,31 @@ import userData from '../data/user-data.json';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
+    subject: '',
     message: '',
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission delay
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
-      
+      setFormData({ email: '', subject: '', message: '' });
+
       // Reset submission status after some time
       setTimeout(() => {
         setSubmitted(false);
@@ -49,7 +48,7 @@ export default function Contact() {
             <p className={styles.contactParagraph}>
               I'm currently open to new opportunities and collaborations. Feel free to reach out if you'd like to discuss a project, have questions, or just want to say hello.
             </p>
-            
+
             <div className={styles.infoItems}>
               <div className={styles.infoItem}>
                 <i className="fas fa-envelope"></i>
@@ -57,14 +56,14 @@ export default function Contact() {
                   {userData.contact.email}
                 </a>
               </div>
-              
+
               <div className={styles.infoItem}>
                 <i className="fas fa-phone-alt"></i>
                 <a href={`tel:${userData.contact.phone}`} className={styles.infoLink}>
                   {userData.contact.phone}
                 </a>
               </div>
-              
+
               <div className={styles.socialLinks}>
                 <a href={userData.contact.github || "https://github.com"} className={styles.socialLink} target="_blank" rel="noopener noreferrer">
                   <i className="fab fa-github"></i>
@@ -76,11 +75,11 @@ export default function Contact() {
             </div>
           </div>
         </div>
-        
+
         <div className={styles.contactForm}>
           <div className={styles.formWrapper}>
-            <h2 className={styles.formTitle}>Send Me a Message</h2>
-            
+            <h2 className={styles.formTitle}>Drop Mail</h2>
+
             {submitted ? (
               <motion.div 
                 className={styles.successMessage}
@@ -93,20 +92,7 @@ export default function Contact() {
             ) : (
               <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
-                  <label className={styles.label} htmlFor="name">Name</label>
-                  <input
-                    className={styles.input}
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                
-                <div className={styles.formGroup}>
-                  <label className={styles.label} htmlFor="email">Email</label>
+                  <label className={styles.label} htmlFor="email">Your Email</label>
                   <input
                     className={styles.input}
                     type="email"
@@ -117,7 +103,20 @@ export default function Contact() {
                     required
                   />
                 </div>
-                
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="subject">Subject</label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
                 <div className={styles.formGroup}>
                   <label className={styles.label} htmlFor="message">Message</label>
                   <textarea
@@ -130,7 +129,7 @@ export default function Contact() {
                     required
                   ></textarea>
                 </div>
-                
+
                 <button 
                   className={styles.submitButton} 
                   type="submit"

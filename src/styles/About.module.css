@@ -1,111 +1,519 @@
 /* styles/About.module.css */
 .aboutSection {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    min-height: 100vh;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 60px;
+  min-height: 80vh;
+  position: relative;
+}
+
+/* Bitmoji Styling */
+.bitmoji {
+  position: relative;
+  perspective: 1000px;
+}
+
+.bitmojiWrapper {
+  position: relative;
+  border-radius: 50%;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 10px 30px rgba(0, 198, 255, 0.3);
+  transform-style: preserve-3d;
+  transform: translateY(50px) scale(0.8);
+  opacity: 0;
+  overflow: hidden;
+}
+
+.bitmojiEnter {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.bitmojiImage {
+ 
+  filter: contrast(1.1) brightness(1.05);
+  transform: scale(1.1);
+  transition: all 0.5s ease;
+}
+
+.bitmojiWrapper:hover .bitmojiImage {
+  transform: scale(1.15);
+}
+
+.bitmojiGlow {
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  right: -30px;
+  bottom: -30px;
+  background: radial-gradient(
+    circle at center,
+    var(--aurora-green) 0%,
+    rgba(38, 208, 124, 0) 70%
+  );
+  opacity: 0;
+  border-radius: 50%;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+  animation: glowPulse 3s infinite alternate;
+}
+
+.bitmojiWrapper:hover .bitmojiGlow {
+  opacity: 0.4;
+}
+
+.bitmojiOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 198, 255, 0.2) 0%,
+    rgba(123, 67, 151, 0.1) 100%
+  );
+  mix-blend-mode: overlay;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.bitmojiWrapper:hover .bitmojiOverlay {
+  opacity: 1;
+}
+
+/* Floating particles around bitmoji */
+.floatingParticles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--aurora-green);
+  filter: blur(2px);
+  opacity: 0.6;
+  animation: floatParticle 8s infinite linear;
+}
+
+.particle0 {
+  top: 20%;
+  left: 10%;
+  background: var(--aurora-blue);
+  animation-delay: 0s;
+  animation-duration: 15s;
+}
+
+.particle1 {
+  top: 70%;
+  left: 20%;
+  background: var(--aurora-green);
+  animation-delay: -3s;
+  animation-duration: 20s;
+}
+
+.particle2 {
+  top: 40%;
+  right: 15%;
+  background: var(--aurora-purple);
+  animation-delay: -5s;
+  animation-duration: 12s;
+}
+
+.particle3 {
+  bottom: 20%;
+  right: 20%;
+  background: var(--aurora-pink);
+  animation-delay: -7s;
+  animation-duration: 18s;
+}
+
+.particle4 {
+  top: 10%;
+  right: 25%;
+  background: var(--aurora-blue);
+  animation-delay: -2s;
+  animation-duration: 16s;
+}
+
+.particle5 {
+  bottom: 15%;
+  left: 15%;
+  background: var(--aurora-green);
+  animation-delay: -8s;
+  animation-duration: 14s;
+}
+
+/* Text animations */
+.aboutContent {
+  position: relative;
+  z-index: 2;
+}
+
+.name {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  position: relative;
+  line-height: 1.2;
+}
+
+.highlight {
+  color: var(--aurora-green);
+  display: inline-block;
+  position: relative;
+}
+
+.animatedText {
+  opacity: 0;
+  animation: fadeIn 0.8s 0.3s forwards;
+}
+
+.textReveal {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.textReveal::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--aurora-blue);
+  border-left: 4px solid var(--aurora-green);
+  animation: textReveal 1.5s 0.5s forwards;
+}
+
+.textGlitch {
+  position: relative;
+  animation: glitch 2s infinite;
+}
+
+.textGlitch::before,
+.textGlitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 0, 0, 0);
+}
+
+.textGlitch::before {
+  left: 2px;
+  text-shadow: -1px 0 var(--aurora-pink);
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.textGlitch::after {
+  left: -2px;
+  text-shadow: -1px 0 var(--aurora-blue);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.role {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 0.8s 0.8s forwards;
+}
+
+.roleText {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(90deg, var(--text-light), var(--aurora-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.roleLine {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--aurora-green), var(--aurora-blue));
+  animation: lineGrow 1.2s 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.summary {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s 1.2s forwards;
+}
+
+.cta {
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 0.8s 1.6s forwards;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, var(--aurora-green), var(--aurora-blue));
+  border-radius: 50px;
+  color: var(--text-light);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(38, 208, 124, 0.4);
+}
+
+.ctaButton i {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(38, 208, 124, 0.5);
+}
+
+.ctaButton:hover i {
+  transform: translateX(5px);
+}
+
+.ctaGlow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.ctaButton:hover .ctaGlow {
+  opacity: 0.3;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  .bitmoji {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  to {
+    opacity: 1;
   }
-  
-  .bitmojiWrapper {
-    width: 100%;
-    max-width: 400px;
-    position: relative;
-    filter: drop-shadow(0 0 20px rgba(0, 198, 255, 0.5));
-    animation: float 5s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  @keyframes float {
-    0% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-    100% {
-      transform: translateY(0px);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .aboutContent {
-    display: flex;
-    flex-direction: column;
+}
+
+@keyframes lineGrow {
+  from {
+    width: 0;
+  }
+  to {
+    width: 70%;
+  }
+}
+
+@keyframes textReveal {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 100%;
+  }
+  50.1% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+    width: 0;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip: rect(2px, 9999px, 4px, 0);
+  }
+  10% {
+    clip: rect(42px, 9999px, 63px, 0);
+  }
+  20% {
+    clip: rect(13px, 9999px, 5px, 0);
+  }
+  30% {
+    clip: rect(16px, 9999px, 87px, 0);
+  }
+  40% {
+    clip: rect(32px, 9999px, 15px, 0);
+  }
+  50% {
+    clip: rect(7px, 9999px, 53px, 0);
+  }
+  60% {
+    clip: rect(14px, 9999px, 25px, 0);
+  }
+  70% {
+    clip: rect(5px, 9999px, 34px, 0);
+  }
+  80% {
+    clip: rect(26px, 9999px, 5px, 0);
+  }
+  90% {
+    clip: rect(67px, 9999px, 93px, 0);
+  }
+  100% {
+    clip: rect(10px, 9999px, 23px, 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(67px, 9999px, 41px, 0);
+  }
+  15% {
+    clip: rect(24px, 9999px, 8px, 0);
+  }
+  30% {
+    clip: rect(35px, 9999px, 56px, 0);
+  }
+  45% {
+    clip: rect(10px, 9999px, 23px, 0);
+  }
+  60% {
+    clip: rect(76px, 9999px, 82px, 0);
+  }
+  75% {
+    clip: rect(3px, 9999px, 42px, 0);
+  }
+  90% {
+    clip: rect(28px, 9999px, 37px, 0);
+  }
+  100% {
+    clip: rect(19px, 9999px, 67px, 0);
+  }
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translate(10px, -10px) rotate(90deg) scale(1.2);
+  }
+  50% {
+    transform: translate(20px, 10px) rotate(180deg) scale(1);
+  }
+  75% {
+    transform: translate(10px, 20px) rotate(270deg) scale(0.8);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg) scale(1);
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .aboutSection {
+    grid-template-columns: 1fr;
+    text-align: center;
     gap: 20px;
   }
   
-  .name {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    line-height: 1.1;
+  .bitmojiWrapper {
+    margin-bottom: 30px;
+    max-width: 250px;
   }
   
-  .highlight {
-    color: var(--aurora-green);
-    display: block;
+  .name {
+    font-size: 2.5rem;
+  }
+  
+  .roleLine {
+    left: 15%;
+    right: 15%;
+  }
+}
+
+@media (max-width: 576px) {
+  .name {
+    font-size: 2rem;
   }
   
   .role {
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: var(--aurora-blue);
-    margin-bottom: 20px;
+    font-size: 1.2rem;
   }
   
   .summary {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    margin-bottom: 30px;
+    font-size: 0.9rem;
   }
-  
-  .cta {
-    margin-top: 20px;
-  }
-  
-  .ctaButton {
-    display: inline-block;
-    padding: 12px 30px;
-    background: linear-gradient(90deg, var(--aurora-green), var(--aurora-blue));
-    color: var(--text-light);
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(38, 208, 124, 0.5);
-  }
-  
-  .ctaButton:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 25px rgba(38, 208, 124, 0.8);
-  }
-  
-  .ctaButton i {
-    margin-left: 8px;
-    transition: transform 0.3s ease;
-  }
-  
-  .ctaButton:hover i {
-    transform: translateX(5px);
-  }
-  
-  @media (max-width: 768px) {
-    .aboutSection {
-      grid-template-columns: 1fr;
-      gap: 30px;
-      padding-top: 80px;
-    }
-    
-    .name {
-      font-size: 2.5rem;
-    }
-    
-    .role {
-      font-size: 1.5rem;
-    }
-  }
+}

@@ -72,8 +72,8 @@
   
   .socialLinks {
     display: flex;
-    gap: 15px;
-    margin-top: 30px;
+    gap: 10px;
+    margin-top: 10px;
   }
   
   .socialLink {
@@ -97,18 +97,22 @@
   
   .contactForm {
     width: 100%;
+    margin-top:-35px;
   }
+
   
   .formWrapper {
     background: var(--card-bg);
     border-radius: 15px;
-    padding: 30px;
+    padding: 20px;  /* Reduce padding */
     backdrop-filter: blur(5px);
     box-shadow: 0 0 15px rgba(38, 208, 124, 0.3);
     transition: all 0.4s ease;
-    height: 100%;
+    height: auto; /* Allow height to adjust based on content */
+    width: 90%;  /* Set a max width to control the card size */
+    max-width: 500px;  /* Maximum width of the form */
+    margin: 0 auto;  /* Center the form */
   }
-  
   .formWrapper:hover {
     box-shadow: 0 0 25px rgba(38, 208, 124, 0.5);
   }
@@ -117,6 +121,8 @@
     font-size: 1.5rem;
     margin-bottom: 25px;
     color: var(--aurora-green);
+    text-decoration: underline;
+    text-decoration-color: var(--aurora-green);
   }
   
   .form {
@@ -158,7 +164,7 @@
   }
   
   .submitButton {
-    margin-top: 10px;
+    margin-top: 5px;
     padding: 12px 25px;
     background: linear-gradient(90deg, var(--aurora-green), var(--aurora-blue));
     color: var(--text-light);
