@@ -1,0 +1,159 @@
+.pageTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+  padding-top: 40px;
+}
+
+.experienceSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: var(--aurora-blue);
+  text-shadow: 0 0 10px rgba(0, 198, 255, 0.4);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  padding-left: 30px; /* Align the content with the timeline */
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px; /* Aligned line closer to the dots */
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--aurora-green), var(--aurora-blue));
+  box-shadow: 0 0 10px rgba(38, 208, 124, 0.5);
+}
+
+/* Ensure each timelineCard has a proper position and staggered animations */
+.timelineCard {
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  padding-left: 40px; /* Align the content properly */
+}
+
+.timelineCard::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--aurora-green);
+  left: -8px; /* Ensure the dot is perfectly aligned on the timeline */
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 15px rgba(38, 208, 124, 0.8);
+  z-index: 1;
+}
+
+.timelineCard:nth-child(1) {
+  animation: slideIn 0.6s ease forwards;
+  animation-delay: 0.2s;
+}
+.timelineCard:nth-child(2) {
+  animation: slideIn 0.6s ease forwards;
+  animation-delay: 0.4s;
+}
+.timelineCard:nth-child(3) {
+  animation: slideIn 0.6s ease forwards;
+  animation-delay: 0.6s;
+}
+.timelineCard:nth-child(4) {
+  animation: slideIn 0.6s ease forwards;
+  animation-delay: 0.8s;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cardContent {
+  background: var(--card-bg);
+  border-radius: 15px;
+  padding: 25px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 15px rgba(38, 208, 124, 0.3);
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.timelineCard:hover .cardContent {
+  box-shadow: 0 0 25px rgba(38, 208, 124, 0.5);
+  transform: scale(1.03);
+}
+
+.institution, .company {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--aurora-green);
+}
+
+.degree, .role {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.location, .duration {
+  font-size: 0.9rem;
+  color: rgba(240, 248, 255, 0.7);
+  margin-bottom: 10px;
+}
+
+.gpa {
+  display: inline-block;
+  padding: 3px 10px;
+  background: rgba(38, 208, 124, 0.2);
+  border-radius: 5px;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.responsibilities {
+  margin-top: 15px;
+  padding-left: 20px;
+}
+
+.responsibilities li {
+  margin-bottom: 8px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.responsibilities li::before {
+  content: '•';
+  color: var(--aurora-blue);
+  position: absolute;
+  left: -15px;
+  top: 0;
+}
+
+@media (max-width: 768px) {
+  .experienceSection {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .workSection {
+    margin-top: 30px;
+  }
+}

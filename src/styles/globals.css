@@ -1,26 +1,150 @@
-@import "tailwindcss";
+/* styles/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Northern Lights Palette */
+  --dark-blue: #0B1026;
+  --deep-blue: #132154;
+  --aurora-green: #26D07C;
+  --aurora-purple: #7B4397;
+  --aurora-blue: #00C6FF;
+  --aurora-pink: #FF5AEF;
+  --text-light: #F0F8FF;
+  --card-bg: rgba(19, 33, 84, 0.6);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html, body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, var(--dark-blue) 0%, var(--deep-blue) 100%);
+  color: var(--text-light);
+  overflow-x: hidden;
+  overflow-y: auto;
+ 
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 80px 40px;
+  max-width: 1200px; /* Constrains content between lines */
+  margin: 0 auto;    /* Centers content horizontally */
+  padding: 40px 40px;
+  overflow-x: hidden; 
+}
+
+.section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
+  margin-top: 40px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 15px;
+  padding: 25px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 15px rgba(38, 208, 124, 0.3);
+  transition: all 0.4s ease;
+}
+
+.card:hover {
+  box-shadow: 0 0 25px rgba(38, 208, 124, 0.5);
+  transform: translateY(-5px);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(38, 208, 124, 0.5);
+}
+
+/* Flip page transition styles */
+.page-transition-enter {
+  transform: rotateY(90deg);
+  transform-origin: left center;
+  opacity: 0;
+}
+
+.page-transition-enter-active {
+  transform: rotateY(0deg);
+  opacity: 1;
+  transition: transform 0.6s ease, opacity 0.3s ease;
+}
+
+.page-transition-exit {
+  transform: rotateY(0deg);
+  transform-origin: right center;
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  transform: rotateY(-90deg);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.3s ease;
+}
+
+/* Aurora animation background */
+.aurora-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, var(--dark-blue) 0%, var(--deep-blue) 100%);
+  overflow: hidden;
+}
+
+.aurora {
+  position: absolute;
+  width: 80%;
+  height: 50%;
+  filter: blur(30px);
+  opacity: 0.2;
+  animation: aurora-float 15s ease infinite;
+}
+
+.aurora-1 {
+  background: linear-gradient(90deg, var(--aurora-green), var(--aurora-blue));
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.aurora-2 {
+  background: linear-gradient(90deg, var(--aurora-purple), var(--aurora-pink));
+  bottom: 10%;
+  right: 10%;
+  animation-delay: -5s;
+}
+
+.aurora-3 {
+  background: linear-gradient(90deg, var(--aurora-blue), var(--aurora-green));
+  top: 50%;
+  right: 20%;
+  animation-delay: -10s;
+}
+
+@keyframes aurora-float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(5%, 5%) scale(1.1);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .section {
+    grid-template-columns: 1fr;
+  }
 }

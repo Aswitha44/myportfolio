@@ -1,0 +1,99 @@
+
+{
+  "name": "Aswitha",
+  "contact": {
+    "email": "aswitha44@gmail.com",
+    "phone": "+1 (407) 467-2051",
+    "github": "https://github.com/Aswitha44",
+    "linkedin": "https://linkedin.com"
+  },
+  "education": [
+    {
+      "institution": "University Of Central Florida",
+      "degree": "Master of Science in Computer Science",
+      "duration": "August 2023 - May 2025",
+      "gpa": "4/4"
+    }
+  ],
+  "experience": [
+    {
+      "company": "University Of Central Florida",
+      "role": "Graduate Assistant",
+      "duration": "February 2024 - Present",
+      "responsibilities": [
+        "Mentored 80+ students in developing web applications using HTML, CSS and JavaScript.",
+        "Guided students in deploying applications on AWS.",
+        "Migrated legacy systems to modular, scalable .NET MVC architecture.",
+        "Delivered comprehensive training for the SAS team."
+      ]
+    },
+    {
+      "company": "VCAD PLM Services",
+      "role": "Software Developer",
+      "duration": "May 2022 - July 2023",
+      "responsibilities": [
+        "Developed an application using Entity Framework to manage school projects and facilities.",
+        "Migrated MVC application to SPA using Angular framework.",
+        "Optimized SQL queries, improving performance by 40%.",
+        "Deployed applications on IIS for hosting and production environments."
+      ]
+    },
+    {
+      "company": "VCAD PLM Services",
+      "role": "Software Developer",
+      "duration": "November 2021 - April 2022",
+      "responsibilities": [
+        "Developed scalable web application using React.js.",
+        "Implemented reusable form components and lazy-loaded routes.",
+        "Integrated invisible reCAPTCHA for security.",
+        "Created REST API microservices and containerized applications using Docker on AWS."
+      ]
+    }
+  ],
+  "skills": {
+    "languages": ["Java", "Python", "C", "C++", "C#"],
+    "webDevelopment": ["ASP.NET", "React", "Angular", "JavaScript", "TypeScript", "NodeJS", "Tailwind"],
+    "database": ["SQL Server", "MySQL", "MongoDB"],
+    "cloudAndDevOps": ["Docker", "Azure", "AWS", "YAML", "Bash Scripting"],
+    "certifications": ["AWS Certified Developer – Associate", "Microsoft Certified: Azure Fundamentals"]
+  },
+  "projects": [
+    {
+      "title": "Ski Surf E-commerce Web Application",
+      "description": [
+        "Designed a responsive Angular UI with Bootstrap.",
+        "Implemented Stripe webhooks to safeguard transactions.",
+        "Optimized cart performance using Redis caching.",
+        "Secured authentication with .NET Core Identity, JWT, and RBAC.",
+        "Deployed on Azure App Service with CI/CD using GitHub Actions."
+      ],
+      "link":"https://skisurfshop.azurewebsites.net/"
+    },
+    {
+      "title": "Smart Blog Platform",
+      "description": [
+        "Implemented a scalable Blog Management System using ASP.NET Core Razor Pages.",
+        "Maintained robust CRUD functionalities for blog posts with SQL Server.",
+        "Implemented multi-role authentication and authorization.",
+        "Built dynamic REST APIs within Razor Pages, utilizing JavaScript and AJAX."
+      ]
+    },
+    {
+      "title": "Serverless Automated File Processing System",
+      "description": [
+        "Designed and implemented a serverless file processing system on AWS.",
+        "Automated file management with S3 event-driven architecture.",
+        "Utilized React to develop a responsive interface."
+      ]
+    },
+    {
+      "title": "Next-Gen Yoga App",
+      "description": [
+        "Integrated Firestore's Vector Search Extension and generated vector embeddings using Vertex AI.",
+        "Leveraged Google Cloud services for multimodal content generation.",
+        "Built a CRUD-based Yoga pose management application using Flask.",
+        "Used Gemini 2.0 Flash to generate Yoga pose descriptions."
+      ]
+    }
+  ]
+}

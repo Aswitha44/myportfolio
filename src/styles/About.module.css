@@ -1,0 +1,111 @@
+/* styles/About.module.css */
+.aboutSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    min-height: 100vh;
+    align-items: center;
+  }
+  
+  .bitmoji {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .bitmojiWrapper {
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    filter: drop-shadow(0 0 20px rgba(0, 198, 255, 0.5));
+    animation: float 5s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  .aboutContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .name {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+  
+  .highlight {
+    color: var(--aurora-green);
+    display: block;
+  }
+  
+  .role {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--aurora-blue);
+    margin-bottom: 20px;
+  }
+  
+  .summary {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 30px;
+  }
+  
+  .cta {
+    margin-top: 20px;
+  }
+  
+  .ctaButton {
+    display: inline-block;
+    padding: 12px 30px;
+    background: linear-gradient(90deg, var(--aurora-green), var(--aurora-blue));
+    color: var(--text-light);
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(38, 208, 124, 0.5);
+  }
+  
+  .ctaButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(38, 208, 124, 0.8);
+  }
+  
+  .ctaButton i {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .ctaButton:hover i {
+    transform: translateX(5px);
+  }
+  
+  @media (max-width: 768px) {
+    .aboutSection {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding-top: 80px;
+    }
+    
+    .name {
+      font-size: 2.5rem;
+    }
+    
+    .role {
+      font-size: 1.5rem;
+    }
+  }
