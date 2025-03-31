@@ -6,17 +6,17 @@ const PageTransition = ({ children }) => {
   const router = useRouter();
    return (
     <motion.div
-    // key={router.route}
-    // initial={{ opacity: 0, y: 20 }}
-    // animate={{ opacity: 1, y: 0 }}
-    // exit={{ opacity: 0, y: -20 }}
-    // transition={{ duration: 0.5 }}
-    // style={{ 
-    //   transformStyle: "preserve-3d", 
-    //   perspective: "1200px",
-    //   width: "100%",
-    //   height: "100%"
-    // }}
+    key={router.route}
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    transition={{ duration: 0.5 }}
+    style={{ 
+      transformStyle: "preserve-3d", 
+      perspective: "1200px",
+      width: "100%",
+      height: "100%"
+    }}
     >
       <div className="aurora-bg">
         <div className="aurora aurora-1"></div>

@@ -26,7 +26,7 @@ const IntroAnimation = () => {
 
   return (
     <div className={styles.pencilContainer}>
-      <div className={styles.writingText}>Welcome to My Portfolio</div>
+      <div className={styles.writingText}></div>
       <FaPencilAlt className={styles.pencil} />
     </div>
   );

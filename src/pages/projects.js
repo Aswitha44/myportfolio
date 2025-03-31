@@ -9,7 +9,8 @@ const projectImages = {
   "Ski Surf E-commerce Web Application": "/projects/ski-surf.jpg",
   "Smart Blog Platform": "/projects/blog.jpg",
   "Serverless Automated File Processing System": "/projects/serverless.jpg",
-  "Next-Gen Yoga App": "/projects/yoga.jpg"
+  "Next-Gen Yoga App": "/projects/yoga.jpg",
+  "Portfolio Website": "/projects/portfolio.jpg"
 };
 
 // Extract tech stacks from project descriptions

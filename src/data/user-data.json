@@ -5,7 +5,7 @@
     "email": "aswitha44@gmail.com",
     "phone": "+1 (407) 467-2051",
     "github": "https://github.com/Aswitha44",
-    "linkedin": "https://linkedin.com"
+    "linkedin": "https://www.linkedin.com/in/aswitha-basam-927b37213/"
   },
   "education": [
     {
@@ -61,10 +61,10 @@
     {
       "title": "Ski Surf E-commerce Web Application",
       "description": [
-        "Designed a responsive Angular UI with Bootstrap.",
+        "Designed a Full stack web app from scratch using Angular and ASP.NET Core.",
         "Implemented Stripe webhooks to safeguard transactions.",
         "Optimized cart performance using Redis caching.",
-        "Secured authentication with .NET Core Identity, JWT, and RBAC.",
+        "Secured authentication with .NET Core Identity, JWT, and RBAC",
         "Deployed on Azure App Service with CI/CD using GitHub Actions."
       ],
       "link":"https://skisurfshop.azurewebsites.net/"
@@ -73,27 +73,39 @@
       "title": "Smart Blog Platform",
       "description": [
         "Implemented a scalable Blog Management System using ASP.NET Core Razor Pages.",
-        "Maintained robust CRUD functionalities for blog posts with SQL Server.",
+        "Maintained robust CRUD functionalities for blog posts with SQL Server",
         "Implemented multi-role authentication and authorization.",
-        "Built dynamic REST APIs within Razor Pages, utilizing JavaScript and AJAX."
-      ]
+        "Built dynamic REST APIs within Razor Pages, utilizing JavaScript and AJAX"
+      ],
+      "link":"https://github.com/Aswitha44/Blog-Management-System"
     },
     {
       "title": "Serverless Automated File Processing System",
       "description": [
-        "Designed and implemented a serverless file processing system on AWS.",
+        "Designed and implemented a serverless file processing system on AWS",
         "Automated file management with S3 event-driven architecture.",
         "Utilized React to develop a responsive interface."
-      ]
+      ],
+      "link":"https://github.com/Aswitha44/File-processing-system"
     },
     {
       "title": "Next-Gen Yoga App",
       "description": [
-        "Integrated Firestore's Vector Search Extension and generated vector embeddings using Vertex AI.",
+        "Integrated Firestore's Vector Search Extension and generated vector embeddings using Vertex AI",
         "Leveraged Google Cloud services for multimodal content generation.",
-        "Built a CRUD-based Yoga pose management application using Flask.",
+        "Built a CRUD-based Yoga pose management application using Flask",
         "Used Gemini 2.0 Flash to generate Yoga pose descriptions."
-      ]
+      ],
+      "link":"https://github.com/Aswitha44/Nextgen-Yoga-App"
+    },
+    {
+      "title": "Portfolio Website",
+      "description": [
+        "Built a portfolio webiste based on resume conent using React",
+        "Used Tailwind CSS for styling",
+        "Implemented responsive design for mobile and tablet devices."
+      ],
+      "link":"https://aswitha-portfolio-site.vercel.app/"
     }
   ]
 }
