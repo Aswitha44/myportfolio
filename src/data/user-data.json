@@ -91,7 +91,7 @@
     {
       "title": "Next-Gen Yoga App",
       "description": [
-        "Integrated Firestore's Vector Search Extension and generated vector embeddings using Vertex AI",
+        "Integrated Firestore Vector Search Extension and generated vector embeddings using Vertex AI",
         "Leveraged Google Cloud services for multimodal content generation.",
         "Built a CRUD-based Yoga pose management application using Flask",
         "Used Gemini 2.0 Flash to generate Yoga pose descriptions."

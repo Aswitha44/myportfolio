@@ -128,11 +128,17 @@ export default function Skills() {
   };
 
   return (
-    <motion.div 
+    <> 
+  <motion.div 
     className={styles.container}
       initial={{ opacity: 0, y: 50 }}
       animate={controls}
     >
+      <div className="aurora-bg">
+    <div className="aurora aurora-1"></div>
+    <div className="aurora aurora-2"></div>
+    <div className="aurora aurora-3"></div>
+  </div>
       <motion.h1 
         className={`${styles.pageTitle} glow-text`}
         initial={{ opacity: 0, scale: 0.9 }}
@@ -293,5 +299,7 @@ export default function Skills() {
         </div>
       </div>
     </motion.div>
+  </>
+
   );
 }

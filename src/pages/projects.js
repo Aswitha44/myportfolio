@@ -32,7 +32,13 @@ const extractTechStack = (description) => {
 
 export default function Projects() {
   return (
-    <div className={styles.container}>
+    <>  
+      <div className={styles.container}>
+      <div className="aurora-bg">
+    <div className="aurora aurora-1"></div>
+    <div className="aurora aurora-2"></div>
+    <div className="aurora aurora-3"></div>
+  </div>
       <motion.h1 
         className={`${styles.pageTitle} glow-text`}
         initial={{ opacity: 0, y: -20 }}
@@ -90,7 +96,15 @@ export default function Projects() {
             </motion.div>
           ))}
         </motion.div>
+        
+       
       </div>
+      <div className={styles.scrollIndicator}>
+          <span className={styles.scrollText}>Scroll to explore</span>
+          <div className={styles.scrollArrow} />
+        </div>
     </div>
+    </>
+  
   );
 }

@@ -1,107 +1,113 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styles from '../styles/IntroAnimation.module.css';
 
-const Stars = () => {
-  return (
-    <div className={styles.starsContainer}>
-      {[...Array(50)].map((_, i) => (
-        <motion.div
-          key={i}
-          className={styles.star}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ 
-            opacity: [0, 1, 0],
-            scale: [0, 1, 0]
-          }}
-          transition={{
-            duration: Math.random() * 3 + 2,
-            repeat: Infinity,
-            delay: Math.random() * 2,
-            ease: "easeInOut"
-          }}
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            width: `${Math.random() * 3}px`,
-            height: `${Math.random() * 3}px`
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
-export default function IntroAnimation() {
-  const [show, setShow] = useState(true);
-
+const IntroAnimation = () => {
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShow(false);
-    }, 3000);
+    // Prevent scrolling on body when intro animation is shown
+    document.body.style.overflow = 'hidden';
 
-    return () => clearTimeout(timer);
+    const timer = setTimeout(() => {
+      const element = document.getElementById('intro-animation');
+      if (element) {
+        element.style.opacity = '0';
+        setTimeout(() => {
+          element.style.display = 'none';
+          // Restore scrolling when intro animation is hidden
+          document.body.style.overflow = 'auto';
+        }, 1000);
+      }
+    }, 4000);
+
+    return () => {
+      clearTimeout(timer);
+      // Restore scrolling if component unmounts
+      document.body.style.overflow = 'auto';
+    };
   }, []);
 
   return (
-    <AnimatePresence>
-      {show && (
+    <motion.div
+      id="intro-animation"
+      className={styles.introContainer}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className={styles.starsContainer}>
+        {[...Array(50)].map((_, i) => (
+          <motion.div
+            key={i}
+            className={styles.star}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ 
+              opacity: [0, 1, 0],
+              scale: [0, 1.2, 0],
+            }}
+            transition={{
+              duration: 2,
+              delay: i * 0.05,
+              repeat: Infinity,
+              repeatDelay: Math.random() * 2
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${Math.random() * 4 + 1}px`,
+              height: `${Math.random() * 4 + 1}px`,
+            }}
+          />
+        ))}
+      </div>
+      <div className={styles.auroraBackground}>
+        <div className={styles.auroraLayer1} />
+        <div className={styles.auroraLayer2} />
+        <div className={styles.auroraLayer3} />
+      </div>
+      <div className={styles.content}>
+        <div className={styles.imageWrapper}>
+          <Image
+            src="/bitmoji.jpeg"
+            alt="Aswitha Bitmoji"
+            width={150}
+            height={150}
+            className={styles.bitmojiImage}
+          />
+          <div className={styles.imageGlow} />
+        </div>
         <motion.div
-          className={styles.introContainer}
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          className={styles.textContainer}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
         >
-          <Stars />
-          <div className={styles.content}>
-            <motion.div
-              className={styles.logoContainer}
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-            >
-              <div className={styles.logo}>
-                <div className={styles.imageWrapper}>
-                  <Image
-                    src="/bitmoji.jpeg"
-                    alt="Aswitha Bitmoji"
-                    width={200}
-                    height={200}
-                    className={styles.bitmojiImage}
-                    priority
-                  />
-                </div>
-              </div>
-            </motion.div>
-            
-            <motion.div
-              className={styles.textContainer}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-            >
-              <h1 className={styles.name}>Welcome</h1>
-              <div className={styles.titleContainer}>
-                <motion.span
-                  className={styles.title}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1, duration: 0.5 }}
-                >
-                  My Portfolio
-                </motion.span>
-                <motion.div
-                  className={styles.loadingBar}
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  transition={{ delay: 1.5, duration: 1 }}
-                />
-              </div>
-            </motion.div>
-          </div>
+          <motion.h1
+            className={styles.name}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+          >
+            Welcome
+          </motion.h1>
+          <motion.h2
+            className={styles.title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1 }}
+          >
+            To My Portfolio
+          </motion.h2>
         </motion.div>
-      )}
-    </AnimatePresence>
+        <motion.div
+          className={styles.loadingBar}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 2, delay: 1.5 }}
+        />
+      </div>
+    </motion.div>
   );
-} 
+};
+
+export default IntroAnimation; 

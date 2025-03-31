@@ -22,6 +22,7 @@ const Layout = ({ children }) => {
         }}
       >
         <Navbar />
+       
         <AnimatePresence mode="wait">
           <motion.main
             initial={{ opacity: 0, y: 20 }}
@@ -37,6 +38,7 @@ const Layout = ({ children }) => {
         </AnimatePresence>
       </motion.div>
     </motion.div>
+    
   );
 };
 

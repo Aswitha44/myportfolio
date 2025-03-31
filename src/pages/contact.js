@@ -38,7 +38,14 @@ export default function Contact() {
   };
 
   return (
+    <>
+      
     <div className={styles.container}>
+    <div className="aurora-bg">
+        <div className="aurora aurora-1"></div>
+        <div className="aurora aurora-2"></div>
+        <div className="aurora aurora-3"></div>
+      </div>
       <h1 className={`${styles.pageTitle} glow-text`}>Get In Touch</h1>
       
       <div className={styles.contactSection}>
@@ -147,6 +154,8 @@ export default function Contact() {
           </div>
         </div>
       </div>
+     
     </div>
+    </>
   );
 }

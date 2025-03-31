@@ -1,89 +1,67 @@
 // components/PageTransition.js
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 
 const PageTransition = ({ children }) => {
-  const router = useRouter();
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
   return (
     <motion.div
-      ref={containerRef}
-      key={router.route}
-      initial={{ opacity: 0, rotate: 15 }}
-      animate={{ opacity: 1, rotate: 0 }}
-      exit={{ opacity: 0, rotate: -15 }}
-      transition={{ 
-        duration: 0.8,
-        ease: [0.4, 0, 0.2, 1],
-        type: "spring",
-        stiffness: 100
-      }}
-      style={{ 
-        transformStyle: "preserve-3d",
-        perspective: "1200px",
-        width: "100%",
-        height: "100%",
-        y,
-        opacity
+      style={{
+        position: 'relative',
+        width: '100%',
+        minHeight: '100vh',
+        background: '#0a0a2a',
+        overflow: 'hidden'
       }}
     >
-      <div className="aurora-bg">
-        <motion.div 
-          className="aurora aurora-1"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.5, 0.8, 0.5]
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div 
-          className="aurora aurora-2"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.4, 0.7, 0.4]
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
-        />
-        <motion.div 
-          className="aurora aurora-3"
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.3, 0.6, 0.3]
-          }}
-          transition={{
-            duration: 7,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
-        />
-      </div>
       <motion.div
-        style={{
-          transformStyle: "preserve-3d",
-          transform: "translateZ(20px)"
+        className="transition-overlay"
+        initial={{ scale: 0, rotate: 0, opacity: 0 }}
+        animate={{ scale: 1, rotate: 360, opacity: 1 }}
+        exit={{ scale: 0, rotate: 720, opacity: 0 }}
+        transition={{
+          duration: 2,
+          ease: [0.4, 0, 0.2, 1],
+          rotate: {
+            duration: 2,
+            ease: "easeInOut"
+          }
         }}
+      />
+      <motion.div
+        className="content-wrapper"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 1, delay: 0.5 }}
       >
         {children}
       </motion.div>
+      <style jsx>{`
+        .transition-overlay {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          width: 200vw;
+          height: 200vw;
+          background: radial-gradient(circle at center, 
+            rgba(38, 208, 124, 0.15) 0%,
+            rgba(38, 208, 124, 0.1) 20%,
+            rgba(38, 208, 124, 0.05) 40%,
+            transparent 70%
+          );
+          transform-origin: center;
+          z-index: 1000;
+          filter: blur(30px);
+        }
+
+        .content-wrapper {
+          position: relative;
+          z-index: 1;
+        }
+
+        :global(body) {
+          overflow-x: hidden;
+        }
+      `}</style>
     </motion.div>
   );
 };
