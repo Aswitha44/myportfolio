@@ -129,7 +129,7 @@ export default function Skills() {
 
   return (
     <motion.div 
-      className="container"
+    className={styles.container}
       initial={{ opacity: 0, y: 50 }}
       animate={controls}
     >
@@ -176,7 +176,7 @@ export default function Skills() {
               }}
               // Pop animation for active category
               animate={activeCategory === category.id ? {
-                scale: [1, 1.05, 1.05],
+                scale: [1, 1.1, 1.08],
                 transition: { duration: 0.3 }
               } : {
                 scale: 1,
@@ -189,7 +189,7 @@ export default function Skills() {
                 animate={activeCategory === category.id ? 
                   { 
                     scale: [1, 1.3, 1.2], 
-                    color: ["#26D07C", "#00C6FF", "#26D07C"],
+                    color: ["#00C6FF", "#00C6FF", "#26D07C"],
                     rotate: [0, 5, -5, 0]
                   } : {}}
                 transition={{ 
@@ -222,35 +222,7 @@ export default function Skills() {
               transition={{ duration: 0.4, type: "spring", stiffness: 100 }}
               className={styles.skillsList}
             >
-              <motion.h2 
-                className={styles.categoryTitle}
-                initial={{ opacity: 0, y: -20, scale: 0.9 }}
-                animate={{ 
-                  opacity: 1, 
-                  y: 0,
-                  scale: [0.9, 1.08, 1], // Pop-up effect for category title
-                  textShadow: [
-                    "0 0 10px rgba(0, 198, 255, 0.3)", 
-                    "0 0 20px rgba(0, 198, 255, 0.6)", 
-                    "0 0 10px rgba(0, 198, 255, 0.3)"
-                  ]
-                }}
-                transition={{ 
-                  duration: 0.5,
-                  scale: {
-                    duration: 0.6,
-                    times: [0, 0.6, 1]
-                  },
-                  textShadow: {
-                    repeat: Infinity,
-                    duration: 3,
-                    ease: "easeInOut"
-                  }
-                }}
-              >
-                {skillCategories.find(cat => cat.id === activeCategory)?.name}
-              </motion.h2>
-              
+                     
               <motion.div 
                 className={styles.skillCards}
                 variants={staggerChildren}

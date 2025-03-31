@@ -1,122 +1,117 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  perspective: 2000px;
+}
+
 .pageTitle {
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 25px;
+  margin-bottom: 50px;
   padding-top: 40px;
+  color: white; /*  */
+  text-shadow: 0 0 10px rgba(38, 208, 124, 0.6), 0 0 20px rgba(38, 208, 124, 0.4); /* Green glow effect */
+  position: relative;
+  font-weight: 700;
 }
 
+
+
 .experienceSection {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  display: flex;
+  gap: 3rem;
+  transform-style: preserve-3d;
+}
+
+.educationSection,
+.workSection {
+  flex: 1;
+  transform-style: preserve-3d;
+  position: relative;
 }
 
 .sectionTitle {
+  text-align: center;
+  margin-bottom: 2rem;
   font-size: 2rem;
-  margin-bottom: 30px;
-  color: var(--aurora-blue);
-  text-shadow: 0 0 10px rgba(0, 198, 255, 0.4);
+  color: var(--aurora-green);
+  text-shadow: 0 0 10px rgba(38, 208, 124, 0.3);
 }
 
-.timeline {
+.educationList {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  position: relative;
-  padding-left: 30px; /* Align the content with the timeline */
+  gap: 2rem;
 }
 
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 10px; /* Aligned line closer to the dots */
-  top: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(to bottom, var(--aurora-green), var(--aurora-blue));
-  box-shadow: 0 0 10px rgba(38, 208, 124, 0.5);
+.educationItem {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Space between the icon and card */
+  transform-style: preserve-3d;
 }
 
-/* Ensure each timelineCard has a proper position and staggered animations */
-.timelineCard {
-  position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  padding-left: 40px; /* Align the content properly */
-}
-
-.timelineCard::before {
-  content: '';
-  position: absolute;
-  width: 16px;
-  height: 16px;
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background-color: transparent; /* Light background for the icon circle */
+  box-shadow: 0 0 20px var(--aurora-green);
   border-radius: 50%;
-  background: var(--aurora-green);
-  left: -8px; /* Ensure the dot is perfectly aligned on the timeline */
-  top: 50%;
-  transform: translateY(-50%);
-  box-shadow: 0 0 15px rgba(38, 208, 124, 0.8);
-  z-index: 1;
 }
 
-.timelineCard:nth-child(1) {
-  animation: slideIn 0.6s ease forwards;
-  animation-delay: 0.2s;
-}
-.timelineCard:nth-child(2) {
-  animation: slideIn 0.6s ease forwards;
-  animation-delay: 0.4s;
-}
-.timelineCard:nth-child(3) {
-  animation: slideIn 0.6s ease forwards;
-  animation-delay: 0.6s;
-}
-.timelineCard:nth-child(4) {
-  animation: slideIn 0.6s ease forwards;
-  animation-delay: 0.8s;
+.graduationIcon {
+  font-size: 1.5rem;
+  color: var(--aurora-green); /* Color to match your theme */
 }
 
-@keyframes slideIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.educationCard {
+  background: var(--card-bg);
+  border-radius: 15px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(38, 208, 124, 0.1);
+  border: 1px solid rgba(38, 208, 124, 0.1);
+  transform-style: preserve-3d;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  width: 100%;
+}
+
+.educationCard:hover {
+  transform: translateZ(50px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(38, 208, 124, 0.2);
+  border-color: rgba(38, 208, 124, 0.3);
 }
 
 .cardContent {
-  background: var(--card-bg);
-  border-radius: 15px;
-  padding: 25px;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 0 15px rgba(38, 208, 124, 0.3);
-  transition: all 0.4s ease;
-  position: relative;
-  z-index: 2;
+  transform-style: preserve-3d;
 }
 
-.timelineCard:hover .cardContent {
-  box-shadow: 0 0 25px rgba(38, 208, 124, 0.5);
-  transform: scale(1.03);
-}
-
-.institution, .company {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 5px;
+.institution {
+  font-size: 1.3rem;
   color: var(--aurora-green);
+  margin-bottom: 0.5rem;
+  transform: translateZ(20px);
 }
 
-.degree, .role {
+.degree {
   font-size: 1.1rem;
-  font-weight: 500;
-  margin-bottom: 5px;
+  color: var(--aurora-blue);
+  margin-bottom: 0.5rem;
+  transform: translateZ(15px);
 }
 
-.location, .duration {
+.duration {
   font-size: 0.9rem;
-  color: rgba(240, 248, 255, 0.7);
-  margin-bottom: 10px;
+  opacity: 0.8;
+  transform: translateZ(10px);
 }
 
 .gpa {
@@ -126,34 +121,192 @@
   border-radius: 5px;
   font-size: 0.9rem;
   margin-top: 5px;
+  color: var(--aurora-green);
+}
+
+/* Animation for timeline line */
+@keyframes glowLine {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .experienceSection {
+    flex-direction: column;
+  }
+
+  .container {
+    perspective: 1000px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageTitle {
+    font-size: 2rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+
+  .educationCard {
+    padding: 1rem;
+  }
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: var(--aurora-green);
+  text-shadow: 0 0 10px rgba(38, 208, 124, 0.3);
+}
+
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  transform-style: preserve-3d;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--aurora-green), var(--aurora-blue));
+  box-shadow: 0 0 15px rgba(38, 208, 124, 0.5);
+}
+
+.timelineItem {
+  position: relative;
+  margin-bottom: 2rem;
+  transform-style: preserve-3d;
+}
+
+.timelineDot {
+  position: absolute;
+  left: -2.4rem;
+  top: 50%;
+  transform: translateY(-50%) translateZ(20px);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--aurora-green);
+  box-shadow: 0 0 20px var(--aurora-green);
+  z-index: 2;
+}
+
+.timelineCard {
+  background: var(--card-bg);
+  border-radius: 15px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(38, 208, 124, 0.1);
+  border: 1px solid rgba(38, 208, 124, 0.1);
+  transform-style: preserve-3d;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.timelineCard:hover {
+  transform: translateZ(50px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(38, 208, 124, 0.2);
+  border-color: rgba(38, 208, 124, 0.3);
+}
+
+.cardContent {
+  transform-style: preserve-3d;
+}
+
+.institution, .company {
+  font-size: 1.3rem;
+  color: var(--aurora-green);
+  margin-bottom: 0.5rem;
+  transform: translateZ(20px);
+}
+
+.degree, .role {
+  font-size: 1.1rem;
+  color: var(--aurora-blue);
+  margin-bottom: 0.5rem;
+  transform: translateZ(15px);
+}
+
+.duration {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  transform: translateZ(10px);
+}
+
+.gpa {
+  display: inline-block;
+  padding: 3px 10px;
+  background: rgba(38, 208, 124, 0.2);
+  border-radius: 5px;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  color: var(--aurora-green);
 }
 
 .responsibilities {
-  margin-top: 15px;
-  padding-left: 20px;
+  margin-top: 1rem;
+  padding-left: 1.2rem;
+  transform: translateZ(10px);
 }
 
 .responsibilities li {
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   position: relative;
-  line-height: 1.5;
 }
 
 .responsibilities li::before {
   content: '•';
   color: var(--aurora-blue);
   position: absolute;
-  left: -15px;
-  top: 0;
+  left: -1rem;
+  transform: translateZ(5px);
+}
+
+/* Animation for timeline line */
+@keyframes glowLine {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+.timeline::before {
+  animation: glowLine 3s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .experienceSection {
+    flex-direction: column;
+  }
+
+  .container {
+    perspective: 1000px;
+  }
 }
 
 @media (max-width: 768px) {
-  .experienceSection {
-    grid-template-columns: 1fr;
-    gap: 50px;
+  .pageTitle {
+    font-size: 2rem;
   }
 
-  .workSection {
-    margin-top: 30px;
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+
+  .timelineCard {
+    padding: 1rem;
   }
 }
+

@@ -38,7 +38,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <h1 className={`${styles.pageTitle} glow-text`}>Get In Touch</h1>
       
       <div className={styles.contactSection}>

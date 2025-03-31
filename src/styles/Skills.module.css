@@ -1,25 +1,20 @@
 /* styles/Skills.module.css */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  perspective: 2000px;
+}
+
 .pageTitle {
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin-bottom: 50px;
   padding-top: 40px;
-  color: white; /* Changed to white as requested */
+  color: white; /*  */
   text-shadow: 0 0 10px rgba(38, 208, 124, 0.6), 0 0 20px rgba(38, 208, 124, 0.4); /* Green glow effect */
   position: relative;
   font-weight: 700;
-}
-
-.pageTitle::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 3px;
-  background: linear-gradient(to right, var(--aurora-green), var(--aurora-blue));
-  border-radius: 2px;
 }
 
 .skillsSection {
@@ -103,7 +98,7 @@
 
 .skillIcon.active p {
   font-weight: 700; /* Make text bolder when active */
-  color: var(--aurora-green); /* Highlight the text color */
+  /* Highlight the text color */
 }
 
 .activeIndicator {
@@ -122,27 +117,6 @@
   perspective: 1000px;
 }
 
-.categoryTitle {
-  font-size: 2.2rem; /* Increased size for emphasis */
-  margin-bottom: 30px;
-  color: var(--aurora-blue);
-  text-shadow: 0 0 10px rgba(0, 198, 255, 0.4);
-  position: relative;
-  display: inline-block;
-  font-weight: 700;
-  transition: all 0.3s ease;
-}
-
-.categoryTitle::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 60px;
-  height: 10px;
-  background: linear-gradient(to right, var(--aurora-green), var(--aurora-blue));
-  border-radius: 2px;
-}
 
 .skillCards {
   display: grid;

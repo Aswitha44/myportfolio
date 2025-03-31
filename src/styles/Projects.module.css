@@ -1,140 +1,190 @@
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+  background: var(--background);
+  overflow-x: hidden;
+}
+
 .pageTitle {
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 25px;
+  margin-bottom: 50px;
   padding-top: 40px;
-}
-
-.reelContainer {
+  color: white;
+  text-shadow: 0 0 10px rgba(38, 208, 124, 0.6), 0 0 20px rgba(38, 208, 124, 0.4);
   position: relative;
+  font-weight: 700;
+}
+
+.galleryWrapper {
   width: 100%;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);  
-}
-
-.reelWrapper {
-  display: flex;
-  gap: 90px; /* Increased gap for film reel effect */
-  padding: 2rem 2rem;
+  padding: 2rem 0;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  margin-bottom: 150px; /* Increased space for progress bar and navigation */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
-.reelWrapper::-webkit-scrollbar {
-  display: none;
+.galleryWrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.gallery {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  width: max-content;
+  margin: 0 auto;
 }
 
 .projectCard {
-  flex: 0 0 400px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  padding: 2rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  scroll-snap-align: center;
-  transition: all 0.3s ease;
+  width: 350px;
+  height: 450px;
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
   cursor: pointer;
-  transform: scale(0.95);
-  opacity: 0.7;
+  background: var(--card-bg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
-.projectCard.active {
-  transform: scale(1.05) translateY(-20px);
-  opacity: 1;
-  border-color: var(--aurora-blue);
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
-}
-
-.projectTitle.highlight {
-  color: var(--aurora-green); /* Highlighting with your theme's green color */
-}
-
-.projectDescription {
-  list-style-type:circle;
-  padding-left: 1.5rem;
-}
-
-.projectDescription li {
-  color: var(--text-light);
-  font-size: 1rem;
-}
-
-.projectDescription li::marker {
-  color: var(--aurora-blue);
-  fill: var(--aurora-blue);/* Blue for bullet points */
-}
-
-.progressBar {
-  position: absolute;
-  bottom: 5px; /* Moved even further down */
-  left: 0;
+.imageWrapper {
   width: 100%;
-  height: 3px;
-  display: flex;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.progressSegment {
-  flex-grow: 1;
   height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.imageWrapper img {
   width: 100%;
-  background: transparent;
-  transition: background 0.3s ease;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
 }
 
-.progressSegment.activeSegment {
-  background: linear-gradient(to right, var(--aurora-green), var(--aurora-blue));
-}
-
-.projectNavigation {
+.overlay {
   position: absolute;
-  bottom: -40px;
-  right: 20px;
-  display: flex;
-  gap: 1rem;
-  z-index: 10;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.7) 50%,
+    transparent 100%
+  );
+  padding: 2rem;
+  transform: translateY(70%);
+  transition: transform 0.3s ease;
 }
 
-.projectNavArrow {
-  width: 40px;
-  height: 40px;
-  background: none;
-  border: none;
-  color: var(--text-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.projectCard:hover .overlay {
+  transform: translateY(0);
+}
+
+.projectCard:hover img {
+  transform: scale(1.1);
+}
+
+.overlay h3 {
+  color: white;
   font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.projectNavArrow:hover {
-  color: var(--aurora-blue);
+.overlay p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
-.projectNavArrow.disabled {
-  opacity: 0.3;
-  cursor: disabled;
+.techStack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.techTag {
+  background: rgba(38, 208, 124, 0.2);
+  color: var(--aurora-green);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
 }
 
 .projectLink {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
+  background: var(--aurora-green);
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   text-decoration: none;
-  color: var(--aurora-blue);
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .projectLink:hover {
+  background: var(--aurora-blue);
   transform: translateY(-2px);
+}
+
+.shareIcon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.shareIcon:hover {
+  background: transparent;
+  box-shadow: 0 0 20px rgba(38, 208, 124, 0.3);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .gallery {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .projectCard {
+    width: 280px;
+    height: 380px;
+  }
+
+  .overlay {
+    padding: 1.5rem;
+  }
+
+  .overlay h3 {
+    font-size: 1.2rem;
+  }
+
+  .overlay p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Add smooth scrolling behavior */
+@media (prefers-reduced-motion: no-preference) {
+  .galleryWrapper {
+    scroll-behavior: smooth;
+  }
 }

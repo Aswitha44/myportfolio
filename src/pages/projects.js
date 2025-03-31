@@ -1,150 +1,98 @@
-import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import styles from "../styles/Projects.module.css";
-import userData from "../data/user-data.json";
-import { FaArrowLeft, FaArrowRight, FaExternalLinkAlt } from "react-icons/fa";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FaShareAlt } from 'react-icons/fa';
+import styles from '@/styles/Projects.module.css';
+import userData from '../data/user-data.json';
+
+// Default project images - you can replace these with actual project images
+const projectImages = {
+  "Ski Surf E-commerce Web Application": "/projects/ski-surf.jpg",
+  "Smart Blog Platform": "/projects/blog.jpg",
+  "Serverless Automated File Processing System": "/projects/serverless.jpg",
+  "Next-Gen Yoga App": "/projects/yoga.jpg"
+};
+
+// Extract tech stacks from project descriptions
+const extractTechStack = (description) => {
+  const techKeywords = [
+    "Angular", "Bootstrap", "Stripe", "Redis", ".NET Core", "Azure",
+    "ASP.NET Core", "Razor Pages", "SQL Server", "JavaScript", "AJAX",
+    "AWS", "S3", "React", "Firestore", "Vector Search", "Vertex AI",
+    "Google Cloud", "Flask", "Gemini 2.0"
+  ];
+  
+  return description
+    .join(" ")
+    .split(" ")
+    .filter(word => techKeywords.some(tech => 
+      word.toLowerCase().includes(tech.toLowerCase())
+    ));
+};
 
 export default function Projects() {
-  const [activeProject, setActiveProject] = useState(0);
-  const reelRef = useRef(null);
-  const progressRef = useRef(null);
-
-  const cardWidth = 400; // Width of a single card
-  const gap = 120; // Increased gap for film reel effect
-
-  const scrollToProject = (index) => {
-    const scrollPosition = index * (cardWidth + gap);
-
-    reelRef.current.scrollTo({
-      left: scrollPosition,
-      behavior: "smooth",
-    });
-
-    setActiveProject(index);
-  };
-
-  const handlePrev = () => {
-    if (activeProject > 0) {
-      scrollToProject(activeProject - 1);
-    }
-  };
-
-  const handleNext = () => {
-    if (activeProject < userData.projects.length - 1) {
-      scrollToProject(activeProject + 1);
-    }
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const container = reelRef.current;
-      if (!container) return;
-
-      const scrollPosition = container.scrollLeft;
-      const newActiveIndex = Math.round(scrollPosition / (cardWidth + gap));
-
-      if (newActiveIndex !== activeProject) {
-        setActiveProject(newActiveIndex);
-      }
-    };
-
-    const container = reelRef.current;
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-      return () => container.removeEventListener("scroll", handleScroll);
-    }
-  }, [activeProject]);
-
   return (
-    <div className="container">
-      <h1 className={`${styles.pageTitle} glow-text`}>Projects</h1>
+    <div className={styles.container}>
+      <motion.h1 
+        className={`${styles.pageTitle} glow-text`}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        Projects
+      </motion.h1>
 
-      <div className={styles.projectsContainer}>
-        <div className={styles.reelContainer}>
-          <div className={styles.reelWrapper} ref={reelRef}>
-            {userData.projects.map((project, index) => (
-              <motion.div
-                key={index}
-                className={`${styles.projectCard} ${
-                  activeProject === index ? styles.active : ""
-                }`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  y: activeProject === index ? -20 : 0,
-                }}
-                transition={{
-                  duration: 0.4,
-                  delay: index * 0.1,
-                }}
-                whileHover={{
-                  y: -10,
-                  transition: { duration: 0.2 },
-                }}
-                onClick={() => scrollToProject(index)}
-              >
-                <a
-                  href={project.link || project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.projectLink}
-                  onClick={(e) => e.stopPropagation()} // Prevents interference with scrolling
-                >
-                  <FaExternalLinkAlt />
-                </a>
-                <div className={styles.cardContent}>
-                  <h3 className={styles.projectTitle}>{project.title}</h3>
-
-                  <ul className={styles.projectDescription}>
-                    {project.description.map((desc, descIndex) => (
-                      <li key={descIndex}>{desc}</li>
+      <div className={styles.galleryWrapper}>
+        <motion.div 
+          className={styles.gallery}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          {userData.projects.map((project, index) => (
+            <motion.div 
+              key={index}
+              className={styles.projectCard}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ 
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
+            >
+              <div className={styles.imageWrapper}>
+                {project.link && (
+                  <motion.a 
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.shareIcon}
+                    whileHover={{ 
+                      scale: 1.2,
+                      color: 'var(--aurora-blue)',
+                      transition: { duration: 0.2 }
+                    }}
+                  >
+                    <FaShareAlt />
+                  </motion.a>
+                )}
+                <img 
+                  src={projectImages[project.title] || `/projects/default.jpg`} 
+                  alt={project.title} 
+                />
+                <div className={styles.overlay}>
+                  <h3>{project.title}</h3>
+                  <p>{project.description[0]}</p>
+                  <div className={styles.techStack}>
+                    {extractTechStack(project.description).map((tech, i) => (
+                      <span key={i} className={styles.techTag}>{tech}</span>
                     ))}
-                  </ul>
+                  </div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Dynamic Progress Bar */}
-          <div className={styles.progressBar}>
-            {userData.projects.map((_, index) => (
-              <div
-                key={index}
-                className={`${styles.progressSegment} ${
-                  activeProject === index ? styles.activeSegment : ""
-                }`}
-               
-              />
-            ))}
-          </div>
-
-          {/* Navigation Arrows */}
-          <div className={styles.projectNavigation}>
-            <button
-              className={`${styles.projectNavArrow} ${
-                activeProject === 0 ? styles.disabled : ""
-              }`}
-              onClick={handlePrev}
-              aria-label="Previous project"
-              disabled={activeProject === 0}
-            >
-              <FaArrowLeft />
-            </button>
-            <button
-              className={`${styles.projectNavArrow} ${
-                activeProject === userData.projects.length - 1
-                  ? styles.disabled
-                  : ""
-              }`}
-              onClick={handleNext}
-              aria-label="Next project"
-              disabled={activeProject === userData.projects.length - 1}
-            >
-              <FaArrowRight />
-            </button>
-          </div>
-        </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </div>
   );

@@ -24,10 +24,10 @@ export default function Home() {
         const rotateY = (centerX - x) / 20;
         
         bitmojiElement.style.transform = `
-          perspective(1000px) 
+          
           rotateX(${rotateX}deg) 
           rotateY(${rotateY}deg) 
-          scale3d(1.05, 1.05, 1.05)
+          
         `;
       };
       
