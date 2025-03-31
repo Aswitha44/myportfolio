@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaShareAlt } from 'react-icons/fa';
+import { FaShareAlt, FaExternalLinkAlt } from 'react-icons/fa';
 import styles from '@/styles/Projects.module.css';
 import userData from '../data/user-data.json';
 
@@ -63,19 +63,15 @@ export default function Projects() {
             >
               <div className={styles.imageWrapper}>
                 {project.link && (
-                  <motion.a 
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
                     className={styles.shareIcon}
-                    whileHover={{ 
-                      scale: 1.2,
-                      color: 'var(--aurora-blue)',
-                      transition: { duration: 0.2 }
-                    }}
+                    onClick={(e) => e.stopPropagation()}
                   >
-                    <FaShareAlt />
-                  </motion.a>
+                    <FaExternalLinkAlt />
+                  </a>
                 )}
                 <img 
                   src={projectImages[project.title] || `/projects/default.jpg`} 

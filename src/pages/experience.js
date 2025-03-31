@@ -1,107 +1,84 @@
 // pages/experience.js
-import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { FaGraduationCap } from 'react-icons/fa';
-import styles from '../styles/Experience.module.css';
+import { FaGraduationCap, FaBriefcase } from 'react-icons/fa';
 import userData from '../data/user-data.json';
+import styles from '../styles/Experience.module.css';
 
 export default function Experience() {
-  const [activeSection, setActiveSection] = useState('education');
-  const [educationRef, educationInView] = useInView({ threshold: 0.3 });
-  const [workRef, workInView] = useInView({ threshold: 0.3 });
-
-  useEffect(() => {
-    if (educationInView) setActiveSection('education');
-    if (workInView) setActiveSection('work');
-  }, [educationInView, workInView]);
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
-    }
-  };
-
   return (
     <div className={styles.container}>
       <motion.h1 
-        className={`${styles.pageTitle} glow-text`}
-        initial={{ opacity: 0, y: -20 }}
+        className={styles.pageTitle}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.5 }}
       >
-        Education & Experience
+        Experience
       </motion.h1>
-      
+
       <div className={styles.experienceSection}>
-        {/* Education Section */}
-        <motion.div
+        <motion.div 
           className={styles.educationSection}
-          ref={educationRef}
-          initial="hidden"
-          animate={educationInView ? "visible" : "hidden"}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h2 className={styles.sectionTitle}>Education</h2>
+          <div className={styles.sectionHeader}>
+            <FaGraduationCap className={styles.sectionIcon} />
+            <h2 className={styles.sectionTitle}>Education</h2>
+          </div>
+          
           <div className={styles.educationList}>
             {userData.education.map((edu, index) => (
               <motion.div
+                key={`${edu.institution}-${edu.degree}-${index}`}
                 className={styles.educationItem}
-                key={index}
-                variants={cardVariants}
-                custom={index}
-                transition={{ delay: index * 0.2 }}
-                whileHover={{ 
-                  scale: 1.05,
-                  rotateX: 5,
-                  translateZ: 50,
-                  transition: { duration: 0.3 }
-                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
               >
-                <div className={styles.iconWrapper}>
-                  <FaGraduationCap className={styles.graduationIcon} />
-                </div>
                 <div className={styles.educationCard}>
                   <div className={styles.cardContent}>
                     <h3 className={styles.institution}>{edu.institution}</h3>
                     <p className={styles.degree}>{edu.degree}</p>
                     <p className={styles.duration}>{edu.duration}</p>
-                    {edu.gpa && <p className={styles.gpa}>GPA: {edu.gpa}</p>}
+                    {edu.gpa && <span className={styles.gpa}>GPA: {edu.gpa}</span>}
                   </div>
                 </div>
               </motion.div>
             ))}
           </div>
         </motion.div>
-        
-        {/* Work Experience Section */}
+
         <motion.div 
-          className={styles.workSection} 
-          ref={workRef}
-          initial="hidden"
-          animate={workInView ? "visible" : "hidden"}
+          className={styles.workSection}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h2 className={styles.sectionTitle}>Work Experience</h2>
+          <div className={styles.sectionHeader}>
+            <FaBriefcase className={styles.sectionIcon} />
+            <h2 className={styles.sectionTitle}>Work Experience</h2>
+          </div>
+          
           <div className={styles.timeline}>
-            {userData.experience.map((exp, index) => (
+            {userData.experience.map((work, index) => (
               <motion.div
+                key={`${work.company}-${work.role}-${index}`}
                 className={styles.timelineItem}
-                key={index}
-                variants={cardVariants}
-                custom={index}
-                transition={{ delay: index * 0.2 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
               >
-                <div className={styles.timelineDot}></div>
+                <div className={styles.timelineDot} />
                 <div className={styles.timelineCard}>
                   <div className={styles.cardContent}>
-                    <h3 className={styles.company}>{exp.company}</h3>
-                    <p className={styles.role}>{exp.role}</p>
-                    <p className={styles.duration}>{exp.duration}</p>
+                    <h3 className={styles.company}>{work.company}</h3>
+                    <p className={styles.role}>{work.role}</p>
+                    <p className={styles.duration}>{work.duration}</p>
                     <ul className={styles.responsibilities}>
-                      {exp.responsibilities.map((resp, respIndex) => (
-                        <li key={respIndex}>{resp}</li>
+                      {work.responsibilities.map((resp, i) => (
+                        <li key={`${work.company}-${i}`}>{resp}</li>
                       ))}
                     </ul>
                   </div>
