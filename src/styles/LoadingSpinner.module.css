@@ -1,0 +1,118 @@
+.loadingContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--bg-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.auroraBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.auroraLayer1,
+.auroraLayer2,
+.auroraLayer3 {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  opacity: 0.3;
+  filter: blur(50px);
+  animation: auroraMove 20s infinite linear;
+}
+
+.auroraLayer1 {
+  background: radial-gradient(circle at center, var(--aurora-green) 0%, transparent 70%);
+  animation-delay: 0s;
+}
+
+.auroraLayer2 {
+  background: radial-gradient(circle at center, var(--aurora-blue) 0%, transparent 70%);
+  animation-delay: -7s;
+}
+
+.auroraLayer3 {
+  background: radial-gradient(circle at center, var(--aurora-purple) 0%, transparent 70%);
+  animation-delay: -14s;
+}
+
+@keyframes auroraMove {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinnerContainer {
+  position: relative;
+  z-index: 1;
+}
+
+.spinner {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--aurora-green), var(--aurora-blue));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.spinnerInner {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--bg-dark);
+  position: relative;
+}
+
+.spinnerInner::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--aurora-green), var(--aurora-blue));
+  z-index: -1;
+  filter: blur(10px);
+  opacity: 0.5;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+} 
