@@ -12,6 +12,12 @@ function MyApp({ Component, pageProps, router }) {
   const [isLoading, setIsLoading] = useState(true);
   const [showIntro, setShowIntro] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Handle hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     // Check if this is the first visit or a refresh
@@ -28,24 +34,39 @@ function MyApp({ Component, pageProps, router }) {
     };
 
     const handleComplete = () => {
-      if (showIntro) {
-        // On first visit, show intro animation for 4 seconds
-        setTimeout(() => {
-          setShowIntro(false);
+      // Wait for the page to be fully loaded
+      if (document.readyState === 'complete') {
+        if (showIntro) {
+          // Show intro for 4 seconds on first visit
+          setTimeout(() => {
+            setShowIntro(false);
+            setIsLoading(false);
+            setShowContent(true);
+          }, 4000);
+        } else {
           setIsLoading(false);
           setShowContent(true);
-        }, 4000);
+        }
       } else {
-        // On subsequent navigations, show loading for 1 second
-        setTimeout(() => {
-          setIsLoading(false);
-          setShowContent(true);
-        }, 1000);
+        // If page isn't fully loaded, wait for it
+        window.addEventListener('load', () => {
+          if (showIntro) {
+            setTimeout(() => {
+              setShowIntro(false);
+              setIsLoading(false);
+              setShowContent(true);
+            }, 4000);
+          } else {
+            setIsLoading(false);
+            setShowContent(true);
+          }
+        });
       }
     };
 
     router.events.on('routeChangeStart', handleStart);
     router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
 
     // Initial load
     handleComplete();
@@ -53,8 +74,14 @@ function MyApp({ Component, pageProps, router }) {
     return () => {
       router.events.off('routeChangeStart', handleStart);
       router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
     };
   }, [router, showIntro]);
+
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <>
@@ -66,9 +93,22 @@ function MyApp({ Component, pageProps, router }) {
       </Head>
       
       <div className="app-container">
+        {/* StarBackground is always present */}
         <StarBackground />
+        
         <AnimatePresence mode="wait">
-          {showIntro && <IntroAnimation />}
+          {showIntro && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1000 }}
+            >
+              <IntroAnimation />
+            </motion.div>
+          )}
+          
           {isLoading && !showIntro && (
             <motion.div
               className="loading-overlay"
@@ -83,37 +123,36 @@ function MyApp({ Component, pageProps, router }) {
                 <div className="aurora-layer3" />
               </div>
               <div className="loading-stars">
-              {[...Array(90)].map((_, i) => {
-  // Use seeded random based on index for consistent values
-  const leftPos = ((i * 13) % 100);
-  const topPos = ((i * 17) % 100);
-  const starSize = (i % 5) + 2;
-  
-  return (
-    <motion.div
-      key={i}
-      className="loading-star"
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ 
-        opacity: [0, 1, 0],
-        scale: [0, 1.2, 0],
-      }}
-      transition={{
-        duration: 2,
-        delay: i * 0.05,
-        repeat: Infinity,
-        repeatDelay: (i % 20) * 0.1, // Deterministic delay
-        ease: "easeInOut"
-      }}
-      style={{
-        left: `${leftPos}%`,
-        top: `${topPos}%`,
-        width: `${starSize}px`,
-        height: `${starSize}px`,
-      }}
-    />
-  );
-})}
+                {[...Array(90)].map((_, i) => {
+                  const leftPos = ((i * 13) % 100);
+                  const topPos = ((i * 17) % 100);
+                  const starSize = (i % 5) + 2;
+                  
+                  return (
+                    <motion.div
+                      key={i}
+                      className="loading-star"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ 
+                        opacity: [0, 1, 0],
+                        scale: [0, 1.2, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        delay: i * 0.05,
+                        repeat: Infinity,
+                        repeatDelay: (i % 20) * 0.1,
+                        ease: "easeInOut"
+                      }}
+                      style={{
+                        left: `${leftPos}%`,
+                        top: `${topPos}%`,
+                        width: `${starSize}px`,
+                        height: `${starSize}px`,
+                      }}
+                    />
+                  );
+                })}
               </div>
               <div className="loading-content">
                 <motion.div
@@ -134,9 +173,7 @@ function MyApp({ Component, pageProps, router }) {
           {showContent && (
             <PageTransition key={router.route}>
               <Navbar />
-      
               <Component {...pageProps} />
-              
             </PageTransition>
           )}
         </AnimatePresence>

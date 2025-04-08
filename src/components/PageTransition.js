@@ -1,56 +1,94 @@
 // components/PageTransition.js
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const PageTransition = ({ children }) => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Handle hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleStart = () => setIsLoading(true);
+    const handleComplete = () => setIsLoading(false);
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
+    };
+  }, [router]);
+
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return null;
+  }
+
   return (
-    <motion.div
-      style={{
-        position: 'relative',
-        width: '100%',
-        minHeight: '100vh',
-        background: '#0a0a2a',
-        overflow: 'hidden'
-      }}
-    >
-      <motion.div
-        className="transition-overlay"
-        initial={{ scale: 0, rotate: 0, opacity: 0 }}
-        animate={{ scale: 1, rotate: 360, opacity: 1 }}
-        exit={{ scale: 0, rotate: 720, opacity: 0 }}
-        transition={{
-          duration: 2,
-          ease: [0.4, 0, 0.2, 1],
-          rotate: {
-            duration: 2,
-            ease: "easeInOut"
-          }
-        }}
-      />
+    <div style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            className="loading-container"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="loading-spinner">
+              <div className="spinner"></div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
       <motion.div
         className="content-wrapper"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 1, delay: 0.5 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
       >
         {children}
       </motion.div>
+      
       <style jsx>{`
-        .transition-overlay {
+        .loading-container {
           position: fixed;
-          top: 50%;
-          left: 50%;
-          width: 200vw;
-          height: 200vw;
-          background: radial-gradient(circle at center, 
-            rgba(38, 208, 124, 0.15) 0%,
-            rgba(38, 208, 124, 0.1) 20%,
-            rgba(38, 208, 124, 0.05) 40%,
-            transparent 70%
-          );
-          transform-origin: center;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: transparent;
           z-index: 1000;
-          filter: blur(30px);
+        }
+
+        .loading-spinner {
+          width: 80px;
+          height: 80px;
+          position: relative;
+        }
+
+        .spinner {
+          width: 100%;
+          height: 100%;
+          border: 4px solid transparent;
+          border-top: 4px solid var(--aurora-green);
+          border-right: 4px solid var(--aurora-green);
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          box-shadow: 0 0 20px rgba(38, 208, 124, 0.4);
         }
 
         .content-wrapper {
@@ -58,11 +96,16 @@ const PageTransition = ({ children }) => {
           z-index: 1;
         }
 
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
         :global(body) {
           overflow-x: hidden;
         }
       `}</style>
-    </motion.div>
+    </div>
   );
 };
 
