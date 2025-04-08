@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import StarBackground from './StarBackground';
 
 const PageTransition = ({ children }) => {
   const router = useRouter();
@@ -35,6 +36,8 @@ const PageTransition = ({ children }) => {
 
   return (
     <div style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
+      <StarBackground />
+      
       <AnimatePresence>
         {isLoading && (
           <motion.div
@@ -70,7 +73,7 @@ const PageTransition = ({ children }) => {
           display: flex;
           justify-content: center;
           align-items: center;
-          background: transparent;
+          background: rgba(10, 10, 42, 0.8);
           z-index: 1000;
         }
 
@@ -103,6 +106,9 @@ const PageTransition = ({ children }) => {
 
         :global(body) {
           overflow-x: hidden;
+          margin: 0;
+          padding: 0;
+          background: #0a0a2a;
         }
       `}</style>
     </div>

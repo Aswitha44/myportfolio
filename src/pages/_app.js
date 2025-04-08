@@ -86,7 +86,7 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <>
       <Head>
-        <title>Aswitha - Portfolio</title>
+        <title>Aswitha's Portfolio</title>
         <meta name="description" content="Aswitha's Professional Portfolio" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
