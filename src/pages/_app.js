@@ -182,11 +182,9 @@ function MyApp({ Component, pageProps, router }) {
       <style jsx global>{`
         .app-container {
           position: relative;
-          height: 100%;
+          min-height: 100vh;
           width: 100%;
           overflow: hidden;
-          display: flex;
-          flex-direction: column;
         }
 
         .loading-overlay {
