@@ -131,11 +131,13 @@ export default function Home() {
         }
 
         .content-layout {
-          position: relative;
+          position: fixed;
           z-index: 2;
           width: 100%;
-          min-height: 100vh;
+          height: 100vh;
           display: flex;
+          top: 0;
+          left: 0;
         }
 
         .content-left {
