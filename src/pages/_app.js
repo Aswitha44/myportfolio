@@ -173,7 +173,16 @@ function MyApp({ Component, pageProps, router }) {
           {showContent && (
             <PageTransition key={router.route}>
               <Navbar />
-              <Component {...pageProps} />
+              <motion.div
+                key={router.route}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                style={{ flex: 1 }}
+              >
+                <Component {...pageProps} />
+              </motion.div>
             </PageTransition>
           )}
         </AnimatePresence>
@@ -185,6 +194,8 @@ function MyApp({ Component, pageProps, router }) {
           min-height: 100vh;
           width: 100%;
           overflow: hidden;
+          display: flex;
+          flex-direction: column;
         }
 
         .loading-overlay {
@@ -302,6 +313,13 @@ function MyApp({ Component, pageProps, router }) {
         /* Prevent horizontal scroll during transitions */
         body {
           overflow-x: hidden;
+        }
+
+        /* Ensure proper layout for all pages */
+        #__next {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
         }
       `}</style>
     </>

@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 
 const PageTransition = ({ children }) => {
   const router = useRouter();
-  // const [isLoading, setIsLoading] = useState(false); // Removed
   const [mounted, setMounted] = useState(false);
 
   // Handle hydration
@@ -23,13 +22,21 @@ const PageTransition = ({ children }) => {
 
   return (
     <motion.div
-      className="content-wrapper" // Keep this wrapper for motion
-      key={router.route} // Add key here for AnimatePresence in _app.js
-      initial={{ opacity: 0, y: 20 }} // Use existing page transition animation
+      className="content-wrapper"
+      key={router.route}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      style={{ position: 'relative', zIndex: 1, width: '100%' }} // Ensure wrapper takes width
+      style={{ 
+        position: 'relative', 
+        zIndex: 1, 
+        width: '100%',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1
+      }}
     >
       {children}
       {/* Style block should remain, but cleaned up */}
@@ -38,12 +45,12 @@ const PageTransition = ({ children }) => {
           position: relative;
           z-index: 1;
           width: 100%;
-          /* min-height: calc(100vh - 84px); */ /* Remove min-height */
-          flex-grow: 1; /* Allow wrapper to grow */
+          min-height: 100vh;
           display: flex;
           flex-direction: column;
           overflow-y: auto; /* Allow content inside to scroll if needed */
           padding-top: 84px; /* Add padding to account for fixed Navbar */
+          flex: 1;
         }
       `}</style>
     </motion.div>
