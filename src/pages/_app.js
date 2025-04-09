@@ -171,19 +171,12 @@ function MyApp({ Component, pageProps, router }) {
         
         <AnimatePresence mode="wait">
           {showContent && (
-            <PageTransition key={router.route}>
+            <>
               <Navbar />
-              <motion.div
-                key={router.route}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                style={{ flex: 1 }}
-              >
+              <PageTransition key={router.route}>
                 <Component {...pageProps} />
-              </motion.div>
-            </PageTransition>
+              </PageTransition>
+            </>
           )}
         </AnimatePresence>
       </div>
@@ -194,6 +187,12 @@ function MyApp({ Component, pageProps, router }) {
           min-height: 100vh;
           width: 100%;
           overflow: hidden;
+          display: flex;
+          flex-direction: column;
+        }
+
+        #__next {
+          min-height: 100vh;
           display: flex;
           flex-direction: column;
         }
@@ -209,7 +208,6 @@ function MyApp({ Component, pageProps, router }) {
           align-items: center;
           z-index: 1000;
           background: transparent;
-          overflow: hidden;
         }
 
         .loading-aurora {
@@ -262,6 +260,11 @@ function MyApp({ Component, pageProps, router }) {
           animation-delay: -14s;
         }
 
+        @keyframes auroraMove {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
         .loading-stars {
           position: absolute;
           width: 100%;
@@ -278,20 +281,18 @@ function MyApp({ Component, pageProps, router }) {
         }
 
         .loading-content {
-          text-align: center;
           position: relative;
           z-index: 1;
+          text-align: center;
         }
 
         .loading-spinner {
-          width: 100px;
-          height: 100px;
-          border: 4px solid rgba(38, 208, 124, 0.3);
-          border-top: 4px solid transparent;
+          width: 50px;
+          height: 50px;
+          border: 3px solid rgba(38, 208, 124, 0.3);
+          border-top: 3px solid rgba(38, 208, 124, 0.8);
           border-radius: 50%;
-          margin: 0 auto 20px;
           animation: spin 1s linear infinite;
-          box-shadow: 0 0 30px rgba(38, 208, 124, 0.4);
         }
 
         @keyframes spin {
@@ -299,27 +300,11 @@ function MyApp({ Component, pageProps, router }) {
           100% { transform: rotate(360deg); }
         }
 
-        @keyframes auroraMove {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-
-        .loading-content p {
-          font-size: 1.2rem;
-          color: var(--aurora-green);
-          text-shadow: 0 0 15px rgba(38, 208, 124, 0.6);
-        }
-
-        /* Prevent horizontal scroll during transitions */
         body {
+          margin: 0;
+          padding: 0;
           overflow-x: hidden;
-        }
-
-        /* Ensure proper layout for all pages */
-        #__next {
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
+          background: #0a0a2a;
         }
       `}</style>
     </>

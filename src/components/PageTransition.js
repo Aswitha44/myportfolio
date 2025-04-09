@@ -1,5 +1,5 @@
 // components/PageTransition.js
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 // import StarBackground from './StarBackground'; // Removed
@@ -35,7 +35,8 @@ const PageTransition = ({ children }) => {
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        flex: 1
+        flex: 1,
+        paddingTop: '84px' // Add padding to account for fixed Navbar
       }}
     >
       {children}
