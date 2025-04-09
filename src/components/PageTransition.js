@@ -38,8 +38,8 @@ const PageTransition = ({ children }) => {
     <div style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
       <StarBackground />
       
-      <AnimatePresence>
-        {isLoading && (
+      <AnimatePresence mode="wait">
+        {isLoading ? (
           <motion.div
             className="loading-container"
             initial={{ opacity: 0 }}
@@ -51,17 +51,18 @@ const PageTransition = ({ children }) => {
               <div className="spinner"></div>
             </div>
           </motion.div>
+        ) : (
+          <motion.div
+            className="content-wrapper"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {children}
+          </motion.div>
         )}
       </AnimatePresence>
-      
-      <motion.div
-        className="content-wrapper"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-      >
-        {children}
-      </motion.div>
       
       <style jsx>{`
         .loading-container {
@@ -97,6 +98,7 @@ const PageTransition = ({ children }) => {
         .content-wrapper {
           position: relative;
           z-index: 1;
+          background: #0a0a2a;
         }
 
         @keyframes spin {
