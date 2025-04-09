@@ -4,29 +4,6 @@ import Image from 'next/image';
 import styles from '../styles/IntroAnimation.module.css';
 
 const IntroAnimation = () => {
-  useEffect(() => {
-    // Prevent scrolling on body when intro animation is shown
-    document.body.style.overflow = 'hidden';
-
-    const timer = setTimeout(() => {
-      const element = document.getElementById('intro-animation');
-      if (element) {
-        element.style.opacity = '0';
-        setTimeout(() => {
-          element.style.display = 'none';
-          // Restore scrolling when intro animation is hidden
-          document.body.style.overflow = 'auto';
-        }, 1000);
-      }
-    }, 4000);
-
-    return () => {
-      clearTimeout(timer);
-      // Restore scrolling if component unmounts
-      document.body.style.overflow = 'auto';
-    };
-  }, []);
-
   return (
     <motion.div
       id="intro-animation"
@@ -74,7 +51,7 @@ const IntroAnimation = () => {
             height={150}
             className={styles.bitmojiImage}
           />
-          <div className={styles.imageGlow} />
+          {/* <div className={styles.imageGlow} /> */}
         </div>
         <motion.div
           className={styles.textContainer}

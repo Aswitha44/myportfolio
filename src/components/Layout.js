@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
           perspective: "1000px"
         }}
       >
-        <Navbar />
+        {/* <Navbar /> */}
        
         <AnimatePresence mode="wait">
           <motion.main

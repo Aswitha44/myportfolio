@@ -4,6 +4,10 @@
   margin: 0 auto;
   padding: 2rem;
   perspective: 2000px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .pageTitle {

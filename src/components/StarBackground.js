@@ -37,14 +37,14 @@ export default function StarBackground() {
     rendererRef.current = renderer;
 
     // Create stars
-    const starGeometry = new THREE.SphereGeometry(0.02, 8, 8);
+    const starGeometry = new THREE.SphereGeometry(0.05, 8, 8);
     const starMaterial = new THREE.MeshBasicMaterial({ 
       color: 0xffffff,
       transparent: true,
       opacity: 0.8
     });
 
-    const starCount = 200;
+    const starCount = 500;
     for (let i = 0; i < starCount; i++) {
       const star = new THREE.Mesh(starGeometry, starMaterial);
       
@@ -54,11 +54,11 @@ export default function StarBackground() {
       star.position.z = (Math.random() - 0.5) * 10;
       
       // Random size
-      const scale = 0.5 + Math.random() * 0.5;
+      const scale = 0.8 + Math.random() * 0.8;
       star.scale.set(scale, scale, scale);
       
       // Random opacity
-      star.material.opacity = 0.2 + Math.random() * 0.8;
+      star.material.opacity = 0.3 + Math.random() * 0.7;
       
       scene.add(star);
       starsRef.current.push(star);

@@ -88,6 +88,7 @@
   transition: transform 0.3s ease;
 }
 
+/*
 .imageGlow {
   position: absolute;
   top: 0;
@@ -98,6 +99,7 @@
   background: radial-gradient(circle at center, rgba(38, 208, 124, 0.2) 0%, transparent 70%);
   animation: pulse 2s infinite;
 }
+*/
 
 .textContainer {
   text-align: center;

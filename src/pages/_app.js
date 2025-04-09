@@ -123,10 +123,10 @@ function MyApp({ Component, pageProps, router }) {
                 <div className="aurora-layer3" />
               </div>
               <div className="loading-stars">
-                {[...Array(90)].map((_, i) => {
+                {[...Array(150)].map((_, i) => {
                   const leftPos = ((i * 13) % 100);
                   const topPos = ((i * 17) % 100);
-                  const starSize = (i % 5) + 2;
+                  const starSize = (i % 5) + 4;
                   
                   return (
                     <motion.div
@@ -182,9 +182,11 @@ function MyApp({ Component, pageProps, router }) {
       <style jsx global>{`
         .app-container {
           position: relative;
-          min-height: 100vh;
+          height: 100%;
           width: 100%;
           overflow: hidden;
+          display: flex;
+          flex-direction: column;
         }
 
         .loading-overlay {
@@ -197,7 +199,7 @@ function MyApp({ Component, pageProps, router }) {
           justify-content: center;
           align-items: center;
           z-index: 1000;
-          background: #0a0a2a;
+          background: transparent;
           overflow: hidden;
         }
 
@@ -263,7 +265,7 @@ function MyApp({ Component, pageProps, router }) {
           background: white;
           border-radius: 50%;
           filter: blur(1px);
-          box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+          box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
         }
 
         .loading-content {
