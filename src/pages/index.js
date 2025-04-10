@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from '../styles/About.module.css';
 import userData from '../data/user-data.json';
-import StarBackground from '../components/StarBackground';
 
 export default function Home() {
   const [showContent, setShowContent] = useState(false);
@@ -31,7 +30,7 @@ export default function Home() {
           className="wallpaper-image"
         />
         <div className="wallpaper-overlay" />
-        <StarBackground />
+        
       </div>
       
       {/* Content Section */}

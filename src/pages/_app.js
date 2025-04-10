@@ -1,7 +1,6 @@
 // pages/_app.js
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import StarBackground from '../components/StarBackground';
 import Navbar from '../components/Navbar';
 import Head from 'next/head';
 import PageTransition from '../components/PageTransition';
@@ -102,8 +101,7 @@ function MyApp({ Component, pageProps }) {
         </Head>
         
         <div className="app-container">
-          {/* StarBackground is always present */}
-          <StarBackground />
+          
           
           <AnimatePresence mode="wait">
             {showIntro && (

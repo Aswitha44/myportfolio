@@ -1,13 +1,9 @@
 /* styles/Skills.module.css */
 .container {
-  max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
-  perspective: 2000px;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  perspective: 2000px;
 }
 
 .pageTitle {

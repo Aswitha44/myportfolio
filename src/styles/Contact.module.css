@@ -1,17 +1,10 @@
 /* styles/Contact.module.css */
 
 .container {
-  max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   perspective: 2000px;
-  position: relative;
-  z-index: 1;
-  padding-top: 84px; /* Add padding to account for fixed navbar */
 }
 
 .pageTitle {
