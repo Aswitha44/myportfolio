@@ -14,6 +14,7 @@ function MyApp({ Component, pageProps }) {
   const [showIntro, setShowIntro] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isRouteChanging, setIsRouteChanging] = useState(false);
 
   // Handle hydration
   useEffect(() => {
@@ -30,6 +31,7 @@ function MyApp({ Component, pageProps }) {
 
     // Handle page loading
     const handleStart = () => {
+      setIsRouteChanging(true);
       setIsLoading(true);
       setShowContent(false);
     };
@@ -43,10 +45,15 @@ function MyApp({ Component, pageProps }) {
             setShowIntro(false);
             setIsLoading(false);
             setShowContent(true);
+            setIsRouteChanging(false);
           }, 4000);
         } else {
-          setIsLoading(false);
-          setShowContent(true);
+          // Add a small delay to ensure smooth transition
+          setTimeout(() => {
+            setIsLoading(false);
+            setShowContent(true);
+            setIsRouteChanging(false);
+          }, 300);
         }
       } else {
         // If page isn't fully loaded, wait for it
@@ -56,10 +63,14 @@ function MyApp({ Component, pageProps }) {
               setShowIntro(false);
               setIsLoading(false);
               setShowContent(true);
+              setIsRouteChanging(false);
             }, 4000);
           } else {
-            setIsLoading(false);
-            setShowContent(true);
+            setTimeout(() => {
+              setIsLoading(false);
+              setShowContent(true);
+              setIsRouteChanging(false);
+            }, 300);
           }
         });
       }
@@ -85,247 +96,274 @@ function MyApp({ Component, pageProps }) {
   }
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={router.route}
-        initial={{ opacity: 0, y: 50, rotateZ: -15 }}
-        animate={{ opacity: 1, y: 0, rotateZ: 0 }}
-        exit={{ opacity: 0, y: -50, rotateZ: 15 }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-      >
-        <Head>
-          <title>Aswitha's Portfolio</title>
-          <meta name="description" content="Aswitha's Professional Portfolio" />
-          <link rel="icon" href="/favicon.ico" />
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-        </Head>
-        
-        <div className="app-container">
-          
-          
-          <AnimatePresence mode="wait">
-            {showIntro && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1000 }}
-              >
-                <IntroAnimation />
-              </motion.div>
-            )}
-            
-            {isLoading && !showIntro && (
-              <motion.div
-                className="loading-overlay"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-              >
-                <div className="loading-aurora">
-                  <div className="aurora-layer1" />
-                  <div className="aurora-layer2" />
-                  <div className="aurora-layer3" />
-                </div>
-                <div className="loading-stars">
-                  {[...Array(90)].map((_, i) => {
-                    const leftPos = ((i * 13) % 100);
-                    const topPos = ((i * 17) % 100);
-                    const starSize = (i % 5) + 2;
-                    
-                    return (
-                      <motion.div
-                        key={i}
-                        className="loading-star"
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ 
-                          opacity: [0, 1, 0],
-                          scale: [0, 1.2, 0],
-                        }}
-                        transition={{
-                          duration: 2,
-                          delay: i * 0.05,
-                          repeat: Infinity,
-                          repeatDelay: (i % 20) * 0.1,
-                          ease: "easeInOut"
-                        }}
-                        style={{
-                          left: `${leftPos}%`,
-                          top: `${topPos}%`,
-                          width: `${starSize}px`,
-                          height: `${starSize}px`,
-                        }}
-                      />
-                    );
-                  })}
-                </div>
-                <div className="loading-content">
-                  <motion.div
-                    className="loading-spinner"
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.5, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <div className="spinner"></div>
-                  </motion.div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          
-          {showContent && !showIntro && <Navbar />}
-          
-          <AnimatePresence mode="wait">
-            {showContent && (
-              <PageTransition key={router.route}>
-                <Component {...pageProps} />
-              </PageTransition>
-            )}
-          </AnimatePresence>
-        </div>
-        
-        <div className="blurred-bg" />
-        
-        <style jsx global>{`
-          .app-container {
-            position: relative;
-            min-height: 100vh;
-            width: 100%;
-            overflow: hidden;
-          }
-
-          .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            background: #0a0a2a;
-            overflow: hidden;
-          }
-
-          .loading-aurora {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-          }
-
-          .aurora-layer1,
-          .aurora-layer2,
-          .aurora-layer3 {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            opacity: 0.15;
-            filter: blur(60px);
-            animation: auroraMove 20s infinite linear;
-          }
-
-          .aurora-layer1 {
-            background: radial-gradient(circle at center, 
-              rgba(38, 208, 124, 0.3) 0%,
-              rgba(38, 208, 124, 0.2) 20%,
-              rgba(38, 208, 124, 0.1) 40%,
-              transparent 70%
-            );
-            animation-delay: 0s;
-          }
-
-          .aurora-layer2 {
-            background: radial-gradient(circle at center, 
-              rgba(38, 208, 124, 0.2) 0%,
-              rgba(38, 208, 124, 0.15) 20%,
-              rgba(38, 208, 124, 0.1) 40%,
-              transparent 70%
-            );
-            animation-delay: -7s;
-          }
-
-          .aurora-layer3 {
-            background: radial-gradient(circle at center, 
-              rgba(38, 208, 124, 0.1) 0%,
-              rgba(38, 208, 124, 0.08) 20%,
-              rgba(38, 208, 124, 0.05) 40%,
-              transparent 70%
-            );
-            animation-delay: -14s;
-          }
-
-          .loading-stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-          }
-
-          .loading-star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            filter: blur(1px);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-          }
-
-          .loading-content {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-          }
-
-          .loading-spinner {
-            width: 100px;
-            height: 100px;
-            border: 4px solid rgba(38, 208, 124, 0.3);
-            border-top: 4px solid transparent;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            animation: spin 1s linear infinite;
-            box-shadow: 0 0 30px rgba(38, 208, 124, 0.4);
-          }
-
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-
-          @keyframes auroraMove {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-
-          .loading-content p {
-            font-size: 1.2rem;
-            color: var(--aurora-green);
-            text-shadow: 0 0 15px rgba(38, 208, 124, 0.6);
-          }
-
-          /* Prevent horizontal scroll during transitions */
+    <>
+      <Head>
+        <title>Aswitha's Portfolio</title>
+        <meta name="description" content="Aswitha's Professional Portfolio" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+        <style>{`
           body {
-            overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
           }
-
-          .blurred-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(10px);
-            z-index: -1;
+          body.loaded {
+            opacity: 1;
+          }
+          * {
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
           }
         `}</style>
-      </motion.div>
-    </AnimatePresence>
+      </Head>
+      
+      <div className="app-container">
+        <AnimatePresence mode="wait">
+          {showIntro && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1000 }}
+            >
+              <IntroAnimation />
+            </motion.div>
+          )}
+          
+          {(isLoading || isRouteChanging) && !showIntro && (
+            <motion.div
+              className="loading-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <div className="loading-aurora">
+                <div className="aurora-layer1" />
+                <div className="aurora-layer2" />
+                <div className="aurora-layer3" />
+              </div>
+              <div className="loading-stars">
+                {[...Array(50)].map((_, i) => {
+                  const leftPos = Math.random() * 100;
+                  const topPos = Math.random() * 100;
+                  const starSize = Math.random() * 2 + 1;
+                  const delay = Math.random() * 2;
+                  const duration = Math.random() * 1 + 0.5;
+                  const brightness = Math.random() * 0.5 + 0.5;
+                  
+                  return (
+                    <motion.div
+                      key={i}
+                      className="loading-star"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ 
+                        opacity: [0, brightness, 0],
+                        scale: [0, 1.2, 0],
+                      }}
+                      transition={{
+                        duration: duration,
+                        delay: delay,
+                        repeat: Infinity,
+                        repeatDelay: Math.random() * 1,
+                        ease: "easeInOut"
+                      }}
+                      style={{
+                        left: `${leftPos}%`,
+                        top: `${topPos}%`,
+                        width: `${starSize}px`,
+                        height: `${starSize}px`,
+                        boxShadow: `0 0 ${starSize * 2}px rgba(255, 255, 255, ${brightness})`
+                      }}
+                    />
+                  );
+                })}
+              </div>
+              <div className="loading-content">
+                <motion.div
+                  className="loading-spinner"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.5, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                >
+                  <div className="spinner"></div>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        
+        {showContent && !showIntro && <Navbar />}
+        
+        <AnimatePresence mode="wait">
+          {showContent && (
+            <PageTransition key={router.route}>
+              <Component {...pageProps} />
+            </PageTransition>
+          )}
+        </AnimatePresence>
+      </div>
+      
+      <div className="blurred-bg" />
+      
+      <style jsx global>{`
+        .app-container {
+          position: relative;
+          min-height: 100vh;
+          width: 100%;
+          overflow: hidden;
+          perspective: 1000px;
+          transform-style: preserve-3d;
+        }
+
+        .loading-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          background: #0a0a2a;
+          overflow: hidden;
+          perspective: 1000px;
+          transform-style: preserve-3d;
+        }
+
+        .loading-aurora {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          transform-style: preserve-3d;
+        }
+
+        .aurora-layer1,
+        .aurora-layer2,
+        .aurora-layer3 {
+          position: absolute;
+          width: 200%;
+          height: 200%;
+          top: -50%;
+          left: -50%;
+          opacity: 0.15;
+          filter: blur(60px);
+          animation: auroraMove 20s infinite linear;
+          transform-style: preserve-3d;
+        }
+
+        .aurora-layer1 {
+          background: radial-gradient(circle at center, 
+            rgba(38, 208, 124, 0.3) 0%,
+            rgba(38, 208, 124, 0.2) 20%,
+            rgba(38, 208, 124, 0.1) 40%,
+            transparent 70%
+          );
+          animation-delay: 0s;
+        }
+
+        .aurora-layer2 {
+          background: radial-gradient(circle at center, 
+            rgba(38, 208, 124, 0.2) 0%,
+            rgba(38, 208, 124, 0.15) 20%,
+            rgba(38, 208, 124, 0.1) 40%,
+            transparent 70%
+          );
+          animation-delay: -6.66667s;
+        }
+
+        .aurora-layer3 {
+          background: radial-gradient(circle at center, 
+            rgba(38, 208, 124, 0.1) 0%,
+            rgba(38, 208, 124, 0.05) 20%,
+            rgba(38, 208, 124, 0.02) 40%,
+            transparent 70%
+          );
+          animation-delay: -13.33333s;
+        }
+
+        @keyframes auroraMove {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        .loading-stars {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          transform-style: preserve-3d;
+        }
+
+        .loading-star {
+          position: absolute;
+          background: white;
+          border-radius: 50%;
+          animation: twinkle 2s infinite;
+          transform-style: preserve-3d;
+        }
+
+        @keyframes twinkle {
+          0%, 100% {
+            opacity: 0;
+            transform: scale(0);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        .loading-content {
+          position: relative;
+          z-index: 2;
+          transform-style: preserve-3d;
+        }
+
+        .loading-spinner {
+          width: 50px;
+          height: 50px;
+          transform-style: preserve-3d;
+        }
+
+        .spinner {
+          width: 100%;
+          height: 100%;
+          border: 3px solid transparent;
+          border-top-color: #26d07c;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          transform-style: preserve-3d;
+        }
+
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        .blurred-bg {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: #0a0a2a;
+          z-index: -1;
+          transform-style: preserve-3d;
+        }
+      `}</style>
+    </>
   );
 }
 
