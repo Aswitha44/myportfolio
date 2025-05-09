@@ -14,6 +14,12 @@
   z-index: 0;
 }
 
+@media (max-width: 768px) {
+  .aboutSection {
+    justify-content: center;
+  }
+}
+
 /* 2) Fullscreen Background Video */
 .videoBg {
   position: absolute;
@@ -21,16 +27,13 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
-  min-height: 100vh; /* at least full screen height */
-  height: auto; /* let video keep aspect ratio naturally */
+  min-height: 100vh;
+  height: auto;
   object-fit: cover;
   object-position: center center;
   z-index: -2;
   background: #000;
 }
-
-
-
 
 /* 3) Text Content */
 .aboutContent {
@@ -39,6 +42,24 @@
   width: 45%;
   padding: 2rem;
   color: #fff;
+  text-align: left;
+  align-self: flex-start;
+  margin-top: 120px; /* 🔁 increase this for lower positioning */
+}
+
+
+@media (max-width: 1024px) {
+  .aboutContent {
+    width: 60%;
+  }
+}
+
+@media (max-width: 768px) {
+  .aboutContent {
+    width: 90%;
+    padding: 1.5rem;
+    text-align: center;
+  }
 }
 
 /* 4) Headings */
@@ -116,7 +137,6 @@
   animation: fadeInUp 0.8s 1.2s forwards;
 }
 
-
 /* 9) Keyframes */
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -152,15 +172,4 @@
   0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
   40% { transform: translateY(-10px); }
   60% { transform: translateY(-5px); }
-}
-
-/* 10) Responsive */
-@media (max-width: 1024px) {
-  .aboutContent { width: 60%; }
-}
-@media (max-width: 768px) {
-  .aboutContent { width: 100%; padding: 1.5rem; text-align: center; }
-  .name { font-size: 2.5rem; }
-  .role { font-size: 1.2rem; }
-  .summary { font-size: 0.9rem; }
 }

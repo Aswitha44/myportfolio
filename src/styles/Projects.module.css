@@ -31,12 +31,14 @@
   perspective: 1500px;
   perspective-origin: 50% 50%;
   transform-style: preserve-3d;
+
   overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  margin-top: 9rem;               /* was -2rem, now positive for spacing */
-  padding: 2rem 2rem;             /* fixed shorthand */
+  overflow-y: hidden;      /* ✅ Prevent vertical scroll */
+  touch-action: pan-x;     /* ✅ Prevent vertical touch gestures */
+  margin-top: 9rem;
+  padding: 2rem 2rem;
 }
+
 .galleryWrapper::-webkit-scrollbar {
   display: none;
 }
@@ -266,29 +268,56 @@
 
 /* 13) Responsive breakpoints */
 @media (max-width: 768px) {
-  .galleryWrapper { height: 450px; }
-  .gallery {
-    padding-left: 3rem;
-    padding-right: 1rem;
-    gap: 1.5rem;
-    transform: rotateX(20deg) translateY(-40px);
-    margin-left: 6rem;
+  .galleryWrapper {
+    display: flex;
+  align-items: center; 
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    margin-left: 1rem;   
+    
+              /* Adjusted for smaller screens */
   }
+.gallery {
+  padding-left: 1.5rem;
+  padding-right: 1rem;
+  margin-left: 0; 
+  gap: 1.5rem;
+}
+
+
+
   .projectCard {
+    margin-bottom: 0;
     width: 240px;
     height: 340px;
   }
-  .projectCard:hover,
-  .projectCard.active {
-    transform: rotateX(-20deg) translateZ(80px) rotateX(20deg);
+
+  .overlay {
+    padding: 1.2rem;
   }
-  .overlay { padding: 1.5rem; }
-  .overlay h3 { font-size: 1.2rem; }
-  .overlay p { font-size: 0.9rem; }
-  .scrollIndicator { bottom: 10px; }
-  .scrollText { font-size: 0.8rem; }
-  .scrollArrow { width: 25px; height: 25px; }
+
+  .overlay h3 {
+    font-size: 1.1rem;
+  }
+
+  .overlay p {
+    font-size: 0.85rem;
+  }
+
+  .scrollIndicator {
+    bottom: 40px;
+  }
+
+  .scrollText {
+    font-size: 1rem;
+  }
+
+  .scrollArrow {
+    width: 25px;
+    height: 25px;
+  }
 }
+
 
 /* 14) Smooth scrolling for gallery */
 @media (prefers-reduced-motion: no-preference) {

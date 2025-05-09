@@ -226,28 +226,56 @@
     font-size: 1.2rem;
   }
   
-  @media (max-width: 768px) {
-    .container {
+ @media (max-width: 768px) {
+   .container {
       height: auto;                  /* Let it expand */
       min-height: auto;             /* Reset min-height */
       overflow: visible !important; /* Ensure no internal scroll */
       padding: 25rem 1rem 6rem;
       background: none;             /* Let global background show */
     }
-  
-    .contactSection {
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
-      padding-top: 60px;
-    }
-  
-    .formWrapper {
-      width: 100%;
-      max-width: 100%;
-      padding: 20px;
-      margin-bottom: 2rem;
-    }
+  .contactSection {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-top: 60px;
   }
-  
-    
+
+  .contactInfo {
+    align-items: center;
+    text-align: center;
+  }
+
+  .contactText {
+    padding: 10px;
+  }
+
+  .subTitle {
+    font-size: 1.5rem;
+  }
+
+  .contactParagraph {
+    font-size: 1rem;
+  }
+
+  .infoItem {
+    justify-content: center;
+  }
+
+  .socialLinks {
+    justify-content: center;
+  }
+
+  .formWrapper {
+    width: 100%;
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .formTitle {
+    font-size: 1.3rem;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+}

@@ -161,16 +161,64 @@
 /* 8) Responsive fallback */
 @media (max-width: 768px) {
   .timelineWrapper {
-    padding: 0 1rem;
+    padding: 0;
   }
-  .verticalLine,
+
+  .verticalLine {
+    left: 10%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 100vh;
+  }
+
   .ufo {
-    left: 20px;
-    transform: none;
+    left: 10%;
+    transform: translateX(-50%);
   }
+
+  .ufoIcon {
+    font-size: 2.8rem;
+  }
+
+  .ufoGlow {
+    width: 18px;
+    height: 18px;
+    bottom: -5px;
+  }
+
   .cardWrapper {
     justify-content: center !important;
-    padding: 4rem 1rem;
-    min-height: auto;
+    padding: 2rem 1rem;
+    min-height: 100vh; /* 🔁 restore full screen per card */
+    scroll-snap-align: start;
+  }
+
+  .card {
+    max-width: 360px;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .cardHeader {
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .cardIcon {
+    font-size: 1.5rem;
+    padding: 0.3rem;
+  }
+
+  .role {
+    font-size: 1.05rem;
+  }
+
+  .responsibilities {
+    font-size: 0.85rem;
+  }
+
+  .pageTitle {
+    font-size: 1.5rem;
+    margin-top: 65px;
   }
 }
