@@ -1,83 +1,88 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import styles from '../styles/Contact.module.css';
-import userData from '../data/user-data.json';
+import styles from '../../styles/Contact.module.css';
+import userData from '../../data/user-data.json';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    email: '',
-    subject: '',
-    message: '',
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission delay
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setFormData({ email: '', subject: '', message: '' });
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/c5623de0de525743ca56b4ad4391ff3b", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
 
-      // Reset submission status after some time
-      setTimeout(() => {
-        setSubmitted(false);
-      }, 3000);
-    }, 1500);
+      const result = await response.json();
+      if (result.success === "true" || result.success) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <>
-      
-    <div className={styles.container}>
-    <div className="aurora-bg">
+    <section className={styles.container}>
+      <div className="aurora-bg">
         <div className="aurora aurora-1"></div>
         <div className="aurora aurora-2"></div>
         <div className="aurora aurora-3"></div>
       </div>
-      <h1 className={`${styles.pageTitle} glow-text`}>Get In Touch</h1>
-      
+
+
       <div className={styles.contactSection}>
         <div className={styles.contactInfo}>
           <div className={styles.contactText}>
-            <h2 className={styles.subTitle}>Let's Connect</h2>
+            
+      <h1 className={`${styles.subTitle} glow-text`}>Let's Connect</h1>
+            
             <p className={styles.contactParagraph}>
               I'm currently open to new opportunities and collaborations. Feel free to reach out if you'd like to discuss a project, have questions, or just want to say hello.
             </p>
-
             <div className={styles.infoItems}>
-              <div className={styles.infoItem}>
+              {/* <div className={styles.infoItem}>
                 <i className="fas fa-envelope"></i>
                 <a href={`mailto:${userData.contact.email}`} className={styles.infoLink}>
                   {userData.contact.email}
                 </a>
-              </div>
-
+              </div> */}
               <div className={styles.infoItem}>
                 <i className="fas fa-phone-alt"></i>
                 <a href={`tel:${userData.contact.phone}`} className={styles.infoLink}>
                   {userData.contact.phone}
                 </a>
               </div>
-
               <div className={styles.socialLinks}>
-                <a href={userData.contact.github || "https://github.com"} className={styles.socialLink} target="_blank" rel="noopener noreferrer">
+                <a href={userData.contact.github} className={styles.socialLink} target="_blank" rel="noopener noreferrer">
                   <i className="fab fa-github"></i>
                 </a>
-                <a href={userData.contact.linkedin || "https://linkedin.com"} className={styles.socialLink} target="_blank" rel="noopener noreferrer">
+                <a href={userData.contact.linkedin} className={styles.socialLink} target="_blank" rel="noopener noreferrer">
                   <i className="fab fa-linkedin-in"></i>
                 </a>
+                {userData.contact.twitter && (
+                  <a href={userData.contact.twitter} className={styles.socialLink} target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-twitter"></i>
+                  </a>
+                )}
               </div>
             </div>
           </div>
@@ -85,63 +90,55 @@ export default function Contact() {
 
         <div className={styles.contactForm}>
           <div className={styles.formWrapper}>
-            <h2 className={styles.formTitle}>Drop Mail</h2>
+            <h2 className={styles.formTitle}>Message Box</h2>
 
             {submitted ? (
-              <motion.div 
-                className={styles.successMessage}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
+              <div className={styles.successMessage}>
                 <i className="fas fa-check-circle"></i>
                 <p>Thank you! Your message has been sent.</p>
-              </motion.div>
+              </div>
             ) : (
-              <form className={styles.form} onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.formGroup}>
-                  <label className={styles.label} htmlFor="email">Your Email</label>
+                  <label htmlFor="name" className={styles.label}>Your Name</label>
                   <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     className={styles.input}
+                    required
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="email" className={styles.label}>Your Email</label>
+                  <input
                     type="email"
-                    id="email"
                     name="email"
+                    id="email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label className={styles.label} htmlFor="subject">Subject</label>
-                  <input
                     className={styles.input}
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
                     required
                   />
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label className={styles.label} htmlFor="message">Message</label>
+                  <label htmlFor="message" className={styles.label}>Message</label>
                   <textarea
-                    className={styles.textarea}
-                    id="message"
                     name="message"
+                    id="message"
                     rows="5"
                     value={formData.message}
                     onChange={handleChange}
+                    className={styles.textarea}
                     required
                   ></textarea>
                 </div>
 
-                <button 
-                  className={styles.submitButton} 
-                  type="submit"
-                  disabled={isSubmitting}
-                >
+                <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <span className={styles.spinner}></span>
@@ -154,8 +151,6 @@ export default function Contact() {
           </div>
         </div>
       </div>
-     
-    </div>
-    </>
+    </section>
   );
 }

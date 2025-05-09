@@ -1,167 +1,153 @@
-/* styles/Navbar.module.css */
+/* MAIN NAVBAR CONTAINER */
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    padding: 20px 0;
-    transition: all 0.3s ease;
-    background: rgba(11, 16, 38, 0.2);
-    backdrop-filter: blur(10px);
-  }
-  
-  
-  .navContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: 700;
-    text-decoration: none;
-    color: var(--text-light);
-    display: flex;
-    align-items: left;
-    position: relative;
-    margin-left: 0;
-    padding-left: 0;
-  }
-  
-  .glowText {
-    text-shadow: 0 0 10px rgba(38, 208, 124, 0.5);
-  }
-  
-  .pencil {
-    position: absolute;
-    right: -12px;
-    bottom: 2px;
-    transform: rotate(-15deg);
-    color: var(--aurora-green);
-    font-size: 1.2rem;
-    filter: drop-shadow(0 0 5px var(--aurora-green));
-    animation: neonPulse 2s infinite;
-  }
-  
-  .accent {
-    color: var(--aurora-green);
-    margin-left: 2px;
-  }
-  
-  .navLinks {
-    display: flex;
-    gap: 30px;
-  }
-  
-  .navLink {
-    text-decoration: none;
-    color: var(--text-light);
-    font-weight: 500;
-    position: relative;
-    padding: 5px 0;
-    transition: all 0.3s ease;
-  }
-  
-  .navLink:hover {
-    color: var(--aurora-green);
-    text-shadow: 0 0 10px rgba(38, 208, 124, 0.5);
-  }
-  
-  .navLink.active {
-    color: var(--aurora-green);
-    text-shadow: 0 0 10px rgba(38, 208, 124, 0.5);
-  }
-  
-  .navLink.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--aurora-green);
-    box-shadow: 0 0 10px rgba(38, 208, 124, 0.8);
-  }
-
-  .pageNavigation {
-    position: fixed;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    z-index: 1000;
-    pointer-events: none;
-    max-width: 100%;
-    margin: 0 auto;
-   margin-left:20px;
-   margin-right: 20px;
-  }
-  
-  .navArrow {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    pointer-events: auto;
-  }
-  
-  .navArrow.left {
-    position: absolute;
-    left: 0; /* Left arrow on the left side */
-  }
-  
-  .navArrow.right {
-    position: absolute;
-    right: 0; /* Right arrow on the right side */
-  }
-  
-  .navArrow:hover {
-  
-    background: var(--aurora-blue);
-    box-shadow: 0 0 13px #FF5AEF;
-  }
-
-.navArrow.hidden {
-  visibility: hidden;
+  position: fixed;  
+  top:8px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 16px 24px;
 }
+
+/* FLEX LAYOUT: LOGO - PILL - TOGGLE */
+.navContainer {
+  position: relative;
+  display: flex;  
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
   
-  @keyframes neonPulse {
-    0% {
-      filter: drop-shadow(0 0 5px var(--aurora-green));
-    }
-    50% {
-      filter: drop-shadow(0 0 10px var(--aurora-green));
-    }
-    100% {
-      filter: drop-shadow(0 0 5px var(--aurora-green));
-    }
+}
+
+
+/* LOGO (LEFT) */
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-light);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  
+}
+
+.glowText {
+  text-shadow: 0 0 10px rgba(38, 208, 124, 0.5);
+}
+
+.pencil {
+  transform: rotate(-15deg);
+  color: var(--aurora-green);
+  font-size: 1.2rem;
+  filter: drop-shadow(0 0 5px var(--aurora-green));
+  animation: neonPulse 2s infinite;
+}
+
+/* PILL NAVIGATION STYLE (CENTER) */
+.navPill {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background:linear-gradient(135deg, var(--deep-blue),var(--dark-blue)) ;
+  backdrop-filter: blur(12px);
+  border-radius: 999px;
+  padding: 8px 32px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  box-shadow: 0 0 12px rgba(38, 208, 124, 0.4);
+}
+
+
+/* LINKS INSIDE PILL */
+.navLinks {
+  display: flex;
+  gap: 32px;
+}
+
+.navLink {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.navLink:hover,
+.navLink.active {
+  color: var(--aurora-green);
+  background: rgba(255, 255, 255, 0.05);
+  text-shadow: 0 0 10px rgba(38, 208, 124, 0.5);
+}
+
+.navLink.active::after {
+  display: none; /* No underline */
+}
+
+/* TOGGLE ICON (RIGHT SIDE) */
+.toggleIcon {
+  display: none;
+  color: var(--text-light);
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+/* MOBILE MENU */
+.mobileMenu {
+  position: absolute;
+  top: 64px;
+  right: 24px;
+  background: rgba(11, 16, 38, 0.95);
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobileLink {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.mobileLink:hover {
+  color: var(--aurora-green);
+  background: rgba(255, 255, 255, 0.05);
+  text-shadow: 0 0 10px rgba(38, 208, 124, 0.4);
+}
+
+/* ANIMATION FOR ICON */
+@keyframes neonPulse {
+  0% {
+    filter: drop-shadow(0 0 5px var(--aurora-green));
   }
-  
-  @media (max-width: 768px) {
-    .navLinks {
-      display: none;
-    }
-  
-    .pageNavigation {
-      padding: 0 15px;
-    }
-  
-    .navArrow {
-      width: 32px;
-      height: 32px;
-    }
+  50% {
+    filter: drop-shadow(0 0 10px var(--aurora-green));
   }
+  100% {
+    filter: drop-shadow(0 0 5px var(--aurora-green));
+  }
+}
+
+/* RESPONSIVE: Hide pill, show toggle */
+@media (max-width: 768px) {
+  .navPill {
+    display: none;
+  }
+
+  .toggleIcon {
+    display: block;
+    position: absolute;
+    right: 24px;
+  }
+}
+

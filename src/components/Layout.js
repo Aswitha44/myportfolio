@@ -1,45 +1,36 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
 import Navbar from './Navbar';
-import IntroAnimation from './IntroAnimation';
 
-const Layout = ({ children }) => {
+const navLinks = ['/', '/experience', '/projects', '/skills', '/contact'];
+
+export default function Layout({ children }) {
+  const router = useRouter();
+  const currentIndex = navLinks.findIndex(path => path === router.pathname);
+  const scrollCooldown = useRef(false);
+
+  useEffect(() => {
+    const handleWheel = (e) => {
+      if (scrollCooldown.current) return;
+
+      scrollCooldown.current = true;
+      setTimeout(() => (scrollCooldown.current = false), 1000);
+
+      if (e.deltaY > 50 && currentIndex < navLinks.length - 1) {
+        router.push(navLinks[currentIndex + 1]);
+      } else if (e.deltaY < -50 && currentIndex > 0) {
+        router.push(navLinks[currentIndex - 1]);
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: true });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, [currentIndex, router.pathname]);
+
   return (
-    <motion.div 
-      className="app"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
-      <motion.div
-        className="app-content"
-        initial={{ scale: 0.95 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        style={{
-          transformStyle: "preserve-3d",
-          perspective: "1000px"
-        }}
-      >
-        {/* <Navbar /> */}
-       
-        <AnimatePresence mode="wait">
-          <motion.main
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ 
-              duration: 0.5,
-              ease: "easeInOut"
-            }}
-          >
-            {children}
-          </motion.main>
-        </AnimatePresence>
-      </motion.div>
-    </motion.div>
-    
+    <div className="layout">
+      <Navbar />
+      <div className="scroll-content">{children}</div>
+    </div>
   );
-};
-
-export default Layout; 
+}

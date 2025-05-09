@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaShareAlt, FaExternalLinkAlt } from 'react-icons/fa';
 import styles from '@/styles/Projects.module.css';
-import userData from '../data/user-data.json';
+import userData from '../../data/user-data.json';
 
 // Default project images - you can replace these with actual project images
 const projectImages = {
@@ -16,10 +16,10 @@ const projectImages = {
 // Extract tech stacks from project descriptions
 const extractTechStack = (description) => {
   const techKeywords = [
-    "Angular", "Bootstrap", "Stripe", "Redis", ".NET Core", "Azure",
+    "Angular", "Bootstrap", "Stripe", "Redis", ".NET Core", "Azure","JWT",
     "ASP.NET Core", "Razor Pages", "SQL Server", "JavaScript", "AJAX",
     "AWS", "S3", "React", "Firestore", "Vector Search", "Vertex AI",
-    "Google Cloud", "Flask", "Gemini 2.0"
+    "Google Cloud", "Flask", "Gemini 2.0","Next.js"
   ];
   
   return description
@@ -39,14 +39,14 @@ export default function Projects() {
     <div className="aurora aurora-2"></div>
     <div className="aurora aurora-3"></div>
   </div>
-      <motion.h1 
+      {/* <motion.h1 
         className={`${styles.pageTitle} glow-text`}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
         Projects
-      </motion.h1>
+      </motion.h1> */}
 
       <div className={styles.galleryWrapper}>
         <motion.div 
@@ -100,7 +100,7 @@ export default function Projects() {
        
       </div>
       <div className={styles.scrollIndicator}>
-          <span className={styles.scrollText}>Scroll to explore</span>
+          <span className={styles.scrollText}><i>Scroll to explore</i> PROJECTS</span>
           <div className={styles.scrollArrow} />
         </div>
     </div>

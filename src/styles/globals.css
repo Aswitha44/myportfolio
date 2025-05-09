@@ -1,8 +1,6 @@
-/* styles/globals.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Northern Lights Palette */
   --dark-blue: #0B1026;
   --deep-blue: #132154;
   --aurora-green: #26D07C;
@@ -19,23 +17,49 @@
   padding: 0;
 }
 
-html, body, #__next {
-  height: 100%; /* Ensure full height */
+html, body {
+  height: 100%;
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, var(--dark-blue) 0%, var(--deep-blue) 100%);
   color: var(--text-light);
   overflow-x: hidden;
   overflow-y: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;      /* IE/Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none;                 /* Chrome/Safari */
+}
+
+#__next {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .container {
   width: 100%;
-  max-width: 1200px; /* Constrains content between lines */
-  margin: 0 auto;    /* Centers content horizontally */
-  padding: 40px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 0;
   overflow-x: hidden;
   position: relative;
   z-index: 1;
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-x: hidden;
+}
+
+body > *:last-child {
+  margin-bottom: 0 !important;
 }
 
 .section {
@@ -63,7 +87,7 @@ html, body, #__next {
   text-shadow: 0 0 10px rgba(38, 208, 124, 0.5);
 }
 
-/* Flip page transition styles */
+/* Page transitions */
 .page-transition-enter {
   transform: rotateY(90deg);
   transform-origin: left center;
@@ -88,7 +112,7 @@ html, body, #__next {
   transition: transform 0.6s ease, opacity 0.3s ease;
 }
 
-/* Aurora animation background */
+/* Aurora */
 .aurora-bg {
   position: fixed;
   width: 100%;
@@ -130,7 +154,50 @@ html, body, #__next {
   animation-delay: -10s;
 }
 
-/* Enhanced aurora animation */
+/* Down Arrow */
+.downArrowWrapper {
+  position: absolute;
+  bottom: 30px;
+  left: 25%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 45px;
+  background: rgba(38, 208, 124, 0.1);
+  border: 2px solid var(--aurora-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(38, 208, 124, 0.4);
+  animation: glowPulse 2s infinite;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.downArrowWrapper:hover {
+  background: rgba(38, 208, 124, 0.2);
+  box-shadow: 0 0 25px rgba(38, 208, 124, 0.6);
+}
+
+.downArrow {
+  font-size: 28px;
+  color: var(--aurora-green);
+  animation: bounceArrow 2s infinite;
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 10px rgba(38, 208, 124, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(38, 208, 124, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(38, 208, 124, 0.3); }
+}
+
+@keyframes bounceArrow {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
 @keyframes aurora-float {
   0% {
     transform: translate(0, 0) scale(1) rotate(0deg);
@@ -152,7 +219,7 @@ html, body, #__next {
   }
 }
 
-/* Star field background */
+/* Stars */
 .stars {
   position: fixed;
   top: 0;
@@ -173,21 +240,29 @@ html, body, #__next {
 }
 
 @keyframes twinkle {
-  0%, 100% {
-    opacity: 0;
-  }
-  50% {
-    opacity: var(--opacity, 0.7);
-  }
+  0%, 100% { opacity: 0; }
+  50% { opacity: var(--opacity, 0.7); }
 }
 
-/* Media queries for responsiveness */
+/* Media Queries */
+@media (max-width: 1200px) {
+  .container { max-width: 960px; }
+}
+@media (max-width: 992px) {
+  .container { max-width: 720px; }
+  .section { gap: 30px; }
+}
 @media (max-width: 768px) {
-  .section {
-    grid-template-columns: 1fr;
-  }
-  
-  .container {
-    padding: 20px;
-  }
+  .container { max-width: 540px; padding: 20px 15px 0; }
+  .section { grid-template-columns: 1fr; gap: 20px; }
+  .card { padding: 20px; }
+  .downArrowWrapper { width: 40px; height: 40px; bottom: 20px; }
+  .downArrow { font-size: 24px; }
+}
+@media (max-width: 576px) {
+  .container { padding: 15px 10px 0; }
+  .section { margin-top: 20px; }
+  .card { padding: 15px; }
+  .downArrowWrapper { width: 35px; height: 35px; bottom: 15px; }
+  .downArrow { font-size: 20px; }
 }

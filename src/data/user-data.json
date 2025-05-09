@@ -51,7 +51,7 @@
   ],
   "skills": {
     "languages": ["Java", "Python", "C", "C++", "C#"],
-    "webDevelopment": ["ASP.NET", "React", "Angular", "JavaScript", "TypeScript", "NodeJS", "Tailwind"],
+    "webDevelopment": ["ASP.NET", "React", "Angular", "JavaScript", "TypeScript", "NodeJS", "Tailwind","Bootstrap"],
     "database": ["SQL Server", "MySQL", "MongoDB"],
     "cloudAndDevOps": ["Docker", "Azure", "AWS", "YAML", "Bash Scripting"],
     "certifications": ["AWS Certified Developer – Associate", "Microsoft Certified: Azure Fundamentals"]
@@ -100,9 +100,9 @@
     {
       "title": "Portfolio Website",
       "description": [
-        "Built a portfolio webiste based on resume conent using React",
+        "Designed and developed a portfolio webiste from scratch using React",
         "Used Tailwind CSS for styling",
-        "Implemented responsive design for mobile and tablet devices."
+        "Implemented responsive design for mobile and tablet devices using Next.js"
       ],
       "link":"https://aswitha-portfolio-site.vercel.app/"
     }
