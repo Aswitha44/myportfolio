@@ -25,9 +25,9 @@
   background: rgba(0, 0, 0, 0.1);
   border-radius: 16px;
   padding: 1rem 1.5rem;
-  border: 1px solid (--aurora-blue);
+  border: 1px solid var(--aurora-blue);
   box-shadow: 0 0 15px rgba(38, 208, 124, 0.3);
-  
+  backdrop-filter: blur(10px);
 }
 
 /* ------------ Tab Button ------------ */
@@ -45,6 +45,24 @@
   transition: all 0.3s ease;
   font-size: 1.2rem;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.tabButton::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;  
+  background: var(--aurora-green);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  text-decoration: none;
+}
+
+.tabButton:hover::after {
+  width: 80%;
 }
 
 .tabButton i {
@@ -52,10 +70,6 @@
   color: var(--aurora-green);
   margin-bottom: 0.3rem;
   transition: transform 0.6s ease, color 0.3s ease;
-}
-
-.tabButton:hover {
-  transform: translateY(-2px);
 }
 
 .tabButton:hover i {
@@ -67,6 +81,10 @@
   background: rgba(38,208,124,0.12);
   box-shadow: 0 0 12px rgba(38,208,124,0.25);
   font-weight: 600;
+}
+
+.tabButton.active::after {
+  width: 80%;
 }
 
 .tabButton.active i {
@@ -96,6 +114,7 @@
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1.5rem;
   justify-content: center;
+  padding: 1rem;
 }
 
 .skillCard {
@@ -103,17 +122,29 @@
   border-radius: 14px;
   padding: 1.2rem;
   text-align: center;
-  transition: 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 10px rgba(0,198,255,0.04);
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.04);
   color: #fff;
+  position: relative;
+  overflow: hidden;
 }
 
-.skillCard:hover {
-  transform: scale(1.05);
-  border-color: rgba(38, 208, 124, 0.2);
-  box-shadow: 0 10px 25px rgba(0, 198, 255, 0.1);
+.skillCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(38, 208, 124, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.skillCard:hover::before {
+  opacity: 1;
 }
 
 .skillIconImg {
@@ -121,12 +152,14 @@
   height: 50px;
   object-fit: contain;
   margin-bottom: 0.7rem;
+  transition: transform 0.5s ease;
 }
 
 .skillName {
   color: #f1f1f1;
   font-weight: 600;
   font-size: 0.95rem;
+  transition: color 0.3s ease;
 }
 
 /* ------------ Certificates Grid ------------ */
@@ -136,6 +169,7 @@
   gap: 2rem;
   margin-top: 1rem;
   justify-items: center;
+  padding: 1rem;
 }
 
 .certificateCard {
@@ -147,13 +181,25 @@
   max-width: 300px;
   backdrop-filter: blur(5px);
   box-shadow: 0 0 10px rgba(38, 208, 124, 0.1), 0 4px 20px rgba(0, 198, 255, 0.05);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.certificateCard:hover {
-  transform: translateY(-5px) scale(1.02);
-  border-color: rgba(0,198,255,0.3);
-  box-shadow: 0 0 20px rgba(38,208,124,0.2), 0 6px 30px rgba(0,198,255,0.1);
+.certificateCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(38, 208, 124, 0.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.certificateCard:hover::before {
+  opacity: 1;
 }
 
 .certificateImg {
@@ -163,7 +209,7 @@
   border-radius: 10px;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  
+  transition: transform 0.3s ease;
 }
 
 .certificateTitle {
@@ -171,6 +217,7 @@
   color: white;
   font-weight: 600;
   text-shadow: 0 0 4px rgba(0, 198, 255, 0.2);
+  transition: color 0.3s ease;
 }
 
 
@@ -186,6 +233,9 @@
     position: sticky;     /* so it stays top-aligned */
     top: 0;               /* stick to top within skills container */
     z-index: 2;           /* ensure it's above cards */
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
   
 
@@ -203,6 +253,7 @@
     font-size: 0.8rem;
     border-radius: 12px;
     white-space: nowrap;
+    
   }
 
   .tabButton i {

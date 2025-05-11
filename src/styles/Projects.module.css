@@ -37,6 +37,8 @@
   touch-action: pan-x;     /* ✅ Prevent vertical touch gestures */
   margin-top: 9rem;
   padding: 2rem 2rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .galleryWrapper::-webkit-scrollbar {
@@ -71,9 +73,9 @@
   transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   transform-origin: center;
   opacity: 0.9;
+  will-change: transform;
 }
-.projectCard:hover,
-.projectCard.active {
+.projectCard:hover {
   transform: rotateX(-25deg) translateZ(100px) rotateX(25deg);
   box-shadow:
     0 30px 50px rgba(0, 0, 0, 0.3),
@@ -101,6 +103,7 @@
   height: 100%;
   position: relative;
   overflow: hidden;
+  will-change: transform;
 }
 .imageWrapper img {
   width: 100%;
@@ -109,8 +112,7 @@
   transition: transform 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   transform: scale(1.1);
 }
-.projectCard:hover .imageWrapper img,
-.projectCard.active .imageWrapper img {
+.projectCard:hover .imageWrapper img {
   transform: scale(1.2);
 }
 
@@ -129,9 +131,9 @@
   padding: 1.5rem;
   transform: translateY(65%);
   transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  backdrop-filter: blur(5px);
 }
-.projectCard:hover .overlay,
-.projectCard.active .overlay {
+.projectCard:hover .overlay {
   transform: translateY(0);
   background: linear-gradient(
     to top,
@@ -170,9 +172,9 @@
   font-size: 0.8rem;
   border: 1px solid rgba(38, 208, 124, 0.3);
   transition: all 0.3s ease;
+  cursor: pointer;
 }
-.projectCard:hover .techTag,
-.projectCard.active .techTag {
+.projectCard:hover .techTag {
   background: rgba(38, 208, 124, 0.3);
   border-color: var(--aurora-green);
   box-shadow: 0 0 10px rgba(38, 208, 124, 0.2);
@@ -324,4 +326,47 @@
   .galleryWrapper {
     scroll-behavior: smooth;
   }
+}
+
+/* 10) Scroll progress indicator */
+.scrollProgress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--aurora-green),
+    var(--aurora-blue)
+  );
+  transform-origin: 0%;
+  z-index: 100;
+}
+
+/* Scroll Toggle Button */
+.scrollToggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background: rgba(38, 208, 124, 0.2);
+  border: 1px solid var(--aurora-green);
+  color: var(--aurora-green);
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  backdrop-filter: blur(5px);
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.scrollToggle:hover {
+  background: rgba(38, 208, 124, 0.3);
+  box-shadow: 0 0 20px rgba(38, 208, 124, 0.3);
+  transform: translateY(-2px);
+}
+
+.scrollToggle:active {
+  transform: translateY(0);
 }

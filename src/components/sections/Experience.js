@@ -15,6 +15,7 @@ export default function Experience() {
   const [activeIndex, setActiveIndex] = useState(0);
   const ufoControls = useAnimation();
 
+  // Measure positions of cards
   useEffect(() => {
     const update = () => {
       if (!wrapperRef.current) return;
@@ -29,6 +30,7 @@ export default function Experience() {
     return () => window.removeEventListener('resize', update);
   }, [timeline.length]);
 
+  // Scroll sync logic
   useEffect(() => {
     const el = wrapperRef.current;
     if (!el) return;
@@ -48,6 +50,7 @@ export default function Experience() {
     return () => el.removeEventListener('scroll', onScroll);
   }, [positions, activeIndex]);
 
+  // UFO motion animation
   useEffect(() => {
     const pos = positions[activeIndex];
     if (pos != null) {
@@ -58,18 +61,29 @@ export default function Experience() {
     }
   }, [activeIndex, positions, ufoControls]);
 
+  // 🔧 Fix: Scroll first card into view on load
+  useEffect(() => {
+    if (positions.length > 0 && wrapperRef.current) {
+      wrapperRef.current.scrollTo({
+        top: positions[0].top - wrapperRef.current.clientHeight / 2,
+        behavior: 'smooth',
+      });
+    }
+  }, [positions]);
+
   return (
     <div className={styles.container}>
-    <div className="aurora-bg">
-      <div className="aurora aurora-1"></div>
-      <div className="aurora aurora-2"></div>
-      <div className="aurora aurora-3"></div>
-    </div>
-    <section id="experience" className={styles.experienceSection}>
+      <div className="aurora-bg">
+        <div className="aurora aurora-1"></div>
+        <div className="aurora aurora-2"></div>
+        <div className="aurora aurora-3"></div>
+      </div>
+      <section id="experience" className={styles.experienceSection}>
         <h2 className={styles.pageTitle}>Education & Work Experience </h2>
 
         <div ref={wrapperRef} className={styles.timelineWrapper}>
           <div className={styles.verticalLine} />
+
           <motion.div
             className={styles.ufo}
             initial={{ top: positions[0]?.top || 0 }}
@@ -91,10 +105,10 @@ export default function Experience() {
               >
                 <motion.div
                   className={styles.card}
-                  initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
                 >
                   <div className={styles.cardHeader}>
                     <span className={styles.cardIcon}>
@@ -125,8 +139,5 @@ export default function Experience() {
         </div>
       </section>
     </div>
-
-     
-    
   );
 }

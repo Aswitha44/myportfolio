@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import styles from '../../styles/Skills.module.css';
 
 const skillTabs = [
@@ -81,30 +82,53 @@ export default function Skills() {
         ))}
       </div>
 
-      <div className={styles.tabContent}>
+      <motion.div 
+        key={activeTab}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className={styles.tabContent}
+      >
         {currentTab.skills && (
           <div className={styles.skillsGrid}>
             {currentTab.skills.map((skill, index) => (
-              <div key={index} className={styles.skillCard}>
-                <img src={skill.logo} alt={skill.name} className={styles.skillIconImg} />
-                <div className={styles.skillName}>{skill.name}</div>
+              <div 
+                key={index} 
+                className={styles.skillCard}
+              >
+                <img 
+                  src={skill.logo} 
+                  alt={skill.name} 
+                  className={styles.skillIconImg}
+                />
+                <div className={styles.skillName}>
+                  {skill.name}
+                </div>
               </div>
             ))}
           </div>
         )}
-{currentTab.certificates && (
-  <div className={styles.certificatesGrid}>
-    {currentTab.certificates.map((cert, index) => (
-      <div key={index} className={styles.certificateCard}>
-        <img src={cert.logo} alt={cert.name} className={styles.certificateImg} />
-        <div className={styles.certificateTitle}>{cert.name}</div>
-      </div>
-    ))}
-  </div>
-)}
 
-
-      </div>
+        {currentTab.certificates && (
+          <div className={styles.certificatesGrid}>
+            {currentTab.certificates.map((cert, index) => (
+              <div 
+                key={index} 
+                className={styles.certificateCard}
+              >
+                <img 
+                  src={cert.logo} 
+                  alt={cert.name} 
+                  className={styles.certificateImg}
+                />
+                <div className={styles.certificateTitle}>
+                  {cert.name}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </motion.div>
     </section>
   );
 }

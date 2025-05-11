@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import styles from '../../styles/Contact.module.css';
 import userData from '../../data/user-data.json';
+import confetti from 'canvas-confetti';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef(null);
+  const isInView = useInView(formRef, { once: false, margin: "-100px" });
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -32,11 +36,54 @@ export default function Contact() {
       if (result.success === "true" || result.success) {
         setSubmitted(true);
         setFormData({ name: '', email: '', message: '' });
+        // Trigger confetti
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
       }
     } catch (err) {
       console.error("Error submitting form:", err);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const formVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const successVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 20
+      }
     }
   };
 
@@ -48,12 +95,21 @@ export default function Contact() {
         <div className="aurora aurora-3"></div>
       </div>
 
-
-      <div className={styles.contactSection}>
+      <motion.div 
+        className={styles.contactSection}
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
         <div className={styles.contactInfo}>
           <div className={styles.contactText}>
-            
-      <h1 className={`${styles.subTitle} glow-text`}>Let's Connect</h1>
+            <motion.h1 
+              className={`${styles.subTitle} glow-text`}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              Let's Connect
+            </motion.h1>
             
             <p className={styles.contactParagraph}>
               I'm currently open to new opportunities and collaborations. Feel free to reach out if you'd like to discuss a project, have questions, or just want to say hello.
@@ -72,36 +128,96 @@ export default function Contact() {
                 </a>
               </div>
               <div className={styles.socialLinks}>
-                <a href={userData.contact.github} className={styles.socialLink} target="_blank" rel="noopener noreferrer">
+                {userData.contact.github && (
+                  <motion.a 
+                    href={userData.contact.github} 
+                    className={styles.socialLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -5, scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
                   <i className="fab fa-github"></i>
-                </a>
-                <a href={userData.contact.linkedin} className={styles.socialLink} target="_blank" rel="noopener noreferrer">
+                  </motion.a>
+                )}
+                {userData.contact.linkedin && (
+                  <motion.a 
+                    href={userData.contact.linkedin} 
+                    className={styles.socialLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -5, scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
                   <i className="fab fa-linkedin-in"></i>
-                </a>
+                  </motion.a>
+                )}
                 {userData.contact.twitter && (
-                  <a href={userData.contact.twitter} className={styles.socialLink} target="_blank" rel="noopener noreferrer">
+                  <motion.a 
+                    href={userData.contact.twitter} 
+                    className={styles.socialLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -5, scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
                     <i className="fab fa-twitter"></i>
-                  </a>
+                  </motion.a>
                 )}
               </div>
             </div>
           </div>
         </div>
 
-        <div className={styles.contactForm}>
+        <motion.div 
+          className={styles.contactForm}
+          ref={formRef}
+          variants={formVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
           <div className={styles.formWrapper}>
-            <h2 className={styles.formTitle}>Message Box</h2>
+            <motion.h2 
+              className={styles.formTitle}
+              animate={{ y: [0, -3, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              Message Box
+            </motion.h2>
 
+            <AnimatePresence mode="wait">
             {submitted ? (
-              <div className={styles.successMessage}>
-                <i className="fas fa-check-circle"></i>
-                <p>Thank you! Your message has been sent.</p>
-              </div>
+                <motion.div 
+                  className={styles.successMessage}
+                  variants={successVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  <motion.i 
+                    className="fas fa-check-circle"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.2 }}
+                  ></motion.i>
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    Thank you! Your message has been sent.
+                  </motion.p>
+                </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className={styles.form}>
+                <motion.form 
+                  onSubmit={handleSubmit} 
+                  className={styles.form}
+                  variants={formVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
                 <div className={styles.formGroup}>
                   <label htmlFor="name" className={styles.label}>Your Name</label>
-                  <input
+                    <motion.input
                     type="text"
                     name="name"
                     id="name"
@@ -109,12 +225,13 @@ export default function Contact() {
                     onChange={handleChange}
                     className={styles.input}
                     required
+                      whileFocus={{ scale: 1.03 }}
                   />
                 </div>
 
                 <div className={styles.formGroup}>
                   <label htmlFor="email" className={styles.label}>Your Email</label>
-                  <input
+                    <motion.input
                     type="email"
                     name="email"
                     id="email"
@@ -122,12 +239,13 @@ export default function Contact() {
                     onChange={handleChange}
                     className={styles.input}
                     required
+                      whileFocus={{ scale: 1.03 }}
                   />
                 </div>
 
                 <div className={styles.formGroup}>
                   <label htmlFor="message" className={styles.label}>Message</label>
-                  <textarea
+                    <motion.textarea
                     name="message"
                     id="message"
                     rows="5"
@@ -135,22 +253,30 @@ export default function Contact() {
                     onChange={handleChange}
                     className={styles.textarea}
                     required
-                  ></textarea>
+                      whileFocus={{ scale: 1.03 }}
+                    ></motion.textarea>
                 </div>
 
-                <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
+                  <motion.button 
+                    type="submit" 
+                    className={styles.submitButton} 
+                    disabled={isSubmitting}
+                    whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(38, 208, 124, 0.5)" }}
+                    whileTap={{ scale: 0.95 }}
+                  >
                   {isSubmitting ? (
                     <>
                       <span className={styles.spinner}></span>
                       Sending...
                     </>
                   ) : 'Send Message'}
-                </button>
-              </form>
+                  </motion.button>
+                </motion.form>
             )}
+            </AnimatePresence>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

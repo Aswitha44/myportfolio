@@ -63,7 +63,7 @@
         "Designed a Full stack web app from scratch using Angular and ASP.NET Core.",
         "Implemented Stripe webhooks to safeguard transactions.",
         "Optimized cart performance using Redis caching.",
-        "Secured authentication with .NET Core Identity, JWT, and RBAC",
+        "Secured authentication with .NET Core Identity, JWT and RBAC",
         "Deployed on Azure App Service with CI/CD using GitHub Actions."
       ],
       "link":"https://skisurfshop.azurewebsites.net/"

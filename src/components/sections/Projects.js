@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { FaShareAlt, FaExternalLinkAlt } from 'react-icons/fa';
 import styles from '@/styles/Projects.module.css';
 import userData from '../../data/user-data.json';
@@ -30,81 +30,155 @@ const extractTechStack = (description) => {
     ));
 };
 
-export default function Projects() {
-  return (
-    <>  
-      <div className={styles.container}>
-      <div className="aurora-bg">
-    <div className="aurora aurora-1"></div>
-    <div className="aurora aurora-2"></div>
-    <div className="aurora aurora-3"></div>
-  </div>
-      {/* <motion.h1 
-        className={`${styles.pageTitle} glow-text`}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        Projects
-      </motion.h1> */}
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.8,
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.3,
+      staggerChildren: 0.05,
+      staggerDirection: -1
+    }
+  }
+};
 
-      <div className={styles.galleryWrapper}>
+const cardVariants = (index) => ({
+  hidden: { 
+    opacity: 0,
+    y: 100,
+    scale: 0.8
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 20,
+      delay: index * 0.1
+    }
+  },
+  exit: {
+    opacity: 0,
+    y: 50,
+    scale: 0.9,
+    transition: {
+      duration: 0.2
+    }
+  }
+});
+
+export default function Projects() {
+  const galleryRef = useRef(null);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: false, margin: "-100px" });
+  
+  const { scrollXProgress } = useScroll({
+    container: galleryRef
+  });
+  
+  const smoothProgress = useSpring(scrollXProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return (
+    <div className={styles.container} ref={sectionRef}>
+      <div className="aurora-bg">
+        <div className="aurora aurora-1"></div>
+        <div className="aurora aurora-2"></div>
+        <div className="aurora aurora-3"></div>
+      </div>
+
+      <div className={styles.galleryWrapper} ref={galleryRef}>
         <motion.div 
           className={styles.gallery}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          exit="exit"
         >
           {userData.projects.map((project, index) => (
             <motion.div 
               key={index}
               className={styles.projectCard}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ 
+              variants={cardVariants(index)}
+              whileHover={{
                 scale: 1.05,
-                transition: { duration: 0.2 }
+                boxShadow: "0 0 20px rgba(38, 208, 124, 0.3)",
+                borderColor: "var(--aurora-green)"
               }}
             >
-              <div className={styles.imageWrapper}>
+              <motion.div 
+                className={styles.imageWrapper}
+                whileHover={{
+                  scale: 1.1,
+                  transition: { duration: 0.2 }
+                }}
+              >
                 {project.link && (
-                  <a 
+                  <motion.a 
                     href={project.link} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className={styles.shareIcon}
                     onClick={(e) => e.stopPropagation()}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
                   >
                     <FaExternalLinkAlt />
-                  </a>
+                  </motion.a>
                 )}
                 <img 
                   src={projectImages[project.title] || `/projects/default.jpg`} 
                   alt={project.title} 
                 />
-                <div className={styles.overlay}>
+                <motion.div 
+                  className={styles.overlay}
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <h3>{project.title}</h3>
                   <p>{project.description[0]}</p>
                   <div className={styles.techStack}>
                     {extractTechStack(project.description).map((tech, i) => (
-                      <span key={i} className={styles.techTag}>{tech}</span>
+                      <motion.span 
+                        key={i} 
+                        className={styles.techTag}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        {tech}
+                      </motion.span>
                     ))}
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>
-        
-       
       </div>
+
+      <motion.div 
+        className={styles.scrollProgress}
+        style={{ scaleX: smoothProgress }}
+      />
+
+      {/* Scroll to Explore Indicator */}
       <div className={styles.scrollIndicator}>
-          <span className={styles.scrollText}><i>Scroll to explore</i> PROJECTS</span>
-          <div className={styles.scrollArrow} />
-        </div>
+        <span className={styles.scrollText}>Scroll to Explore PROJECTS</span>
+        <div className={styles.scrollArrow}></div>
+      </div>
     </div>
-    </>
-  
   );
 }
