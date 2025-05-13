@@ -2,8 +2,10 @@
 import Head from 'next/head';
 import Navbar from '../components/Navbar';
 import IntroAnimation from '../components/IntroAnimation';
+import LoadingSpinner from '../components/LoadingSpinner';
 import '../styles/globals.css';
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Section imports (now in components/sections/)
 import About from '../components/sections/About';
@@ -21,20 +23,35 @@ const SECTIONS = [
 ];
 
 export default function MyApp() {
-  const [showIntro, setShowIntro] = useState(false);
-  const [showContent, setShowContent] = useState(false);
+  const [appState, setAppState] = useState('intro'); // 'intro' | 'loading' | 'content'
 
   useEffect(() => {
     const hasVisited = sessionStorage.getItem('hasVisited');
+    
     if (!hasVisited) {
-      setShowIntro(true);
+      // First visit: Show intro animation
       sessionStorage.setItem('hasVisited', 'true');
-      setTimeout(() => {
-        setShowIntro(false);
-        setShowContent(true);
+      
+      // After intro, show loading spinner
+      const introTimer = setTimeout(() => {
+        setAppState('loading');
+        
+        // After loading spinner, show content
+        const loadingTimer = setTimeout(() => {
+          setAppState('content');
+        }, 1500);
+        
+        return () => clearTimeout(loadingTimer);
       }, 4000);
+      
+      return () => clearTimeout(introTimer);
     } else {
-      setShowContent(true);
+      // Return visit: Show loading spinner briefly
+      const loadingTimer = setTimeout(() => {
+        setAppState('content');
+      }, 1500);
+      
+      return () => clearTimeout(loadingTimer);
     }
   }, []);
 
@@ -53,29 +70,56 @@ export default function MyApp() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {showIntro && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1000 }}>
-          <IntroAnimation />
-        </div>
-      )}
+      <AnimatePresence mode="wait">
+        {appState === 'intro' && (
+          <motion.div
+            key="intro"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1000 }}
+          >
+            <IntroAnimation />
+          </motion.div>
+        )}
 
-      {showContent && (
-        <>
-          <Navbar onLinkClick={scrollToSection} />
-          <div className="scroll-wrapper">
-            {SECTIONS.map(({ id, component }, index) => (
-              <section key={id} id={id} className="full-section">
-                {component}
-                {index === 0 && (
-                     <div className="downArrowWrapper" onClick={() => scrollToSection(SECTIONS[1].id)}>
-                     <i className="fas fa-chevron-down downArrow"></i>
-                   </div>
-                )}
-              </section>
-            ))}
-          </div>
-        </>
-      )}
+        {appState === 'loading' && (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1000 }}
+          >
+            <LoadingSpinner />
+          </motion.div>
+        )}
+
+        {appState === 'content' && (
+          <motion.div
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Navbar onLinkClick={scrollToSection} />
+            <div className="scroll-wrapper">
+              {SECTIONS.map(({ id, component }, index) => (
+                <section key={id} id={id} className="full-section">
+                  {component}
+                  {index === 0 && (
+                    <div className="downArrowWrapper" onClick={() => scrollToSection(SECTIONS[1].id)}>
+                      <i className="fas fa-chevron-down downArrow"></i>
+                    </div>
+                  )}
+                </section>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style jsx global>{`
         html, body {

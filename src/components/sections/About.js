@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../../styles/About.module.css';
 import userData from '../../data/user-data.json';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function About() {
   const videoRef = useRef(null);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 200]);
 
@@ -12,6 +13,10 @@ export default function About() {
     // scroll into view on mount
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   }, []);
+
+  const handleVideoLoad = () => {
+    setIsVideoLoaded(true);
+  };
 
   return (
     <section id="about" className={styles.aboutSection}>
@@ -28,6 +33,8 @@ export default function About() {
           muted
           loop
           playsInline
+          onLoadedData={handleVideoLoad}
+          preload="auto"
         />
       </motion.div>
 
@@ -112,12 +119,10 @@ export default function About() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          Let&apos;s Connect <i className="fas fa-arrow-right" />
+          Let&apos;s Connect
           <span className={styles.ctaGlow}></span>
         </motion.a>
       </motion.div>
-
-     
     </section>
   );
 }

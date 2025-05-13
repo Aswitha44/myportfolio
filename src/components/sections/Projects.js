@@ -10,7 +10,9 @@ const projectImages = {
   "Smart Blog Platform": "/projects/blog.jpg",
   "Serverless Automated File Processing System": "/projects/serverless.jpg",
   "Next-Gen Yoga App": "/projects/yoga.jpg",
-  "Portfolio Website": "/projects/portfolio.jpg"
+  "Cyber Guardian": "/projects/cyberg.jpg",
+  "Handwritten Digit Recognition": "/projects/digit.png",
+  "Portfolio Website": "/projects/portfolio.png"
 };
 
 // Extract tech stacks from project descriptions
@@ -19,7 +21,7 @@ const extractTechStack = (description) => {
     "Angular", "Bootstrap", "Stripe", "Redis", ".NET Core", "Azure","JWT",
     "ASP.NET Core", "Razor Pages", "SQL Server", "JavaScript", "AJAX",
     "AWS", "S3", "React", "Firestore", "Vector Search", "Vertex AI",
-    "Google Cloud", "Flask", "Gemini 2.0","Next.js"
+    "Google Cloud", "Flask", "Gemini 2.0","Next.js","FastAPI","OpenCV","TensorFlow","YOLO","SVM"
   ];
   
   return description
@@ -145,22 +147,23 @@ export default function Projects() {
                 />
                 <motion.div 
                   className={styles.overlay}
-                  initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 >
                   <h3>{project.title}</h3>
-                  <p>{project.description[0]}</p>
-                  <div className={styles.techStack}>
-                    {extractTechStack(project.description).map((tech, i) => (
-                      <motion.span 
-                        key={i} 
-                        className={styles.techTag}
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
+                  <div className={styles.overlayContent}>
+                    <p>{project.description[0]}</p>
+                    <div className={styles.techStack}>
+                      {extractTechStack(project.description).map((tech, i) => (
+                        <motion.span 
+                          key={i} 
+                          className={styles.techTag}
+                          whileHover={{ scale: 1.1 }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
               </motion.div>

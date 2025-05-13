@@ -5,7 +5,7 @@
     "email": "aswitha44@gmail.com",
     "phone": "+1 (407) 467-2051",
     "github": "https://github.com/Aswitha44",
-    "linkedin": "https://www.linkedin.com/in/aswitha-basam-927b37213/"
+    "linkedin": "https://www.linkedin.com/in/aswitha-b-927b37213"
   },
   "education": [
     {
@@ -96,6 +96,26 @@
         "Used Gemini 2.0 Flash to generate Yoga pose descriptions."
       ],
       "link":"https://github.com/Aswitha44/Nextgen-Yoga-App"
+    },
+ {
+      "title": "Cyber Guardian",
+      "description": [
+         "Built a phishing detection system using Logistic Regression with 96.7% accuracy, trained on engineered URL features.",
+    "Developed a FastAPI backend and integrated it with a React frontend for secure, real-time URL threat predictions.",
+    "Implemented lexical tokenization, stemming, and CountVectorizer for effective feature extraction and model performance.",
+    "Enabled cross-origin API communication and deployed a full-stack solution with seamless UI/UX feedback."
+      ],
+      "link":"https://github.com/Aswitha44/cyber-guardian-phishing-detector"
+    },
+ {
+      "title": "Handwritten Digit Recognition",
+      "description": [
+         "Built an ensemble classification model combining SVM , YOLO , and ResNet50, achieving 95.4% test accuracy.",
+    "Trained models independently and combined predictions via weighted voting based on validation performance.",
+    "Evaluated robustness under Gaussian and Salt-and-Pepper noise, demonstrating strong generalization to noisy data.- OpenCV",
+    "Visualized results with confusion matrices, accuracy vs. noise plots, and side-by-side clean vs. noisy predictions."
+      ],
+      "link":"https://github.com/Aswitha44/digit-recognition"
     },
     {
       "title": "Portfolio Website",

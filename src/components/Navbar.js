@@ -53,6 +53,18 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [menuOpen]);
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.navContainer}>
@@ -79,14 +91,19 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <div className={styles.toggleIcon} onClick={() => setMenuOpen(!menuOpen)}>
+        <div 
+          className={styles.toggleIcon} 
+          onClick={() => setMenuOpen(!menuOpen)}
+          role="button"
+          tabIndex={0}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+        >
           {menuOpen ? <FaTimes /> : <FaBars />}
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
-      {menuOpen && (
-        <div className={styles.mobileMenu}>
+      {/* Mobile Menu */}
+      <div className={`${styles.mobileMenu} ${menuOpen ? styles.active : ''}`}>
           {navLinks.map((link) => (
             <a
               key={link.id}
@@ -98,7 +115,6 @@ export default function Navbar() {
             </a>
           ))}
         </div>
-      )}
     </nav>
   );
 }

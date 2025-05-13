@@ -15,6 +15,7 @@
   align-items: center;
   justify-content: flex-start;
   overflow: visible;               /* ensure children are visible */
+  padding: 0 16px;
 }
 
 
@@ -36,7 +37,8 @@
   overflow-y: hidden;      /* ✅ Prevent vertical scroll */
   touch-action: pan-x;     /* ✅ Prevent vertical touch gestures */
   margin-top: 9rem;
-  padding: 2rem 2rem;
+  padding-left: 45rem;
+ 
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -49,14 +51,11 @@
 .gallery {
   display: flex;
   gap: 2rem;
-  padding-left: 6rem;
-  padding-right: 2rem;
+  padding: 4rem 2rem;
   width: max-content;
   transform: rotateX(25deg) translateY(-60px);
   transform-style: preserve-3d;
   margin: 0 auto;
-  margin-left: 12rem;
-  padding: 4rem;
 }
 
 /* 5) Project card unchanged */
@@ -116,7 +115,9 @@
   transform: scale(1.2);
 }
 
-/* 7) Overlay unchanged */
+/* ... keep all your existing styles unchanged above ... */
+
+/* 7) Overlay structure */
 .overlay {
   position: absolute;
   bottom: 0;
@@ -129,12 +130,29 @@
     rgba(0, 0, 0, 0.4) 100%
   );
   padding: 1.5rem;
-  transform: translateY(65%);
   transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   backdrop-filter: blur(5px);
+  opacity: 1; /* Always visible */
 }
+
+/* Title that's always visible */
+.overlay h3 {
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0;
+  text-shadow: 0 0 10px var(--aurora-green);
+  opacity: 1; /* Always visible */
+}
+
+/* Content that's hidden until hover */
+.overlayContent {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
 .projectCard:hover .overlay {
-  transform: translateY(0);
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.95) 0%,
@@ -143,13 +161,13 @@
   );
 }
 
-/* 8) Overlay text unchanged */
-.overlay h3 {
-  color: white;
-  font-size: 1.3rem;
-  margin-bottom: 3rem;
-  text-shadow: 0 0 10px var(--aurora-green);
+.projectCard:hover .overlayContent {
+  height: auto;
+  opacity: 1;
+  margin-top: 1rem;
 }
+
+/* 8) Overlay text */
 .overlay p {
   color: rgba(255, 255, 255, 0.9);
   font-size: 1rem;
@@ -269,57 +287,125 @@
 }
 
 /* 13) Responsive breakpoints */
-@media (max-width: 768px) {
-  .galleryWrapper {
-    display: flex;
-  align-items: center; 
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    margin-left: 1rem;   
-    
-              /* Adjusted for smaller screens */
+@media (max-width: 1200px) {
+  .gallery {
+    padding: 4rem 1rem;
+    gap: 1.5rem;
   }
-.gallery {
-  padding-left: 1.5rem;
-  padding-right: 1rem;
-  margin-left: 0; 
-  gap: 1.5rem;
 }
 
-
-
-  .projectCard {
-    margin-bottom: 0;
-    width: 240px;
-    height: 340px;
+@media (max-width: 768px) {
+  .container {
+    padding: 0 8px;
   }
 
-  .overlay {
-    padding: 1.2rem;
+  .galleryWrapper {
+    height: 450px;
+    margin-top: 7rem;
+    padding: 1rem 0.5rem;
+  }
+
+.gallery {
+    padding: 3rem 1rem;
+    gap: 1rem;
+    transform: rotateX(15deg) translateY(-40px);
+  }
+
+  .projectCard {
+    width: 240px;
+    height: 320px;
   }
 
   .overlay h3 {
     font-size: 1.1rem;
   }
 
+  .overlayContent {
+    margin-top: 0.8rem;
+  }
+
   .overlay p {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .techTag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
   }
 
   .scrollIndicator {
-    bottom: 40px;
+    bottom: 20px;
   }
 
   .scrollText {
     font-size: 1rem;
   }
+}
 
-  .scrollArrow {
-    width: 25px;
-    height: 25px;
+@media (max-width: 480px) {
+  .galleryWrapper {
+    height: 400px;
+    margin-top: 6rem;
+  }
+
+  .gallery {
+    padding: 2rem 0.5rem;
+    transform: rotateX(10deg) translateY(-20px);
+  }
+
+  .projectCard {
+    width: 200px;
+    height: 280px;
+  }
+
+  .overlay h3 {
+    font-size: 1rem;
+  }
+
+  .overlayContent {
+    margin-top: 0.6rem;
+  }
+
+  .overlay p {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .techStack {
+    gap: 0.3rem;
+  }
+
+  .techTag {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .scrollIndicator {
+    display: none;
   }
 }
 
+/* Touch Device Optimizations */
+@media (hover: none) {
+  .projectCard:hover {
+    transform: none;
+  }
+
+  .projectCard:active {
+    transform: scale(0.98);
+  }
+
+  .overlay {
+    transform: translateY(0);
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(0, 0, 0, 0.85) 50%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+  }
+}
 
 /* 14) Smooth scrolling for gallery */
 @media (prefers-reduced-motion: no-preference) {
