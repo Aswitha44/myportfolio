@@ -224,9 +224,10 @@
 /* ------------ Responsive Fixes ------------ */
 @media (max-width: 768px) {
   .container {
-    min-height: auto;
-    height: auto;
+       min-height: 100vh; /* ✅ Ensure container doesn't shrink */
+    height: auto;       /* allow expansion for taller tabs */
     padding: 5rem 1rem 3rem;
+    position: relative;
   }
 
   .tabWrapper {

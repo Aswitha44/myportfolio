@@ -227,20 +227,18 @@
   }
   
  @media (max-width: 768px) {
-   .container {
-  min-height: 100vh;
-  padding: 5rem 1rem 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-
+  .container {
+    height: auto;
+    min-height: auto;
+    overflow: visible !important;
+    padding: 8rem 1rem 1rem;
+    background: none;
+  }
 
   .contactSection {
     grid-template-columns: 1fr;
     gap: 40px;
-    padding-top: 60px;
+    padding-top: 20px;
 
     /* ✅ Fix for disappearing section */
     opacity: 1 !important;

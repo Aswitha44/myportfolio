@@ -146,8 +146,8 @@ export default function MyApp() {
 
         .downArrowWrapper {
           position: absolute;
-          bottom: 100px;
-          left: 50%;
+          bottom: 40px;
+          left: 25%;
           transform: translateX(-50%);
           width: 45px;
           height: 45px;
@@ -166,13 +166,15 @@ export default function MyApp() {
 
         @media (max-width: 768px) {
           .downArrowWrapper {
-            bottom: 80px;
+            bottom: 140px;
+            left:50%;
           }
         }
 
         @media (max-width: 480px) {
           .downArrowWrapper {
-            bottom: 60px;
+            bottom: 140px;
+            left:50%;
           }
         }
 

@@ -373,12 +373,12 @@
 
 @media (max-width: 480px) {
   .container {
-    padding-bottom: 50px;
+    padding-bottom: 20px;
   }
 
   .galleryWrapper {
     min-height: 350px;
-    margin-top: 5rem;
+    margin-top: 9rem;
   }
 
   .gallery {
@@ -418,7 +418,7 @@
   }
 
   .scrollIndicator {
-    bottom: 80px;
+    bottom: 140px;
     z-index: 100;
   }
 
