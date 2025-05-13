@@ -92,32 +92,24 @@
   display: inline-block;
 }
 
-/* 5) Animated text entry */
-.animatedText {
-  opacity: 0;
-  animation: fadeIn 0.8s 0.3s forwards;
-}
-
-.textReveal {
+/* Hey word animation */
+.hey {
   display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
+  color: white;
+  font-weight: 700;
+  font-size: 3.8rem;
+  text-shadow: 0 0 8px rgba(38, 208, 124, 0.6), 0 0 15px rgba(38, 208, 124, 0.4);
+  animation: heyPulse 1.8s ease-in-out infinite;
+  font-style: italic;;
 }
 
-.textGlitch {
-  position: relative;
-  font-style: italic;
-}
-
-.textGlitch::before,
-.textGlitch::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  clip: rect(0, 0, 0, 0);
+@keyframes heyPulse {
+  0%, 100% {
+    text-shadow: 0 0 8px rgba(38, 208, 124, 0.6), 0 0 15px rgba(38, 208, 124, 0.4);
+  }
+  50% {
+    text-shadow: 0 0 14px rgba(38, 208, 124, 0.8), 0 0 30px rgba(38, 208, 124, 0.5);
+  }
 }
 
 /* 6) Role subtitle */
@@ -139,9 +131,16 @@
   bottom: -5px;
   left: 0;
   height: 3px;
-  width: 0;
+  width: 70%;
   background: linear-gradient(90deg, var(--aurora-green), var(--aurora-blue));
   animation: lineGrow 1.2s 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* ✅ Full underline for mobile */
+@media (max-width: 768px) {
+  .roleLine {
+    width: 100% !important;
+  }
 }
 
 /* 7) Summary Paragraph */

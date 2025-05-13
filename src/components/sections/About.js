@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../../styles/About.module.css';
-import userData from '../../data/user-data.json';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function About() {
@@ -10,7 +9,6 @@ export default function About() {
   const y = useTransform(scrollY, [0, 1000], [0, 200]);
 
   useEffect(() => {
-    // scroll into view on mount
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
@@ -20,11 +18,8 @@ export default function About() {
 
   return (
     <section id="about" className={styles.aboutSection}>
-      {/* Parallax background video */}
-      <motion.div 
-        className={styles.videoWrapper}
-        style={{ y }}
-      >
+      {/* Parallax video background */}
+      <motion.div className={styles.videoWrapper} style={{ y }}>
         <video
           ref={videoRef}
           className={styles.videoBg}
@@ -38,47 +33,33 @@ export default function About() {
         />
       </motion.div>
 
-      {/* Animated intro text on left */}
+      {/* Intro content */}
       <motion.div
         className={styles.aboutContent}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <motion.h1 
+        <motion.h1
           className={styles.name}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ 
+          transition={{
             type: "spring",
             stiffness: 100,
             damping: 10,
             delay: 0.2
           }}
         >
-          <span className={styles.textGlitch} data-text="Hi There,">
-            Hey!!  
-            <br/>                     
-          </span>
-          <motion.h5
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              type: "spring",
-              stiffness: 100,
-              damping: 10,
-              delay: 0.4
-            }}
-          >
-            I'm Aswitha
-          </motion.h5>
+          <span className={styles.hey}>Hello!!</span><br />
+          I'm Aswitha
         </motion.h1>
 
-        <motion.h2 
+        <motion.h2
           className={styles.role}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ 
+          transition={{
             type: "spring",
             stiffness: 100,
             damping: 10,
@@ -89,11 +70,11 @@ export default function About() {
           <span className={styles.roleLine}></span>
         </motion.h2>
 
-        <motion.p 
+        <motion.p
           className={styles.summary}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ 
+          transition={{
             type: "spring",
             stiffness: 100,
             damping: 10,
@@ -105,12 +86,12 @@ export default function About() {
           Angular, React, .NET, AWS, Azure, and modern architectures.
         </motion.p>
 
-        <motion.a 
-          href="#contact" 
+        <motion.a
+          href="#contact"
           className={styles.ctaButton}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ 
+          transition={{
             type: "spring",
             stiffness: 100,
             damping: 10,

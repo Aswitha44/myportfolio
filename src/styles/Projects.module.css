@@ -16,6 +16,7 @@
   justify-content: flex-start;
   overflow: visible;               /* ensure children are visible */
   padding: 0 16px;
+  padding-bottom: 80px;           /* Add padding for scroll indicator */
 }
 
 
@@ -297,6 +298,7 @@
 @media (max-width: 768px) {
   .container {
     padding: 0 8px;
+    padding-bottom: 80px;         /* Maintain padding for scroll indicator */
   }
 
   .galleryWrapper {
@@ -305,7 +307,7 @@
     padding: 1rem 0.5rem;
   }
 
-.gallery {
+  .gallery {
     padding: 3rem 1rem;
     gap: 1rem;
     transform: rotateX(15deg) translateY(-40px);
@@ -336,6 +338,7 @@
 
   .scrollIndicator {
     bottom: 20px;
+    display: flex;                /* Ensure it's always displayed */
   }
 
   .scrollText {
@@ -344,6 +347,10 @@
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding-bottom: 80px;         /* Maintain padding for scroll indicator */
+  }
+
   .galleryWrapper {
     height: 400px;
     margin-top: 6rem;
@@ -382,7 +389,12 @@
   }
 
   .scrollIndicator {
-    display: none;
+    bottom: 20px;
+    display: flex;                /* Ensure it's always displayed */
+  }
+
+  .scrollText {
+    font-size: 0.9rem;           /* Slightly smaller text for mobile */
   }
 }
 
