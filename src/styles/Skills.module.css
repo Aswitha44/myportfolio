@@ -223,73 +223,134 @@
 
 /* ------------ Responsive Fixes ------------ */
 @media (max-width: 768px) {
-  #skills.container {
+  .container {
     min-height: auto;
     height: auto;
-    padding: 5rem 1rem 4rem;
+    padding: 5rem 1rem 3rem;
   }
+
   .tabWrapper {
-    min-height: 80px;     /* lock the height so it never shrinks */
-    position: sticky;     /* so it stays top-aligned */
-    top: 0;               /* stick to top within skills container */
-    z-index: 2;           /* ensure it's above cards */
+    min-height: 70px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
   }
-  
 
   .tabWrapper::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    display: none;
   }
 
   .tabButton {
     flex: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: max-content;
-    padding: 0.3rem 0.9rem;
-    font-size: 0.8rem;
+    min-width: 120px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
     border-radius: 12px;
     white-space: nowrap;
-    
+    margin-right: 0.5rem;
   }
 
   .tabButton i {
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin-bottom: 0.2rem;
   }
 
   .skillsGrid {
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: 0.8rem;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    padding: 0.5rem;
   }
 
   .skillCard {
-    padding: 0.7rem;
+    padding: 1rem;
+    border-radius: 12px;
   }
 
   .skillIconImg {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.5rem;
   }
 
   .skillName {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
 
   .certificatesGrid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1rem;
+    padding: 0.5rem;
   }
 
   .certificateCard {
     padding: 1rem;
+    border-radius: 12px;
   }
 
   .certificateImg {
-    height: 130px;
+    height: 140px;
+    margin-bottom: 0.8rem;
+  }
+
+  .certificateTitle {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 4rem 0.8rem 2rem;
+  }
+
+  .tabWrapper {
+    min-height: 60px;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .tabButton {
+    min-width: 100px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .tabButton i {
+    font-size: 1rem;
+  }
+
+  .skillsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .skillCard {
+    padding: 0.8rem;
+  }
+
+  .skillIconImg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .skillName {
+    font-size: 0.75rem;
+  }
+
+  .certificatesGrid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .certificateCard {
+    max-width: 100%;
+  }
+
+  .certificateImg {
+    height: 120px;
   }
 
   .certificateTitle {

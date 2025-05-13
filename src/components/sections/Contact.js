@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import styles from '../../styles/Contact.module.css';
 import userData from '../../data/user-data.json';
@@ -8,8 +8,24 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const formRef = useRef(null);
-  const isInView = useInView(formRef, { once: false, margin: "-100px" });
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const isInView = useInView(formRef, { 
+    once: isMobile,
+    margin: "-100px"
+  });
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -99,7 +115,7 @@ export default function Contact() {
         className={styles.contactSection}
         variants={containerVariants}
         initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        animate={isMobile ? "visible" : isInView ? "visible" : "hidden"}
       >
         <div className={styles.contactInfo}>
           <div className={styles.contactText}>
@@ -174,7 +190,7 @@ export default function Contact() {
           ref={formRef}
           variants={formVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={isMobile ? "visible" : isInView ? "visible" : "hidden"}
         >
           <div className={styles.formWrapper}>
             <motion.h2 

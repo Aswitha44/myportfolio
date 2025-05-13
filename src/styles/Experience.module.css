@@ -5,9 +5,7 @@
   z-index: 1;
   width: 100%;
   min-height: 100vh;
-  
   perspective: 2000px;
-
   overflow: hidden;
 }
 
@@ -101,7 +99,7 @@
   
 }
 
-/* 6) Each card is a full-screen “slide” */
+/* 6) Each card is a full-screen "slide" */
 .cardWrapper {
   position: relative;
   display: flex;
@@ -160,6 +158,15 @@
 
 /* 8) Responsive fallback */
 @media (max-width: 768px) {
+  .container {
+    padding-top: 0;
+  }
+
+  .pageTitle {
+    font-size: 1.5rem;
+    margin-top: 85px;
+  }
+
   .timelineWrapper {
     padding: 0;
   }
@@ -216,9 +223,11 @@
   .responsibilities {
     font-size: 0.85rem;
   }
+}
 
+@media (max-width: 480px) {
   .pageTitle {
-    font-size: 1.5rem;
-    margin-top: 65px;
+    font-size: 1.3rem;
+    margin-top: 75px;
   }
 }

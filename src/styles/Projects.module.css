@@ -298,24 +298,101 @@
 @media (max-width: 768px) {
   .container {
     padding: 0 8px;
-    padding-bottom: 80px;         /* Maintain padding for scroll indicator */
+    padding-bottom: 60px;
   }
 
   .galleryWrapper {
-    height: 450px;
-    margin-top: 7rem;
-    padding: 1rem 0.5rem;
+    height: auto;
+    min-height: 400px;
+    margin-top: 5rem;
+    padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .gallery {
-    padding: 3rem 1rem;
-    gap: 1rem;
-    transform: rotateX(15deg) translateY(-40px);
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+    transform: none;
+    margin: 0;
+    width: max-content;
   }
 
   .projectCard {
-    width: 240px;
-    height: 320px;
+    width: 280px;
+    height: 360px;
+    opacity: 1;
+  }
+
+  .overlay {
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(0, 0, 0, 0.85) 50%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+    padding: 1.2rem;
+  }
+
+  .overlay h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .overlayContent {
+    height: auto;
+    opacity: 1;
+    margin-top: 0.8rem;
+  }
+
+  .overlay p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .techStack {
+    gap: 0.4rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .techTag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .scrollIndicator {
+    bottom: 80px;
+    z-index: 100;
+  }
+
+  .scrollText {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-bottom: 50px;
+  }
+
+  .galleryWrapper {
+    min-height: 350px;
+    margin-top: 4rem;
+  }
+
+  .gallery {
+    padding: 1.5rem 1rem;
+    gap: 1rem;
+  }
+
+  .projectCard {
+    width: 260px;
+    height: 340px;
+  }
+
+  .overlay {
+    padding: 1rem;
   }
 
   .overlay h3 {
@@ -323,59 +400,11 @@
   }
 
   .overlayContent {
-    margin-top: 0.8rem;
-  }
-
-  .overlay p {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  .techTag {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.6rem;
-  }
-
-  .scrollIndicator {
-    bottom: 20px;
-    display: flex;                /* Ensure it's always displayed */
-  }
-
-  .scrollText {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding-bottom: 80px;         /* Maintain padding for scroll indicator */
-  }
-
-  .galleryWrapper {
-    height: 400px;
-    margin-top: 6rem;
-  }
-
-  .gallery {
-    padding: 2rem 0.5rem;
-    transform: rotateX(10deg) translateY(-20px);
-  }
-
-  .projectCard {
-    width: 200px;
-    height: 280px;
-  }
-
-  .overlay h3 {
-    font-size: 1rem;
-  }
-
-  .overlayContent {
     margin-top: 0.6rem;
   }
 
   .overlay p {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     margin-bottom: 0.8rem;
   }
 
@@ -384,38 +413,37 @@
   }
 
   .techTag {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     padding: 0.15rem 0.5rem;
   }
 
   .scrollIndicator {
-    bottom: 20px;
-    display: flex;                /* Ensure it's always displayed */
+    bottom: 60px;
+    z-index: 100;
   }
 
   .scrollText {
-    font-size: 0.9rem;           /* Slightly smaller text for mobile */
+    font-size: 0.8rem;
   }
 }
 
 /* Touch Device Optimizations */
 @media (hover: none) {
-  .projectCard:hover {
-    transform: none;
+  .projectCard {
+    transform: none !important;
   }
 
   .projectCard:active {
-    transform: scale(0.98);
+    transform: scale(0.98) !important;
   }
 
   .overlay {
-    transform: translateY(0);
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.95) 0%,
-      rgba(0, 0, 0, 0.85) 50%,
-      rgba(0, 0, 0, 0.6) 100%
-    );
+    transform: translateY(0) !important;
+  }
+
+  .overlayContent {
+    height: auto !important;
+    opacity: 1 !important;
   }
 }
 
