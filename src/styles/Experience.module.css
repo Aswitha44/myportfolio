@@ -172,14 +172,14 @@
   }
 
   .verticalLine {
-    left: 10%;
+    left: 8%;
     transform: translateX(-50%);
     width: 6px;
     height: 100vh;
   }
 
   .ufo {
-    left: 10%;
+    left: 9%;
     transform: translateX(-50%);
   }
 

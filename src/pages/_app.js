@@ -144,20 +144,48 @@ export default function MyApp() {
           position: relative;
         }
 
-        .scroll-down-arrow {
+        .downArrowWrapper {
           position: absolute;
-          bottom: 30px;
+          bottom: 100px;
           left: 50%;
           transform: translateX(-50%);
-          font-size: 2rem;
-          animation: bounce 1.5s infinite;
-          color: var(--aurora-green);
+          width: 45px;
+          height: 45px;
+          background: rgba(38, 208, 124, 0.1);
+          border: 2px solid var(--aurora-green);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 0 15px rgba(38, 208, 124, 0.4);
+          animation: glowPulse 2s infinite;
+          backdrop-filter: blur(8px);
           cursor: pointer;
+          z-index: 10;
         }
 
-        @keyframes bounce {
-          0%, 100% { transform: translate(-50%, 0); }
-          50% { transform: translate(-50%, 10px); }
+        @media (max-width: 768px) {
+          .downArrowWrapper {
+            bottom: 80px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .downArrowWrapper {
+            bottom: 60px;
+          }
+        }
+
+        @keyframes glowPulse {
+          0% {
+            box-shadow: 0 0 10px rgba(38, 208, 124, 0.6);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(38, 208, 124, 0.8);
+          }
+          100% {
+            box-shadow: 0 0 10px rgba(38, 208, 124, 0.6);
+          }
         }
       `}</style>
     </>
