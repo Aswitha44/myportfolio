@@ -81,9 +81,9 @@ export default function About() {
             delay: 0.8
           }}
         >
-          I build scalable, responsive and interactive web applications
-          blending functionality and design. Skilled in 
-          Angular, React, .NET, AWS, Azure, and modern architectures.
+  I build scalable, responsive, and interactive web and mobile applications with a focus on performance and user experience.
+  Proficient in React, React Native, Angular, Node.js, Spring, AWS, Azure, and 
+  modern architectures including microservices, REST, GraphQL, and CI/CD pipelines.
         </motion.p>
 
         <motion.a

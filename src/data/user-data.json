@@ -19,11 +19,13 @@
     {
       "company": "University Of Central Florida",
       "role": "Graduate Assistant",
-      "duration": "February 2024 - Present",
+      "duration": "February 2024 - May 2025",
       "responsibilities": [
-        "Mentored 80+ students in developing web applications using HTML, CSS and JavaScript.",
-        "Guided students in deploying applications on AWS.",
-        "Migrated legacy systems to modular, scalable .NET MVC architecture."        
+        "Mentored 80+ students in React, promoting best practices and design principles.",
+        "Built Kotlin Android app (React Native wrapper) with 1,000+ pilot installs.",
+        "Containerized apps with Docker, deployed to AWS ECS, and set up CI/CD with GitHub Actions.",
+        "Integrated Keycloak OAuth2 SSO, cutting login support tickets by 30%."
+       
       ]
     },
     {
@@ -31,28 +33,27 @@
       "role": "Software Developer",
       "duration": "May 2022 - July 2023",
       "responsibilities": [
-        "Developed an application using Entity Framework to manage school projects and facilities.",
-        "Migrated MVC application to SPA using Angular framework.",
-        "Optimized SQL queries, improving performance by 40%.",
-        "Deployed applications on IIS for hosting and production environments."
+        "Developed a safety portal using React, Redux, REST APIs, and MongoDB.",
+        "Created backend with ExpressJS and SQL scripts with rollback support.",
+        "Improved query performance by 25% through optimization.",
+        "Automated deployments using Git, Terraform, Docker, and AWS."        
       ]
     },
     {
       "company": "VCAD PLM Services",
-      "role": "Software Developer",
+      "role": "Associate Software Developer",
       "duration": "November 2021 - April 2022",
       "responsibilities": [
-        "Developed scalable web application using React.js.",
-        "Implemented reusable form components and lazy-loaded routes.",
-        "Integrated invisible reCAPTCHA for security.",
-        "Created REST API microservices and containerized applications using Docker on AWS."
+        "Developed React Native app with WebSocket, REST, and RTSP servers for warehouse safety",
+        "Implemented RTSP server for live video streaming, reducing response time by 20%.",
+        "Integrated RESTful APIs using Swagger and Postman for secure data exchange."       
       ]
     }
   ],
   "skills": {
     "languages": ["Java", "Python", "C", "C++", "C#"],
-    "webDevelopment": ["ASP.NET", "React", "Angular", "JavaScript", "TypeScript", "NodeJS", "Tailwind","Bootstrap"],
-    "database": ["SQL Server", "MySQL", "MongoDB"],
+    "webDevelopment": ["HTML","CSS","SpringBoot","GraphQL", "React", "react Native", "Angular", "JavaScript", "TypeScript", "NodeJS", "ExpressJS", "Tailwind","Bootstrap","Jest","Cypress","Mocha"],
+    "database": ["SQL Server", "MySQL", "MongoDB","Redis","PostgreSQL"],
     "cloudAndDevOps": ["Docker", "Azure", "AWS", "YAML", "Bash Scripting"],
     "certifications": ["AWS Certified Developer – Associate", "Microsoft Certified: Azure Fundamentals"]
   },
