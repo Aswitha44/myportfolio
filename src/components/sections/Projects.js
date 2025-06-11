@@ -7,7 +7,7 @@ import userData from '../../data/user-data.json';
 // Default project images - you can replace these with actual project images
 const projectImages = {
   "Ski Surf E-commerce Web Application": "/projects/ski-surf.jpg",
-  "Smart Blog Platform": "/projects/blog.jpg",
+  "Movie Theatre Club App": "/projects/movie.jpg",
   "Serverless Automated File Processing System": "/projects/serverless.jpg",
   "Next-Gen Yoga App": "/projects/yoga.jpg",
   "Cyber Guardian": "/projects/cyberg.jpg",

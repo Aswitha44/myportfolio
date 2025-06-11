@@ -72,11 +72,11 @@
     {
       "title": "Movie Theater Club App",
       "description": [
-        "Built a movie theater app  using Typescript, React and MonogoDB with JWT authentication, securing 3 user roles, achieving 99.9% uptime",
+        "Built a movie theater app  using Typescript React and MonogoDB with JWT authentication, securing 3 user roles.",
         "Deployed AWS app with auto-scaling across 4 EC2 instances, supporting 10,000+ ticket purchases",
         "Designed and optimized MongoDB schema and indexes to handle 50K+ concurrent read/write operations with average response time under 150ms"        
       ],
-      "link":"https://github.com/Aswitha44/Blog-Management-System"
+      "link":"https://github.com/Aswitha44/Movie-Theatre-Club-App"
     },
     {
       "title": "Serverless Automated File Processing System",
