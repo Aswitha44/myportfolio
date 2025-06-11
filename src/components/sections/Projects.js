@@ -19,7 +19,8 @@ const projectImages = {
 const extractTechStack = (description) => {
   const techKeywords = [
     "Angular", "Bootstrap", "Stripe", "Redis", ".NET Core", "Azure","JWT",
-    "ASP.NET Core", "Razor Pages", "SQL Server", "JavaScript", "AJAX",
+    "ASP.NET Core", "Razor Pages", "SQL Server", "JavaScript", "AJAX", "TypeScript",
+    "HTML", "CSS", "Node.js", "Express.js", "MongoDB", "React Native", "React",
     "AWS", "S3", "React", "Firestore", "Vector Search", "Vertex AI",
     "Google Cloud", "Flask", "Gemini 2.0","Next.js","FastAPI","OpenCV","TensorFlow","YOLO","SVM"
   ];

@@ -70,12 +70,11 @@
       "link":"https://skisurfshop.azurewebsites.net/"
     },
     {
-      "title": "Smart Blog Platform",
+      "title": "Movie Theater Club App",
       "description": [
-        "Implemented a scalable Blog Management System using ASP.NET Core Razor Pages.",
-        "Maintained robust CRUD functionalities for blog posts with SQL Server",
-        "Implemented multi-role authentication and authorization.",
-        "Built dynamic REST APIs within Razor Pages, utilizing JavaScript and AJAX"
+        "Built a movie theater app  using Typescript, React and MonogoDB with JWT authentication, securing 3 user roles, achieving 99.9% uptime",
+        "Deployed AWS app with auto-scaling across 4 EC2 instances, supporting 10,000+ ticket purchases",
+        "Designed and optimized MongoDB schema and indexes to handle 50K+ concurrent read/write operations with average response time under 150ms"        
       ],
       "link":"https://github.com/Aswitha44/Blog-Management-System"
     },

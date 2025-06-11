@@ -29,15 +29,10 @@ const skillTabs = [
 { name: 'Spring Boot', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg' },
 { name: 'GraphQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg' },
 { name: 'Jest', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg' },
-{ name: 'Cypress', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Cypress.png' }, // External source; no devicon
 { name: 'Mocha', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mocha/mocha-plain.svg' },
 
 // APIs & Messaging
-{ name: 'REST', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/api/api-original.svg' }, // Placeholder, custom icon may be needed
-{ name: 'SOAP', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/96/SOAP_logo.svg' }, // External source
-{ name: 'WebSocket', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Websocket.svg' }, // External source
-{ name: 'JMS', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/28/Java_Message_Service_logo.png' }, // External source
-{ name: 'Apache Kafka', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0a/Apache_kafka-icon.svg' }, // External source
+{ name: 'Apache Kafka', logo: 'https://www.vectorlogo.zone/logos/apache_kafka/apache_kafka-icon.svg' }, // External source
 
 // Databases & Caching
 { name: 'PostgreSQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },

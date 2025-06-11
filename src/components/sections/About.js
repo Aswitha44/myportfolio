@@ -66,7 +66,7 @@ export default function About() {
             delay: 0.6
           }}
         >
-          <span className={styles.roleText}>Full Stack Developer</span>
+          <span className={styles.roleText}>Software Developer</span>
           <span className={styles.roleLine}></span>
         </motion.h2>
 
