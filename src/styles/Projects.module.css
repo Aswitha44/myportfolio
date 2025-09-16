@@ -73,6 +73,7 @@
   transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   transform-origin: center;
   opacity: 0.9;
+  backface-visibility: hidden;
   will-change: transform;
 }
 .projectCard:hover {
@@ -112,7 +113,7 @@
   transition: transform 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   
 }
-.projectCard:hover .imageWrapper img {
+.projectCard:hover img {
   transform: scale(1.2);
 }
 
