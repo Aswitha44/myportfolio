@@ -15,12 +15,9 @@
   overflow: visible;
   padding: 0 16px;
   padding-bottom: 80px;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  will-change: transform;
 }
 
-/* 3) Gallery wrapper */
+/* 2) Gallery wrapper */
 .galleryWrapper {
   width: 100%;
   height: 500px;
@@ -38,14 +35,13 @@
   padding-left: 45rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
 }
+
 .galleryWrapper::-webkit-scrollbar {
   display: none;
 }
 
-/* 4) 3D gallery */
+/* 3) Gallery */
 .gallery {
   display: flex;
   gap: 2rem;
@@ -54,11 +50,9 @@
   transform: rotateX(25deg) translateY(-60px);
   transform-style: preserve-3d;
   margin: 0 auto;
-  backface-visibility: hidden;
-  will-change: transform;
 }
 
-/* 5) Project card */
+/* 4) Project card */
 .projectCard {
   width: 280px;
   height: 380px;
@@ -69,53 +63,48 @@
   background: var(--card-bg);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transform: translateZ(0);
-  transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   transform-origin: center;
   opacity: 0.9;
   backface-visibility: hidden;
   will-change: transform, opacity;
-  z-index: 0;
-}
-.projectCard:hover {
-  transform: rotateX(-25deg) translateZ(100px) rotateX(25deg);
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3), 0 0 30px rgba(38, 208, 124, 0.3);
-  border: 2px solid var(--aurora-green);
-  opacity: 1;
-  z-index: 10;
-}
-.projectCard.active .overlay {
-  transform: translateY(0);
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.8) 50%,
-    rgba(0, 0, 0, 0.6) 100%
-  );
-}
-.projectCard.active img {
-  transform: scale(1.1);
+  transition: transform 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67),
+              box-shadow 0.4s ease,
+              border 0.3s ease,
+              opacity 0.3s ease;
 }
 
-/* 6) Image wrapper */
+.projectCard.active {
+  transform: rotateX(-25deg) translateZ(100px) rotateX(25deg);
+  box-shadow:
+    0 30px 50px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(38, 208, 124, 0.3);
+  border: 2px solid var(--aurora-green);
+  opacity: 1;
+  z-index: 1;
+}
+
+/* 5) Image wrapper */
 .imageWrapper {
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
   will-change: transform;
-  backface-visibility: hidden;
 }
+
 .imageWrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  backface-visibility: hidden;
 }
-.projectCard:hover img {
+
+.projectCard.active img {
   transform: scale(1.2);
 }
 
-/* 7) Overlay structure */
+/* 6) Overlay */
 .overlay {
   position: absolute;
   bottom: 0;
@@ -129,13 +118,11 @@
   );
   padding: 1.5rem;
   transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-  backdrop-filter: blur(3px); /* reduced for smoother rendering */
+  backdrop-filter: blur(5px);
   opacity: 1;
-  backface-visibility: hidden;
-  will-change: transform, opacity;
+  will-change: opacity, transform;
 }
 
-/* Overlay title */
 .overlay h3 {
   color: white;
   font-size: 1.3rem;
@@ -144,42 +131,36 @@
   opacity: 1;
 }
 
-/* Overlay hidden content */
 .overlayContent {
   height: 0;
   opacity: 0;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
 }
-.projectCard:hover .overlay {
+
+.projectCard.active .overlay {
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.85) 50%,
+    rgba(0, 0, 0, 0.8) 50%,
     rgba(0, 0, 0, 0.6) 100%
   );
 }
-.projectCard:hover .overlayContent {
+
+.projectCard.active .overlayContent {
   height: auto;
   opacity: 1;
   margin-top: 1rem;
 }
 
-/* Overlay paragraph */
-.overlay p {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-}
-
-/* Tech stack */
+/* 7) Tech stack */
 .techStack {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
+
 .techTag {
   background: rgba(38, 208, 124, 0.2);
   color: var(--aurora-green);
@@ -190,27 +171,14 @@
   transition: all 0.3s ease;
   cursor: pointer;
 }
-.projectCard:hover .techTag {
+
+.projectCard.active .techTag {
   background: rgba(38, 208, 124, 0.3);
   border-color: var(--aurora-green);
   box-shadow: 0 0 10px rgba(38, 208, 124, 0.2);
 }
 
-/* Links & icons */
-.projectLink {
-  display: inline-block;
-  background: var(--aurora-green);
-  color: black;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-.projectLink:hover {
-  background: var(--aurora-blue);
-  transform: translateY(-2px);
-}
+/* 8) Share icon */
 .shareIcon {
   position: absolute;
   top: 1rem;
@@ -225,17 +193,17 @@
   color: var(--aurora-blue);
   font-size: 1.2rem;
   z-index: 10;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
 }
+
 .shareIcon:hover {
-  background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 25px rgba(38, 208, 124, 0.3);
   transform: translateY(-2px);
 }
 
-/* Scroll indicator */
+/* 9) Scroll indicator */
 .scrollIndicator {
   position: absolute;
   bottom: 40px;
@@ -248,12 +216,13 @@
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
+
 .scrollText {
   font-size: 1.2rem;
   color: var(--aurora-green);
   text-shadow: 0 0 10px rgba(38, 208, 124, 0.6);
-  letter-spacing: 1px;
 }
+
 .scrollArrow {
   width: 30px;
   height: 30px;
@@ -265,38 +234,46 @@
   animation: pulseArrow 2s infinite;
   font-size: 1.2rem;
   color: var(--aurora-green);
-  text-shadow: 0 0 10px rgba(38, 208, 124, 0.6);
 }
+
 .scrollArrow::before {
   content: '>';
   animation: bounceArrow 2s infinite;
 }
 
-/* Keyframes */
 @keyframes pulseArrow {
   0% { box-shadow: 0 0 10px rgba(38, 208, 124, 0.3); }
   50% { box-shadow: 0 0 20px rgba(38, 208, 124, 0.6); }
   100% { box-shadow: 0 0 10px rgba(38, 208, 124, 0.3); }
 }
+
 @keyframes bounceArrow {
   0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
   40% { transform: translateY(-5px); }
   60% { transform: translateY(-3px); }
 }
 
-/* Responsive breakpoints */
-/* Keep all responsive styles same, just ensure GPU hints */
-@media (max-width: 768px) {
-  .galleryWrapper, .gallery, .projectCard, .imageWrapper, .overlay {
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    will-change: transform, opacity;
-  }
-}
-
-/* Smooth scrolling gallery */
+/* 10) Smooth scrolling for gallery */
 @media (prefers-reduced-motion: no-preference) {
   .galleryWrapper {
     scroll-behavior: smooth;
+  }
+}
+
+/* 11) Responsive breakpoints */
+/* Keep all existing responsive CSS as before, unchanged */
+
+/* 12) Touch devices */
+@media (hover: none) {
+  .projectCard {
+    transform: none !important;
+  }
+  .projectCard:active {
+    transform: scale(0.98) !important;
+  }
+  .overlay, .overlayContent {
+    transform: none !important;
+    height: auto !important;
+    opacity: 1 !important;
   }
 }
