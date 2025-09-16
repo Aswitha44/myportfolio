@@ -5,7 +5,7 @@
     "email": "aswitha44@gmail.com",
     "phone": "+1 (407) 467-2051",
     "github": "https://github.com/Aswitha44",
-    "linkedin": "https://www.linkedin.com/in/aswitha-b-927b37213"
+    "linkedin": "www.linkedin.com/in/aswitha-basam-7b5baa369"
   },
   "education": [
     {
@@ -21,32 +21,30 @@
       "role": "Graduate Assistant",
       "duration": "February 2024 - May 2025",
       "responsibilities": [
-        "Mentored 80+ students in React, promoting best practices and design principles.",
-        "Built Kotlin Android app (React Native wrapper) with 1,000+ pilot installs.",
-        "Containerized apps with Docker, deployed to AWS ECS, and set up CI/CD with GitHub Actions.",
-        "Integrated Keycloak OAuth2 SSO, cutting login support tickets by 30%."
+        "Developed a parameterized predictive model in Python to determine optimal resilience hub placement using U.S. Census APIs and socioeconomic vulnerability indices.",
+        "Built Angular dashboards to visualize optimal hub locations, enabling data-driven decisions for city planning.",
+        "Trained over 80+ students in Discrete Mathematics and Design Analysis and Algorithms."
        
       ]
     },
     {
       "company": "VCAD PLM Services",
       "role": "Software Developer",
-      "duration": "May 2022 - July 2023",
+      "duration": "June 2022 - July 2023",
       "responsibilities": [
-        "Developed a safety portal using React, Redux, REST APIs, and MongoDB.",
-        "Created backend with ExpressJS and SQL scripts with rollback support.",
-        "Improved query performance by 25% through optimization.",
-        "Automated deployments using Git, Terraform, Docker, and AWS."        
+        "Engineered a budgeting platform using Angular Framework, allowing administrators to allocate, monitor, and report facility expenses across 100+ schools.",
+        "Created drill-down dashboards with filters by category and time, cutting reporting time by 30%.",
+        "Containerized microservices with Docker and deployed on Kubernetes, achieving scalable, fault-tolerant systems with 99.9% uptime."     
       ]
     },
     {
       "company": "VCAD PLM Services",
       "role": "Associate Software Developer",
-      "duration": "November 2021 - April 2022",
+      "duration": "November 2021 - May 2022",
       "responsibilities": [
-        "Developed React Native app with WebSocket, REST, and RTSP servers for warehouse safety",
-        "Implemented RTSP server for live video streaming, reducing response time by 20%.",
-        "Integrated RESTful APIs using Swagger and Postman for secure data exchange."       
+        "Developed modular Angular applications with reactive forms, dependency-injected services, and pipes for real-time compliance dashboards; integrated with Spring Boot APIs and SQL databases for multi-tiered applications",
+        "Optimized SQL queries, improving data retrieval by 45% for critical financial applications.",
+        "Wrote unit and integration tests with JUnit and Mockito, maintaining 90%+ code coverage"       
       ]
     }
   ],
