@@ -1,54 +1,41 @@
-/* Projects.module.css */
+:root {
+  --aurora-green: #26d07c;
+  --aurora-blue: #00cfff;
+  --card-bg: #111;
+}
 
-/* 1) Container section: ensure full-screen, scroll target, layering */
 .container {
-  position: relative;              /* needed for z-index */
-  z-index: 1;                      /* sit above aurora background */
+  position: relative;
+  z-index: 1;
   max-width: 100%;
- 
-  min-height: 100vh;               /* at least one viewport tall */
-  scroll-margin-top: 100px;        /* lets navbar jumps land correctly */
-             /* match your dark theme */
-  perspective: 2000px;
+  min-height: 100vh;
+  scroll-margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  overflow: visible;               /* ensure children are visible */
+  overflow: visible;
   padding: 0 16px;
-  padding-bottom: 80px;           /* Add padding for scroll indicator */
+  padding-bottom: 80px;
+  perspective: 2000px;
 }
 
-
-
-
-/* 3) Gallery wrapper: fix padding shorthand & remove negative margin */
 .galleryWrapper {
   width: 100%;
   height: 500px;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1500px;
-  perspective-origin: 50% 50%;
-  transform-style: preserve-3d;
-
   overflow-x: auto;
-  overflow-y: hidden;      /* ✅ Prevent vertical scroll */
-  touch-action: pan-x;     /* ✅ Prevent vertical touch gestures */
+  overflow-y: hidden;
+  touch-action: pan-x;
   margin-top: 9rem;
   padding-left: 45rem;
- 
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+.galleryWrapper::-webkit-scrollbar { display: none; }
 
-.galleryWrapper::-webkit-scrollbar {
-  display: none;
-}
-
-/* 4) 3D gallery unchanged */
 .gallery {
   display: flex;
   gap: 2rem;
@@ -59,7 +46,6 @@
   margin: 0 auto;
 }
 
-/* 5) Project card unchanged */
 .projectCard {
   width: 280px;
   height: 380px;
@@ -69,159 +55,59 @@
   cursor: pointer;
   background: var(--card-bg);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transform: translateZ(0);
-  transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-  transform-origin: center;
-  opacity: 0.9;
+  transform-style: preserve-3d;
   backface-visibility: hidden;
-  will-change: transform;
-}
-.projectCard:hover {
-  transform: rotateX(-25deg) translateZ(100px) rotateX(25deg);
-  box-shadow:
-    0 30px 50px rgba(0, 0, 0, 0.3),
-    0 0 30px rgba(38, 208, 124, 0.3);
-  border: 2px solid var(--aurora-green);
-  opacity: 1;
-  z-index: 1;
-}
-.projectCard.active .overlay {
-  transform: translateY(0);
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.8) 50%,
-    rgba(0, 0, 0, 0.6) 100%
-  );
-}
-.projectCard.active img {
-  transform: scale(1.1);
 }
 
-/* 6) Image wrapper unchanged */
 .imageWrapper {
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
-  will-change: transform;
+  backface-visibility: hidden;
 }
 .imageWrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-  
-}
-.projectCard:hover img {
-  transform: scale(1.2);
 }
 
-/* ... keep all your existing styles unchanged above ... */
-
-/* 7) Overlay structure */
 .overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.8) 50%,
-    rgba(0, 0, 0, 0.4) 100%
-  );
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.4) 100%);
   padding: 1.5rem;
-  transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   backdrop-filter: blur(5px);
-  opacity: 1; /* Always visible */
+  opacity: 1;
 }
 
-/* Title that's always visible */
 .overlay h3 {
   color: white;
   font-size: 1.3rem;
   margin-bottom: 0;
   text-shadow: 0 0 10px var(--aurora-green);
-  opacity: 1; /* Always visible */
 }
 
-/* Content that's hidden until hover */
 .overlayContent {
-  height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-}
-
-.projectCard:hover .overlay {
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.85) 50%,
-    rgba(0, 0, 0, 0.6) 100%
-  );
-}
-
-.projectCard:hover .overlayContent {
   height: auto;
   opacity: 1;
-  margin-top: 1rem;
+  overflow: hidden;
 }
 
-/* 8) Overlay text */
-.overlay p {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-}
+.overlay p { color: rgba(255,255,255,0.9); font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; }
 
-/* 9) Tech stack unchanged */
-.techStack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-.techTag {
-  background: rgba(38, 208, 124, 0.2);
-  color: var(--aurora-green);
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  border: 1px solid rgba(38, 208, 124, 0.3);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-.projectCard:hover .techTag {
-  background: rgba(38, 208, 124, 0.3);
-  border-color: var(--aurora-green);
-  box-shadow: 0 0 10px rgba(38, 208, 124, 0.2);
-}
+.techStack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+.techTag { background: rgba(38,208,124,0.2); color: var(--aurora-green); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(38,208,124,0.3); cursor: pointer; transition: all 0.3s ease; }
 
-/* 10) Links & icons unchanged */
-.projectLink {
-  display: inline-block;
-  background: var(--aurora-green);
-  color: black;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-.projectLink:hover {
-  background: var(--aurora-blue);
-  transform: translateY(-2px);
-}
 .shareIcon {
   position: absolute;
   top: 1rem;
   right: 1rem;
   width: 40px;
   height: 40px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,0.5);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -230,17 +116,10 @@
   font-size: 1.2rem;
   z-index: 10;
   backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255,255,255,0.1);
   transition: all 0.3s ease;
 }
-.shareIcon:hover {
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 25px rgba(38, 208, 124, 0.3);
-  transform: translateY(-2px);
-}
 
-
-/* 12) Scroll indicator unchanged */
 .scrollIndicator {
   position: absolute;
   bottom: 40px;
@@ -250,250 +129,12 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  
-  transition: opacity 0.3s ease;
   pointer-events: none;
 }
-.scrollText {
-  font-size: 1.2rem;
-  color: var(--aurora-green);
-  text-shadow: 0 0 10px rgba(38, 208, 124, 0.6);
-  letter-spacing: 1px;
-}
-.scrollArrow {
-  width: 30px;
-  height: 30px;
-  border: 2px solid var(--aurora-green);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: pulseArrow 2s infinite;
-  font-size: 1.2rem;
-  color: var(--aurora-green);
-  text-shadow: 0 0 10px rgba(38, 208, 124, 0.6);
-}
-.scrollArrow::before {
-  content: '>';
-  animation: bounceArrow 2s infinite;
-}
-@keyframes pulseArrow {
-  0% { box-shadow: 0 0 10px rgba(38, 208, 124, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(38, 208, 124, 0.6); }
-  100% { box-shadow: 0 0 10px rgba(38, 208, 124, 0.3); }
-}
-@keyframes bounceArrow {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-5px); }
-  60% { transform: translateY(-3px); }
-}
+.scrollText { font-size: 1.2rem; color: var(--aurora-green); text-shadow: 0 0 10px var(--aurora-green); }
+.scrollArrow { width: 30px; height: 30px; border: 2px solid var(--aurora-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulseArrow 2s infinite; }
+.scrollArrow::before { content: '>'; animation: bounceArrow 2s infinite; }
+@keyframes pulseArrow { 0% { box-shadow:0 0 10px rgba(38,208,124,0.3); } 50% { box-shadow:0 0 20px rgba(38,208,124,0.6);} 100%{box-shadow:0 0 10px rgba(38,208,124,0.3);} }
+@keyframes bounceArrow {0%,20%,50%,80%,100%{transform:translateY(0);}40%{transform:translateY(-5px);}60%{transform:translateY(-3px);}}
 
-/* 13) Responsive breakpoints */
-@media (max-width: 1200px) {
-  .gallery {
-    padding: 4rem 1rem;
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 0 8px;
-    padding-bottom: 60px;
-  }
-
-  .galleryWrapper {
-    height: auto;
-    min-height: 400px;
-    margin-top: 5rem;
-    padding: 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .gallery {
-    padding: 2rem 1rem;
-    gap: 1.5rem;
-    transform: none;
-    margin: 0;
-    width: max-content;
-  }
-
-  .projectCard {
-    width: 280px;
-    height: 360px;
-    opacity: 1;
-  }
-
-  .overlay {
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.95) 0%,
-      rgba(0, 0, 0, 0.85) 50%,
-      rgba(0, 0, 0, 0.6) 100%
-    );
-    padding: 1.2rem;
-  }
-
-  .overlay h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .overlayContent {
-    height: auto;
-    opacity: 1;
-    margin-top: 0.8rem;
-  }
-
-  .overlay p {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-    line-height: 1.5;
-  }
-
-  .techStack {
-    gap: 0.4rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .techTag {
-    font-size: 0.75rem;
-    padding: 0.2rem 0.6rem;
-  }
-
-  .scrollIndicator {
-    bottom: 80px;
-    z-index: 100;
-  }
-
-  .scrollText {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding-bottom: 20px;
-  }
-
-  .galleryWrapper {
-    min-height: 350px;
-    margin-top: 9rem;
-  }
-
-  .gallery {
-    padding: 1.5rem 1rem;
-    gap: 1rem;
-  }
-
-  .projectCard {
-    width: 260px;
-    height: 340px;
-  }
-
-  .overlay {
-    padding: 1rem;
-  }
-
-  .overlay h3 {
-    font-size: 1.1rem;
-  }
-
-  .overlayContent {
-    margin-top: 0.6rem;
-  }
-
-  .overlay p {
-    font-size: 0.85rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .techStack {
-    gap: 0.3rem;
-  }
-
-  .techTag {
-    font-size: 0.7rem;
-    padding: 0.15rem 0.5rem;
-  }
-
-  .scrollIndicator {
-    bottom: 140px;
-    z-index: 100;
-  }
-
-  .scrollText {
-    font-size: 0.8rem;
-  }
-}
-
-/* Touch Device Optimizations */
-@media (hover: none) {
-  .projectCard {
-    transform: none !important;
-  }
-
-  .projectCard:active {
-    transform: scale(0.98) !important;
-  }
-
-  .overlay {
-    transform: translateY(0) !important;
-  }
-
-  .overlayContent {
-    height: auto !important;
-    opacity: 1 !important;
-  }
-}
-
-/* 14) Smooth scrolling for gallery */
-@media (prefers-reduced-motion: no-preference) {
-  .galleryWrapper {
-    scroll-behavior: smooth;
-  }
-}
-
-/* 10) Scroll progress indicator */
-.scrollProgress {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(
-    to right,
-    var(--aurora-green),
-    var(--aurora-blue)
-  );
-  transform-origin: 0%;
-  z-index: 100;
-}
-
-/* Scroll Toggle Button */
-.scrollToggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background: rgba(38, 208, 124, 0.2);
-  border: 1px solid var(--aurora-green);
-  color: var(--aurora-green);
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  backdrop-filter: blur(5px);
-  z-index: 100;
-  transition: all 0.3s ease;
-}
-
-.scrollToggle:hover {
-  background: rgba(38, 208, 124, 0.3);
-  box-shadow: 0 0 20px rgba(38, 208, 124, 0.3);
-  transform: translateY(-2px);
-}
-
-.scrollToggle:active {
-  transform: translateY(0);
-}
+.scrollProgress { position: fixed; bottom: 0; left:0; right:0; height: 3px; background: linear-gradient(to right, var(--aurora-green), var(--aurora-blue)); transform-origin:0%; z-index:100; }
